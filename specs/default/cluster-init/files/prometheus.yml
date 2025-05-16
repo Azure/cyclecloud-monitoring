@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    subscription: subscription_id
+    cluster: cluster_name
+    instance: instance_name
+    physical_host: physical_host_name
+
+remote_write:
+  - url: "ingestion_endpoint"
+    azuread:
+      cloud: AzurePublic
+      managed_identity:
+        client_id: identity_client_id
+ 
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["instance_name:9090"]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
