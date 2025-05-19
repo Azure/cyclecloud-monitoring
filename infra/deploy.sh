@@ -7,7 +7,7 @@ if [ -z "$RESOURCE_GROUP_NAME" ]; then
 fi
 
 # Retrieve the location of the resource group
-LOCATION=$(az group show --name $RESOURCE_GROUP_NAME --query location -o tsv)
+LOCATION=$(az group show -n $RESOURCE_GROUP_NAME --query location -o tsv 2>/dev/null | tr -d '\n' | tr -d '\r') 
 if [ -z "$LOCATION" ]; then
   echo "Resource group $RESOURCE_GROUP_NAME does not exist."
   echo "Please create the resource group first."
