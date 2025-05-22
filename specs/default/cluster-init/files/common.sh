@@ -18,10 +18,22 @@ function is_compute() {
     jetpack config slurm.role | grep -q 'execute'
 }
 
+function is_arm64() {
+   uname -m | grep -q 'arm64' 
+}
+
+
+
 function install_yq() {
     # Install yq
+    YQ_VERSION="v4.44.2"
+    YQ_PACKAGE="yq_linux_amd64"
+    if [[ is_arm64 ]]; then
+        YQ_PACKAGE="yq_linux_arm64"
+    fi
+    
     if ! command -v yq &> /dev/null; then
-        wget -q "https://github.com/mikefarah/yq/releases/download/v4.44.2/yq_linux_amd64" -O /usr/bin/yq
+        wget -q "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_PACKAGE}" -O /usr/bin/yq
         chmod 0755 /usr/bin/yq
     fi
 }

@@ -2,10 +2,15 @@
 set -e
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPEC_FILE_ROOT="$script_dir/../files"
+source "$SPEC_FILE_ROOT/common.sh" 
+
 NODE_EXPORTER_VERSION=1.9.1
+NODE_EXPORTER_PACKAGE=node_exporter-$NODE_EXPORTER_VERSION.linux-amd64.tar.gz
+if [[ is_arm64 ]]; then
+    NODE_EXPORTER_PACKAGE=node_exporter-$NODE_EXPORTER_VERSION.linux-arm64.tar.gz
+fi
 PROM_CONFIG=/opt/prometheus/prometheus.yml
 
-source "$SPEC_FILE_ROOT/common.sh" 
 
 if ! is_monitoring_enabled; then
     exit 0
@@ -15,11 +20,11 @@ function install_node_exporter() {
     # If /opt/node_exporter doen't exist, download and extract node_exporter
     if [ ! -d /opt/node_exporter ]; then
         cd /opt
-        wget -q https://github.com/prometheus/node_exporter/releases/download/v$NODE_EXPORTER_VERSION/node_exporter-$NODE_EXPORTER_VERSION.linux-amd64.tar.gz
+        wget -q https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/${NODE_EXPORTER_PACKAGE}
         mkdir -pv node_exporter 
-        tar xvf node_exporter-$NODE_EXPORTER_VERSION.linux-amd64.tar.gz -C node_exporter --strip-components=1
+        tar xvf ${NODE_EXPORTER_PACKAGE} -C node_exporter --strip-components=1
         chown root:root -R node_exporter
-        rm -fv node_exporter-$NODE_EXPORTER_VERSION.linux-amd64.tar.gz
+        rm -fv ${NODE_EXPORTER_PACKAGE}
     fi
 
     # Install node exporter service
