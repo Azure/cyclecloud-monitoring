@@ -4,6 +4,15 @@ read_os()
 {
     os_release=$(cat /etc/os-release | grep "^ID\=" | cut -d'=' -f 2 | xargs)
     os_version=$(cat /etc/os-release | grep "^VERSION_ID\=" | cut -d'=' -f 2 | xargs)
+    unamearch=$(uname -m)
+    if [[ "$unamearch" == "x86_64" ]]; then
+        altarch="amd64"
+    elif [[ "$unamearch" == "aarch64" ]]; then
+        altarch="arm64"
+    else
+        echo "Unsupported architecture: $unamearch"
+        exit 1
+    fi
 }
 
 function is_scheduler() {
@@ -19,9 +28,10 @@ function is_compute() {
 }
 
 function install_yq() {
+    apt install -y binutils
     # Install yq
     if ! command -v yq &> /dev/null; then
-        wget -q "https://github.com/mikefarah/yq/releases/download/v4.44.2/yq_linux_amd64" -O /usr/bin/yq
+        wget -q "https://github.com/mikefarah/yq/releases/download/v4.44.2/yq_linux_${altarch}" -O /usr/bin/yq
         chmod 0755 /usr/bin/yq
     fi
 }

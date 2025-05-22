@@ -41,11 +41,11 @@ function install_prometheus() {
     # If /opt/prometheus doen't exist, download and extract prometheus
     if [ ! -d /opt/prometheus ]; then
         cd /opt
-        wget -q https://github.com/prometheus/prometheus/releases/download/v$PROMETHEUS_VERSION/prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz
+        wget -q https://github.com/prometheus/prometheus/releases/download/v$PROMETHEUS_VERSION/prometheus-$PROMETHEUS_VERSION.linux-${altarch}.tar.gz
         mkdir -pv prometheus
-        tar xvf  prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz -C prometheus --strip-components=1
+        tar xvf  prometheus-$PROMETHEUS_VERSION.linux-${altarch}.tar.gz -C prometheus --strip-components=1
         chown -R root:root prometheus
-        rm -fv prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz
+        rm -fv prometheus-$PROMETHEUS_VERSION.linux-${altarch}.gz
     fi
 
     # Install prometheus service
@@ -77,4 +77,5 @@ function install_prometheus() {
 PHYS_HOST_NAME=$(get_physical_host_name)
 CLUSTER_NAME=$(get_cluster_name)
 SUBSCRIPTION_ID=$(get_subscription)
+read_os
 install_prometheus
