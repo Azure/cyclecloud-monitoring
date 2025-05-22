@@ -2,10 +2,14 @@
 set -e
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPEC_FILE_ROOT="$script_dir/../files"
-PROMETHEUS_VERSION=3.3.0
-PROM_CONFIG=/opt/prometheus/prometheus.yml
-
 source "$SPEC_FILE_ROOT/common.sh" 
+
+PROMETHEUS_VERSION=3.3.0
+PROMETHEUS_PACKAGE=prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz
+if is_arm64; then
+    PROMETHEUS_PACKAGE=prometheus-$PROMETHEUS_VERSION.linux-arm64.tar.gz
+fi
+PROM_CONFIG=/opt/prometheus/prometheus.yml
 
 if ! is_monitoring_enabled; then
     exit 0
@@ -41,11 +45,11 @@ function install_prometheus() {
     # If /opt/prometheus doen't exist, download and extract prometheus
     if [ ! -d /opt/prometheus ]; then
         cd /opt
-        wget -q https://github.com/prometheus/prometheus/releases/download/v$PROMETHEUS_VERSION/prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz
+        wget -q https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/${PROMETHEUS_PACKAGE}
         mkdir -pv prometheus
-        tar xvf  prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz -C prometheus --strip-components=1
+        tar xvf  ${PROMETHEUS_PACKAGE} -C prometheus --strip-components=1
         chown -R root:root prometheus
-        rm -fv prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz
+        rm -fv ${PROMETHEUS_PACKAGE}
     fi
 
     # Install prometheus service
