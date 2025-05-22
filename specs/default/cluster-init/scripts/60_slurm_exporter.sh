@@ -25,9 +25,9 @@ install_prerequisites() {
 
     # See: https://github.com/benmcollins/libjwt
     if command -v apt-get &> /dev/null; then
-        apt-get install -y git libjansson-dev libjwt-dev
+        apt-get install -y git libjansson-dev libjwt-dev binutils
     else 
-        dnf install -y libjansson-devel libjwt-dev
+        dnf install -y libjansson-devel libjwt-dev binutils
     fi
 
     # Configure JWT and slurmrestd
