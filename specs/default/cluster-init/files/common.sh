@@ -19,7 +19,7 @@ function is_compute() {
 }
 
 function is_arm64() {
-   uname -m | grep -q 'arm64' 
+   uname -m | grep -q 'aarch64\|arm64' 
 }
 
 
@@ -28,7 +28,7 @@ function install_yq() {
     # Install yq
     YQ_VERSION="v4.44.2"
     YQ_PACKAGE="yq_linux_amd64"
-    if [[ is_arm64 ]]; then
+    if is_arm64 ; then
         YQ_PACKAGE="yq_linux_arm64"
     fi
     
