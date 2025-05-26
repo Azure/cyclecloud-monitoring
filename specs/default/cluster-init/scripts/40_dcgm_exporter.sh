@@ -19,7 +19,15 @@ fi
 install_dcgm_exporter() {
     # Install NVIDIA DCGM
     CUDA_VERSION=$(nvidia-smi | sed -E -n 's/.*CUDA Version: ([0-9]+)[.].*/\1/p')
-    DEBIAN_FRONTEND=noninteractive apt-get install --yes --install-recommends datacenter-gpu-manager-4-cuda${CUDA_VERSION}
+    . /etc/os-release
+    case $ID in
+        ubuntu)
+            DEBIAN_FRONTEND=noninteractive apt-get install --yes --install-recommends datacenter-gpu-manager-4-cuda${CUDA_VERSION}
+            ;;
+        rocky|almalinux|centos)
+            dnf install --assumeyes --setopt=install_weak_deps=True datacenter-gpu-manager-4-cuda${CUDA_VERSION}
+            ;;
+    esac
 
     systemctl daemon-reload
     systemctl restart nvidia-dcgm.service
