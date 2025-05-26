@@ -30,7 +30,7 @@ install_prerequisites() {
             DEBIAN_FRONTEND=noninteractive apt-get install -y git libjansson-dev libjwt-dev binutils
             ;;
         rocky|almalinux|centos)
-            dnf install -y libjansson-devel libjwt-dev binutils
+            dnf install -y jansson-devel libjwt-devel binutils
             ;;
     esac
     # Configure JWT and slurmrestd
