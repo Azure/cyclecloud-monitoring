@@ -25,7 +25,7 @@ install_dcgm_exporter() {
             DEBIAN_FRONTEND=noninteractive apt-get install --yes --install-recommends datacenter-gpu-manager-4-cuda${CUDA_VERSION}
             ;;
         rocky|almalinux|centos)
-            dnf install --assumeyes --setopt=install_weak_deps=True datacenter-gpu-manager-4-cuda${CUDA_VERSION}
+            dnf install --assumeyes --setopt=install_weak_deps=True datacenter-gpu-manager-4-cuda${CUDA_VERSION} --allowerasing
             ;;
     esac
 
