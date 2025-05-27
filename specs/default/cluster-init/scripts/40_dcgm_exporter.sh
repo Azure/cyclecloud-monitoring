@@ -18,6 +18,7 @@ fi
 
 install_dcgm_exporter() {
     # Install NVIDIA DCGM
+    # https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/getting-started.html
     CUDA_VERSION=$(nvidia-smi | sed -E -n 's/.*CUDA Version: ([0-9]+)[.].*/\1/p')
     . /etc/os-release
     case $ID in

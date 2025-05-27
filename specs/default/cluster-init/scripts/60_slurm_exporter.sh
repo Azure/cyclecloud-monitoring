@@ -88,6 +88,8 @@ EOF
 install_slurm_exporter() {
 
     # Build the exporter
+    # TODO : Do not build each time if already built
+    # TODO : Identify the right release version and use it
     pushd /tmp
     rm -rf slurm-exporter
     git clone https://github.com/SlinkyProject/slurm-exporter.git
