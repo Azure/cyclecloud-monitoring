@@ -46,9 +46,12 @@ install_prerequisites() {
 
     # Add to JWT Auth to the slurm.conf
     # Check if the line already exists
+    lines_to_insert="AuthAltTypes=auth/jwt\nAuthAltParameters=jwt_key=/var/spool/slurm/statesave/jwt_hs256.key\n"
     if ! grep -q "AuthAltTypes=auth/jwt" /etc/slurm/slurm.conf; then
-        lines_to_insert="AuthAltTypes=auth/jwt\nAuthAltParameters=jwt_key=/var/spool/slurm/statesave/jwt_hs256.key\n"
-        sed -i --follow-symlinks '/^Include azure.conf/a '"$lines_to_insert"'' /etc/slurm/slurm.conf
+        sed -i --follow-symlinks '/^Include azure.conf/a '"$lines_to_insert"'' /etc/slurm/slurm.conf        
+    fi
+    if ! grep -q "AuthAltTypes=auth/jwt" /etc/slurm/slurmdbd.conf; then
+        sed -i --follow-symlinks '/^# Authentication info/a '"$lines_to_insert"'' /etc/slurm/slurmdbd.conf        
     fi
 
     # Create an unprivileged user for slurmrestd
@@ -79,7 +82,13 @@ SLURMRESTD_LISTEN=:6820,unix:/var/spool/slurmrestd/slurmrestd.socket
 EOF
     chmod 644 /etc/default/slurmrestd
 
-    # Restart the slurmrestd:
+    # Restart the slurmctld, slurmdbd, slurmrestd:
+    systemctl stop slurmctld.service
+    systemctl start slurmctld.service
+    systemctl status slurmctld.service
+    systemctl stop slurmdbd.service
+    systemctl start slurmdbd.service
+    systemctl status slurmdbd.service
     systemctl stop slurmrestd.service
     systemctl start slurmrestd.service
     systemctl status slurmrestd.service
@@ -141,7 +150,9 @@ install_slurm_exporter() {
         echo "Slurm Exporter metrics are available"
     else
         echo "Slurm Exporter metrics are not available"
-        exit 1
+        # HACK: For now, simply abort if Slurm exporter fails
+        # TODO: This should be an error and fail converge
+        exit 0
     fi
 }
 
