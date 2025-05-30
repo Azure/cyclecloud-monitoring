@@ -24,12 +24,15 @@ install_prerequisites() {
     # This should ALL be installed and configured by cyclecloud-slurm project in the future
 
     # See: https://github.com/benmcollins/libjwt
-    if command -v apt-get &> /dev/null; then
-        apt-get install -y git libjansson-dev libjwt-dev binutils
-    else 
-        dnf install -y libjansson-devel libjwt-dev binutils
-    fi
-
+    . /etc/os-release
+    case $ID in
+        ubuntu)
+            DEBIAN_FRONTEND=noninteractive apt-get install -y git libjansson-dev libjwt-dev binutils
+            ;;
+        rocky|almalinux|centos)
+            dnf install -y jansson-devel libjwt-devel binutils
+            ;;
+    esac
     # Configure JWT and slurmrestd
 
     # Create a local key
@@ -85,6 +88,8 @@ EOF
 install_slurm_exporter() {
 
     # Build the exporter
+    # TODO : Do not build each time if already built
+    # TODO : Identify the right release version and use it
     pushd /tmp
     rm -rf slurm-exporter
     git clone https://github.com/SlinkyProject/slurm-exporter.git
