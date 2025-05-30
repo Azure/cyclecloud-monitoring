@@ -8,6 +8,10 @@ source "$SPEC_FILE_ROOT/common.sh"
 
 SLURM_EXPORTER_PORT=9080
 
+SLURM_EXPORTER_REPO="https://github.com/SlinkyProject/slurm-exporter.git"
+SLURM_EXPORTER_COMMIT="478da458dd9f59ecc464c1b5e90a1a8ebc1a10fb"
+SLURM_EXPORTER_IMAGE_NAME="slinky.slurm.net/slurm-exporter:0.3.0"
+
 if ! is_monitoring_enabled; then
     exit 0
 fi
@@ -25,9 +29,9 @@ install_prerequisites() {
 
     # See: https://github.com/benmcollins/libjwt
     if command -v apt-get &> /dev/null; then
-        apt-get install -y git libjansson-dev libjwt-dev binutils
+        apt-get install -y git libjansson-dev libjwt-dev binutils golang-go
     else 
-        dnf install -y libjansson-devel libjwt-dev binutils
+        dnf install -y libjansson-devel libjwt-dev binutils golang-go
     fi
 
     # Configure JWT and slurmrestd
@@ -87,14 +91,17 @@ install_slurm_exporter() {
     # Build the exporter
     pushd /tmp
     rm -rf slurm-exporter
-    git clone https://github.com/SlinkyProject/slurm-exporter.git
+    git clone ${SLURM_EXPORTER_REPO}
     cd slurm-exporter
+    
+    # Pin the build to specific commit
+    git checkout ${SLURM_EXPORTER_COMMIT}
+
     # Equivalent to:  docker build . -t slinky.slurm.net/slurm-exporter:0.3.0
-    make docker-build
+    # "all" requires helm
+    make docker-bake
     popd
 
-    # Question: How to know the image name? What if the version changed in the future?
-    IMAGE_NAME="slinky.slurm.net/slurm-exporter:0.3.0"
     # Run Slurm Exporter in a container
     unset SLURM_JWT
     export $(scontrol token username="slurmrestd" lifespan=infinite)
@@ -113,16 +120,16 @@ install_slurm_exporter() {
     fi
 
     # Check if the container is already running, and if so, stop it
-    if [ "$(docker ps -q -f ancestor=$IMAGE_NAME)" ]; then
+    if [ "$(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)" ]; then
         echo "Slurm Exporter is already running, stopping it..."
-        docker stop $(docker ps -q -f ancestor=$IMAGE_NAME)
+        docker stop $(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)
     fi
 
     docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --rm -p ${SLURM_EXPORTER_PORT}:8080 --add-host=host.docker.internal:host-gateway \
-            $IMAGE_NAME -server http://host.docker.internal:6820 -per-user-metrics true -metrics-bind-address ":${SLURM_EXPORTER_PORT}"
+            $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -per-user-metrics true -metrics-bind-address ":${SLURM_EXPORTER_PORT}"
     
     # Check if the container is running
-    if [ "$(docker ps -q -f ancestor=$IMAGE_NAME)" ]; then
+    if [ "$(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)" ]; then
         echo "Slurm Exporter is running"
     else
         echo "Slurm Exporter is not running"
