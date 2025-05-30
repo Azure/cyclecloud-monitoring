@@ -3389,7 +3389,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by(instance) (node_cpu_scaling_frequency_hertz{cluster=\"$cluster\"})/ 1000000",
+          "expr": "avg by(instance) (node_cpu_frequency_hertz{cluster=\"$cluster\"})/ 1000000",
           "format": "heatmap",
           "legendFormat": "{{instance}}",
           "range": true,
@@ -3486,7 +3486,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by(instance) (node_cpu_scaling_frequency_hertz{cluster=\"$cluster\"})/ 1000000",
+          "expr": "avg by(instance) (node_cpu_frequency_hertz{cluster=\"$cluster\"})/ 1000000",
           "format": "table",
           "hide": false,
           "instant": false,
