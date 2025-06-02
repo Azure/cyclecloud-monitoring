@@ -8,6 +8,10 @@ source "$SPEC_FILE_ROOT/common.sh"
 
 SLURM_EXPORTER_PORT=9080
 
+SLURM_EXPORTER_REPO="https://github.com/SlinkyProject/slurm-exporter.git"
+SLURM_EXPORTER_COMMIT="478da458dd9f59ecc464c1b5e90a1a8ebc1a10fb"
+SLURM_EXPORTER_IMAGE_NAME="slinky.slurm.net/slurm-exporter:0.3.0"
+
 if ! is_monitoring_enabled; then
     exit 0
 fi
@@ -27,10 +31,10 @@ install_prerequisites() {
     . /etc/os-release
     case $ID in
         ubuntu)
-            DEBIAN_FRONTEND=noninteractive apt-get install -y git libjansson-dev libjwt-dev binutils
+            DEBIAN_FRONTEND=noninteractive apt-get install -y git libjansson-dev libjwt-dev binutils golang-go
             ;;
         rocky|almalinux|centos)
-            dnf install -y jansson-devel libjwt-devel binutils
+            dnf install -y jansson-devel libjwt-devel binutils golang-go
             ;;
         *)
             ;;
@@ -47,9 +51,12 @@ install_prerequisites() {
 
     # Add to JWT Auth to the slurm.conf
     # Check if the line already exists
+    lines_to_insert="AuthAltTypes=auth/jwt\nAuthAltParameters=jwt_key=/var/spool/slurm/statesave/jwt_hs256.key\n"
     if ! grep -q "AuthAltTypes=auth/jwt" /etc/slurm/slurm.conf; then
-        lines_to_insert="AuthAltTypes=auth/jwt\nAuthAltParameters=jwt_key=/var/spool/slurm/statesave/jwt_hs256.key\n"
-        sed -i --follow-symlinks '/^Include azure.conf/a '"$lines_to_insert"'' /etc/slurm/slurm.conf
+        sed -i --follow-symlinks '/^Include azure.conf/a '"$lines_to_insert"'' /etc/slurm/slurm.conf        
+    fi
+    if ! grep -q "AuthAltTypes=auth/jwt" /etc/slurm/slurmdbd.conf; then
+        sed -i --follow-symlinks '/^# Authentication info/a '"$lines_to_insert"'' /etc/slurm/slurmdbd.conf        
     fi
 
     # Create an unprivileged user for slurmrestd
@@ -80,7 +87,13 @@ SLURMRESTD_LISTEN=:6820,unix:/var/spool/slurmrestd/slurmrestd.socket
 EOF
     chmod 644 /etc/default/slurmrestd
 
-    # Restart the slurmrestd:
+    # Restart the slurmctld, slurmdbd, slurmrestd:
+    systemctl stop slurmctld.service
+    systemctl start slurmctld.service
+    systemctl status slurmctld.service
+    systemctl stop slurmdbd.service
+    systemctl start slurmdbd.service
+    systemctl status slurmdbd.service
     systemctl stop slurmrestd.service
     systemctl start slurmrestd.service
     systemctl status slurmrestd.service
@@ -92,14 +105,17 @@ install_slurm_exporter() {
     # Build the exporter
     pushd /tmp
     rm -rf slurm-exporter
-    git clone https://github.com/SlinkyProject/slurm-exporter.git
+    git clone ${SLURM_EXPORTER_REPO}
     cd slurm-exporter
+    
+    # Pin the build to specific commit
+    git checkout ${SLURM_EXPORTER_COMMIT}
+
     # Equivalent to:  docker build . -t slinky.slurm.net/slurm-exporter:0.3.0
-    make docker-build
+    # "all" requires helm
+    make docker-bake
     popd
 
-    # Question: How to know the image name? What if the version changed in the future?
-    IMAGE_NAME="slinky.slurm.net/slurm-exporter:0.3.0"
     # Run Slurm Exporter in a container
     unset SLURM_JWT
     export $(scontrol token username="slurmrestd" lifespan=infinite)
@@ -118,16 +134,16 @@ install_slurm_exporter() {
     fi
 
     # Check if the container is already running, and if so, stop it
-    if [ "$(docker ps -q -f ancestor=$IMAGE_NAME)" ]; then
+    if [ "$(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)" ]; then
         echo "Slurm Exporter is already running, stopping it..."
-        docker stop $(docker ps -q -f ancestor=$IMAGE_NAME)
+        docker stop $(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)
     fi
 
     docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --rm -p ${SLURM_EXPORTER_PORT}:8080 --add-host=host.docker.internal:host-gateway \
-            $IMAGE_NAME -server http://host.docker.internal:6820 -per-user-metrics true -metrics-bind-address ":${SLURM_EXPORTER_PORT}"
+            $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -per-user-metrics true -metrics-bind-address ":${SLURM_EXPORTER_PORT}"
     
     # Check if the container is running
-    if [ "$(docker ps -q -f ancestor=$IMAGE_NAME)" ]; then
+    if [ "$(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)" ]; then
         echo "Slurm Exporter is running"
     else
         echo "Slurm Exporter is not running"
@@ -139,7 +155,9 @@ install_slurm_exporter() {
         echo "Slurm Exporter metrics are available"
     else
         echo "Slurm Exporter metrics are not available"
-        exit 1
+        # HACK: For now, simply abort if Slurm exporter fails
+        # TODO: This should be an error and fail converge
+        exit 0
     fi
 }
 

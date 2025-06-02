@@ -239,7 +239,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_cpu_scaling_frequency_hertz{instance=~\"$instance\", cpu=~\"$cpu\", cluster=\"$cluster\"} / 1000000",
+          "expr": "node_cpu_frequency_hertz{instance=~\"$instance\", cpu=~\"$cpu\", cluster=\"$cluster\"} / 1000000",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
