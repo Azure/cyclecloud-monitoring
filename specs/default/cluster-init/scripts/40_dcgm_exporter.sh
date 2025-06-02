@@ -28,6 +28,10 @@ install_dcgm_exporter() {
         rocky|almalinux|centos)
             dnf install --assumeyes --setopt=install_weak_deps=True datacenter-gpu-manager-4-cuda${CUDA_VERSION} --allowerasing
             ;;
+        *)
+            echo "Unsupported OS: $ID"
+            exit 1
+            ;;
     esac
 
     systemctl daemon-reload
