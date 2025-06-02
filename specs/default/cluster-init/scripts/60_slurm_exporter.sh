@@ -25,7 +25,8 @@ fi
 echo "Installing Slurm Exporter..."
 
 install_prerequisites() {
-    # This should ALL be installed and configured by cyclecloud-slurm project in the future
+    # HACK: TODO: This should ALL be installed and configured by cyclecloud-slurm project in the future
+    # Restarting the slurm services here can cause problems
 
     # See: https://github.com/benmcollins/libjwt
     if command -v apt-get &> /dev/null; then
@@ -66,9 +67,9 @@ install_prerequisites() {
         echo "User slurmrestd belongs to group docker"
     else
         usermod -aG docker slurmrestd
+        newgrp docker
     fi
     
-    newgrp docker
 
     # Create a socket for the slurmrestd
     mkdir -pv /var/spool/slurmrestd
@@ -83,6 +84,9 @@ EOF
     chmod 644 /etc/default/slurmrestd
 
     # Restart the slurmctld, slurmdbd, slurmrestd:
+    systemctl stop munge.service
+    systemctl start munge.service
+    systemctl status munge.service
     systemctl stop slurmctld.service
     systemctl start slurmctld.service
     systemctl status slurmctld.service
