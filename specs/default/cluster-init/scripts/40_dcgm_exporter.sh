@@ -18,8 +18,21 @@ fi
 
 install_dcgm_exporter() {
     # Install NVIDIA DCGM
+    # https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/getting-started.html
     CUDA_VERSION=$(nvidia-smi | sed -E -n 's/.*CUDA Version: ([0-9]+)[.].*/\1/p')
-    DEBIAN_FRONTEND=noninteractive apt-get install --yes --install-recommends datacenter-gpu-manager-4-cuda${CUDA_VERSION}
+    . /etc/os-release
+    case $ID in
+        ubuntu)
+            DEBIAN_FRONTEND=noninteractive apt-get install --yes --install-recommends datacenter-gpu-manager-4-cuda${CUDA_VERSION}
+            ;;
+        rocky|almalinux|centos)
+            dnf install --assumeyes --setopt=install_weak_deps=True datacenter-gpu-manager-4-cuda${CUDA_VERSION} --allowerasing
+            ;;
+        *)
+            echo "Unsupported OS: $ID"
+            exit 1
+            ;;
+    esac
 
     systemctl daemon-reload
     systemctl restart nvidia-dcgm.service
@@ -31,6 +44,11 @@ install_dcgm_exporter() {
 }
 
 function add_scraper() {
+    # If dcgm_exporter is already configured, do not add it again
+    if grep -q "dcgm_exporter" $PROM_CONFIG; then
+        echo "DCGM Exporter is already configured in Prometheus"
+        return 0
+    fi    
     INSTANCE_NAME=$(hostname)
 
     yq eval-all '. as $item ireduce ({}; . *+ $item)' $PROM_CONFIG $SPEC_FILE_ROOT/dcgm_exporter.yml > tmp.yml

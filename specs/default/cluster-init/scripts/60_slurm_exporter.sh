@@ -29,12 +29,20 @@ install_prerequisites() {
     # Restarting the slurm services here can cause problems
 
     # See: https://github.com/benmcollins/libjwt
-    if command -v apt-get &> /dev/null; then
-        apt-get install -y libjansson-dev libjwt-dev binutils
-    else 
-        dnf install -y libjansson-devel libjwt-dev binutils
-    fi
-
+    . /etc/os-release
+    case $ID in
+        ubuntu)
+            DEBIAN_FRONTEND=noninteractive apt-get install -y libjansson-dev libjwt-dev binutils
+            ;;
+        rocky|almalinux|centos)
+            dnf install -y jansson-devel libjwt-devel binutils
+            ;;
+        *)
+            echo "Unsupported OS: $ID"
+            exit 1
+            ;;
+    esac
+    
     # Configure JWT and slurmrestd
 
     # Create a local key
@@ -96,11 +104,20 @@ EOF
 build_slurm_exporter() {
     # This function is not used anymore, but kept for reference
     echo "Building Slurm Exporter..."
-    if command -v apt-get &> /dev/null; then
-        apt-get install -y git golang-go
-    else 
-        dnf install -y git golang-go
-    fi
+    . /etc/os-release
+    case $ID in
+        ubuntu)
+            DEBIAN_FRONTEND=noninteractive apt-get install -y git golang-go
+            ;;
+        rocky|almalinux|centos)
+            dnf install -y git golang-go
+            ;;
+        *)
+            echo "Unsupported OS: $ID"
+            exit 1
+            ;;
+    esac
+
     # Build the exporter
     pushd /tmp
     rm -rf slurm-exporter
