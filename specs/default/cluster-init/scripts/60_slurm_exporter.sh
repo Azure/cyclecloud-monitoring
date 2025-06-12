@@ -172,7 +172,7 @@ if is_scheduler ; then
     add_scraper
 
     # Check if metrics are available, can only be done after prometheus has been configured and restarted
-    if curl -s http://localhost:${SLURM_EXPORTER_PORT}/metrics | grep -q "slurm_node_total"; then
+    if curl -s http://localhost:${SLURM_EXPORTER_PORT}/metrics | grep -q "slurm_nodes_total"; then
         echo "Slurm Exporter metrics are available"
     else
         echo "Slurm Exporter metrics are not available"
