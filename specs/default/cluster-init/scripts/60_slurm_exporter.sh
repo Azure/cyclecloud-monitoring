@@ -10,7 +10,7 @@ SLURM_EXPORTER_PORT=9080
 
 SLURM_EXPORTER_REPO="https://github.com/SlinkyProject/slurm-exporter.git"
 SLURM_EXPORTER_COMMIT="478da458dd9f59ecc464c1b5e90a1a8ebc1a10fb"
-SLURM_EXPORTER_IMAGE_NAME="slinky.slurm.net/slurm-exporter:0.3.0"
+SLURM_EXPORTER_IMAGE_NAME="ghcr.io/slinkyproject/slurm-exporter:0.3.0"
 
 if ! is_monitoring_enabled; then
     exit 0
@@ -30,9 +30,9 @@ install_prerequisites() {
 
     # See: https://github.com/benmcollins/libjwt
     if command -v apt-get &> /dev/null; then
-        apt-get install -y git libjansson-dev libjwt-dev binutils golang-go
+        apt-get install -y libjansson-dev libjwt-dev binutils
     else 
-        dnf install -y libjansson-devel libjwt-dev binutils golang-go
+        dnf install -y libjansson-devel libjwt-dev binutils
     fi
 
     # Configure JWT and slurmrestd
@@ -84,23 +84,23 @@ EOF
     chmod 644 /etc/default/slurmrestd
 
     # Restart the slurmctld, slurmdbd, slurmrestd:
-    systemctl stop munge.service
-    systemctl start munge.service
-    systemctl status munge.service
-    systemctl stop slurmctld.service
-    systemctl start slurmctld.service
-    systemctl status slurmctld.service
-    systemctl stop slurmdbd.service
-    systemctl start slurmdbd.service
-    systemctl status slurmdbd.service
+    /opt/cycle/jetpack/system/bootstrap/azure-slurm-install/start-services.sh scheduler
+
     systemctl stop slurmrestd.service
     systemctl start slurmrestd.service
     systemctl status slurmrestd.service
 }
 
-
-install_slurm_exporter() {
-
+# Function to build the slurm exporter
+# This is not used anymore, but kept for reference as we are using the docker conatainer
+build_slurm_exporter() {
+    # This function is not used anymore, but kept for reference
+    echo "Building Slurm Exporter..."
+    if command -v apt-get &> /dev/null; then
+        apt-get install -y git golang-go
+    else 
+        dnf install -y git golang-go
+    fi
     # Build the exporter
     pushd /tmp
     rm -rf slurm-exporter
@@ -114,6 +114,9 @@ install_slurm_exporter() {
     # "all" requires helm
     make docker-bake
     popd
+}
+
+install_slurm_exporter() {
 
     # Run Slurm Exporter in a container
     unset SLURM_JWT
@@ -138,8 +141,8 @@ install_slurm_exporter() {
         docker stop $(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)
     fi
 
-    docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --rm -p ${SLURM_EXPORTER_PORT}:8080 --add-host=host.docker.internal:host-gateway \
-            $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -per-user-metrics true -metrics-bind-address ":${SLURM_EXPORTER_PORT}"
+    # Run the Slurm Exporter container, expose the port so prometheus can scrape it. Redirect the host.docker.internal to the host gateway == localhost
+    docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --rm  -p 9080:8080 --add-host=host.docker.internal:host-gateway $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -cache-freq 10s
     
     # Check if the container is running
     if [ "$(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)" ]; then
@@ -154,9 +157,7 @@ install_slurm_exporter() {
         echo "Slurm Exporter metrics are available"
     else
         echo "Slurm Exporter metrics are not available"
-        # HACK: For now, simply abort if Slurm exporter fails
-        # TODO: This should be an error and fail converge
-        exit 0
+        exit 1
     fi
 }
 
