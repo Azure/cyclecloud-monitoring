@@ -47,13 +47,7 @@ function install_node_exporter() {
     mkdir -pv /etc/sysconfig
 
     # Copy node exporter configuration file
-    # TODO: Customize the node_exporter configuration file based on node type
-    # TODO: Compute nodes will have reduced metrics
     cp -v $SPEC_FILE_ROOT/sysconfig.node_exporter /etc/sysconfig/node_exporter
-
-    # Create textfile_collector directory
-    #mkdir -pv /var/lib/node_exporter/textfile_collector
-    #chown node_exporter:node_exporter /var/lib/node_exporter/textfile_collector
 
     # Enable and start node exporter service
     systemctl daemon-reload
@@ -62,6 +56,11 @@ function install_node_exporter() {
 }
 
 function add_scraper() {
+    # If node_exporter is already configured, do not add it again
+    if grep -q "node_exporter" $PROM_CONFIG; then
+        echo "Node Exporter is already configured in Prometheus"
+        return 0
+    fi 
     INSTANCE_NAME=$(hostname)
 
     yq eval-all '. as $item ireduce ({}; . *+ $item)' $PROM_CONFIG $SPEC_FILE_ROOT/node_exporter.yml > tmp.yml

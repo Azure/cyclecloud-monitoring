@@ -10,7 +10,7 @@ SLURM_EXPORTER_PORT=9080
 
 SLURM_EXPORTER_REPO="https://github.com/SlinkyProject/slurm-exporter.git"
 SLURM_EXPORTER_COMMIT="478da458dd9f59ecc464c1b5e90a1a8ebc1a10fb"
-SLURM_EXPORTER_IMAGE_NAME="slinky.slurm.net/slurm-exporter:0.3.0"
+SLURM_EXPORTER_IMAGE_NAME="ghcr.io/slinkyproject/slurm-exporter:0.3.0"
 
 if ! is_monitoring_enabled; then
     exit 0
@@ -29,12 +29,20 @@ install_prerequisites() {
     # Restarting the slurm services here can cause problems
 
     # See: https://github.com/benmcollins/libjwt
-    if command -v apt-get &> /dev/null; then
-        apt-get install -y git libjansson-dev libjwt-dev binutils golang-go
-    else 
-        dnf install -y libjansson-devel libjwt-dev binutils golang-go
-    fi
-
+    . /etc/os-release
+    case $ID in
+        ubuntu)
+            DEBIAN_FRONTEND=noninteractive apt-get install -y libjansson-dev libjwt-dev binutils
+            ;;
+        rocky|almalinux|centos)
+            dnf install -y jansson-devel libjwt-devel binutils
+            ;;
+        *)
+            echo "Unsupported OS: $ID"
+            exit 1
+            ;;
+    esac
+    
     # Configure JWT and slurmrestd
 
     # Create a local key
@@ -84,22 +92,31 @@ EOF
     chmod 644 /etc/default/slurmrestd
 
     # Restart the slurmctld, slurmdbd, slurmrestd:
-    systemctl stop munge.service
-    systemctl start munge.service
-    systemctl status munge.service
-    systemctl stop slurmctld.service
-    systemctl start slurmctld.service
-    systemctl status slurmctld.service
-    systemctl stop slurmdbd.service
-    systemctl start slurmdbd.service
-    systemctl status slurmdbd.service
+    /opt/cycle/jetpack/system/bootstrap/azure-slurm-install/start-services.sh scheduler
+
     systemctl stop slurmrestd.service
     systemctl start slurmrestd.service
     systemctl status slurmrestd.service
 }
 
-
-install_slurm_exporter() {
+# Function to build the slurm exporter
+# This is not used anymore, but kept for reference as we are using the docker conatainer
+build_slurm_exporter() {
+    # This function is not used anymore, but kept for reference
+    echo "Building Slurm Exporter..."
+    . /etc/os-release
+    case $ID in
+        ubuntu)
+            DEBIAN_FRONTEND=noninteractive apt-get install -y git golang-go
+            ;;
+        rocky|almalinux|centos)
+            dnf install -y git golang-go
+            ;;
+        *)
+            echo "Unsupported OS: $ID"
+            exit 1
+            ;;
+    esac
 
     # Build the exporter
     pushd /tmp
@@ -114,6 +131,9 @@ install_slurm_exporter() {
     # "all" requires helm
     make docker-bake
     popd
+}
+
+install_slurm_exporter() {
 
     # Run Slurm Exporter in a container
     unset SLURM_JWT
@@ -138,8 +158,8 @@ install_slurm_exporter() {
         docker stop $(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)
     fi
 
-    docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --rm -p ${SLURM_EXPORTER_PORT}:8080 --add-host=host.docker.internal:host-gateway \
-            $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -per-user-metrics true -metrics-bind-address ":${SLURM_EXPORTER_PORT}"
+    # Run the Slurm Exporter container, expose the port so prometheus can scrape it. Redirect the host.docker.internal to the host gateway == localhost
+    docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --rm  -p 9080:8080 --add-host=host.docker.internal:host-gateway $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -cache-freq 10s
     
     # Check if the container is running
     if [ "$(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)" ]; then
@@ -148,19 +168,14 @@ install_slurm_exporter() {
         echo "Slurm Exporter is not running"
         exit 1
     fi
-
-    # Check if metrics are available
-    if curl -s http://localhost:${SLURM_EXPORTER_PORT}/metrics | grep -q "slurm_node_total"; then
-        echo "Slurm Exporter metrics are available"
-    else
-        echo "Slurm Exporter metrics are not available"
-        # HACK: For now, simply abort if Slurm exporter fails
-        # TODO: This should be an error and fail converge
-        exit 0
-    fi
 }
 
 function add_scraper() {
+    # If slurm_exporter is already configured, do not add it again
+    if grep -q "slurm_exporter" $PROM_CONFIG; then
+        echo "Slurm Exporter is already configured in Prometheus"
+        return 0
+    fi
     INSTANCE_NAME=$(hostname)
 
     yq eval-all '. as $item ireduce ({}; . *+ $item)' $PROM_CONFIG $SPEC_FILE_ROOT/slurm_exporter.yml > tmp.yml
@@ -177,4 +192,14 @@ if is_scheduler ; then
     install_slurm_exporter
     install_yq
     add_scraper
+
+    # Check if metrics are available, can only be done after prometheus has been configured and restarted
+    # we need to wait a bit for prometheus to start and scrape the metrics
+    sleep 20
+    if curl -s http://localhost:${SLURM_EXPORTER_PORT}/metrics | grep -q "slurm_nodes_total"; then
+        echo "Slurm Exporter metrics are available"
+    else
+        echo "Slurm Exporter metrics are not available"
+        exit 1
+    fi    
 fi
