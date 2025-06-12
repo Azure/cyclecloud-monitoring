@@ -151,14 +151,6 @@ install_slurm_exporter() {
         echo "Slurm Exporter is not running"
         exit 1
     fi
-
-    # Check if metrics are available
-    if curl -s http://localhost:${SLURM_EXPORTER_PORT}/metrics | grep -q "slurm_node_total"; then
-        echo "Slurm Exporter metrics are available"
-    else
-        echo "Slurm Exporter metrics are not available"
-        exit 1
-    fi
 }
 
 function add_scraper() {
@@ -178,4 +170,12 @@ if is_scheduler ; then
     install_slurm_exporter
     install_yq
     add_scraper
+
+    # Check if metrics are available, can only be done after prometheus has been configured and restarted
+    if curl -s http://localhost:${SLURM_EXPORTER_PORT}/metrics | grep -q "slurm_node_total"; then
+        echo "Slurm Exporter metrics are available"
+    else
+        echo "Slurm Exporter metrics are not available"
+        exit 1
+    fi    
 fi
