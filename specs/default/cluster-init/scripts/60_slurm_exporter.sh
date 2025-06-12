@@ -154,6 +154,11 @@ install_slurm_exporter() {
 }
 
 function add_scraper() {
+    # If slurm_exporter is already configured, do not add it again
+    if grep -q "slurm_exporter" $PROM_CONFIG; then
+        echo "Slurm Exporter is already configured in Prometheus"
+        return 0
+    fi
     INSTANCE_NAME=$(hostname)
 
     yq eval-all '. as $item ireduce ({}; . *+ $item)' $PROM_CONFIG $SPEC_FILE_ROOT/slurm_exporter.yml > tmp.yml
@@ -172,6 +177,8 @@ if is_scheduler ; then
     add_scraper
 
     # Check if metrics are available, can only be done after prometheus has been configured and restarted
+    # we need to wait a bit for prometheus to start and scrape the metrics
+    sleep 20
     if curl -s http://localhost:${SLURM_EXPORTER_PORT}/metrics | grep -q "slurm_nodes_total"; then
         echo "Slurm Exporter metrics are available"
     else
