@@ -137,7 +137,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - avg by (instance, cpu) (rate(node_cpu_seconds_total{mode='idle', instance=~\"$instance\", cpu=~\"$cpu\", cluster=\"$cluster\"}[$__rate_interval]))))",
+          "expr": "(100 * (1 - avg by (instance, cpu) (rate(node_cpu_seconds_total{mode='idle', instance=~\"^$instance$\", cpu=~\"^$cpu$\", cluster=\"$cluster\"}[$__rate_interval]))))",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
@@ -239,7 +239,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_cpu_frequency_hertz{instance=~\"$instance\", cpu=~\"$cpu\", cluster=\"$cluster\"} / 1000000",
+          "expr": "node_cpu_frequency_hertz{instance=~\"^$instance$\", cpu=~\"^$cpu$\", cluster=\"$cluster\"} / 1000000",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
@@ -343,7 +343,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "scalar(node_load1{cluster=\"$cluster\", instance=\"$instance\"}) * 100 / count(count(node_cpu_seconds_total{cluster=\"$cluster\", instance=\"$instance\"}) by (cpu))",
+          "expr": "scalar(node_load1{cluster=\"$cluster\", instance=~\"^$instance$\"}) * 100 / count(count(node_cpu_seconds_total{cluster=\"$cluster\", instance=~\"^$instance$\"}) by (cpu))",
           "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
@@ -460,7 +460,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - node_memory_memavailable_bytes{instance=~\"$instance\", cluster=\"$cluster\"} / node_memory_memtotal_bytes{instance=~\"$instance\",cluster=\"$cluster\"}))",
+          "expr": "(100 * (1 - node_memory_memavailable_bytes{instance=~\"^$instance$\", cluster=\"$cluster\"} / node_memory_memtotal_bytes{instance=~\"^$instance$\",cluster=\"$cluster\"}))",
           "interval": "",
           "legendFormat": "{{instance}}",
           "range": true,
@@ -565,7 +565,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - node_memory_memavailable_bytes{instance=~\"$instance\",cluster=\"$cluster\"} / node_memory_memtotal_bytes{instance=~\"$instance\",cluster=\"$cluster\"}))",
+          "expr": "(100 * (1 - node_memory_memavailable_bytes{instance=~\"^$instance$\",cluster=\"$cluster\"} / node_memory_memtotal_bytes{instance=~\"^$instance$\",cluster=\"$cluster\"}))",
           "interval": "",
           "legendFormat": "{{instance}}",
           "range": true,
@@ -667,7 +667,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_vmstat_pgmajfault{instance=\"$instance\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_vmstat_pgmajfault{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
@@ -790,7 +790,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(node_network_receive_bytes_total{device='eth0', instance=~\"$instance\",cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": "(rate(node_network_receive_bytes_total{device='eth0', instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "{{instance}} - receive",
           "range": true,
           "refId": "A"
@@ -801,7 +801,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(node_network_transmit_bytes_total{device='eth0', instance=~\"$instance\"}[$__rate_interval]))",
+          "expr": "(rate(node_network_transmit_bytes_total{device='eth0', instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval]))",
           "hide": false,
           "instant": false,
           "legendFormat": "{{instance}} - transmit",
@@ -917,7 +917,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{instance=\"$instance\",device!~\"rootfs\"} - node_filesystem_avail_bytes{instance=\"$instance\",device!~\"rootfs\"}",
+          "expr": "node_filesystem_size_bytes{instance=~\"^$instance$\",device!~\"rootfs\",cluster=\"$cluster\"} - node_filesystem_avail_bytes{instance=~\"^$instance$\",device!~\"rootfs\",cluster=\"$cluster\"}",
           "legendFormat": "{{mountpoint}}",
           "range": true,
           "refId": "A"
@@ -1031,7 +1031,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_reads_completed_total{instance=\"$instance\",device=~\"$diskdevices\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_reads_completed_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - reads completed",
           "range": true,
           "refId": "A"
@@ -1042,7 +1042,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_writes_completed_total{instance=\"$instance\",device=~\"$diskdevices\"}[$__rate_interval])",
+          "expr": "irate(node_disk_writes_completed_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - writes completed",
           "range": true,
           "refId": "B"
@@ -1143,7 +1143,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_io_time_seconds_total{instance=\"$instance\",device=~\"$diskdevices\",cluster=\"$cluster\"} [$__rate_interval])",
+          "expr": "irate(node_disk_io_time_seconds_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"} [$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -1257,7 +1257,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_read_bytes_total{instance=\"$instance\",device=~\"$diskdevices\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_read_bytes_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - read",
           "range": true,
           "refId": "A"
@@ -1268,7 +1268,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_written_bytes_total{instance=\"$instance\",device=~\"$diskdevices\"}[$__rate_interval])",
+          "expr": "irate(node_disk_written_bytes_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - write",
           "range": true,
           "refId": "B"
@@ -1395,7 +1395,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=\"$instance\", operation=~\"^READ$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=~\"^$instance$\", operation=~\"^READ$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - {{operation}}s completed",
           "range": true,
           "refId": "A"
@@ -1406,7 +1406,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=\"$instance\", operation=~\"^WRITE$\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=~\"^$instance$\", operation=~\"^WRITE$\",cluster=\"$cluster\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
           "legendFormat": "{{export}} - {{operation}}s completed",
@@ -1522,7 +1522,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_total_read_bytes_total{instance=\"$instance\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_total_read_bytes_total{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - read",
           "range": true,
           "refId": "A"
@@ -1533,7 +1533,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_total_write_bytes_total{instance=\"$instance\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_total_write_bytes_total{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - write",
           "range": true,
           "refId": "B"
@@ -1599,8 +1599,8 @@
       {
         "current": {
           "selected": true,
-          "text": "ccw-hpc-2",
-          "value": "ccw-hpc-2"
+          "text": "ccw-gpu-2",
+          "value": "ccw-gpu-2"
         },
         "datasource": {
           "type": "prometheus",
