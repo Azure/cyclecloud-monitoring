@@ -17,25 +17,6 @@ if ! nvidia-smi -L > /dev/null 2>&1; then
 fi
 
 install_dcgm_exporter() {
-    # Install NVIDIA DCGM
-    # https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/getting-started.html
-    CUDA_VERSION=$(nvidia-smi | sed -E -n 's/.*CUDA Version: ([0-9]+)[.].*/\1/p')
-    . /etc/os-release
-    case $ID in
-        ubuntu)
-            DEBIAN_FRONTEND=noninteractive apt-get install --yes --install-recommends datacenter-gpu-manager-4-cuda${CUDA_VERSION}
-            ;;
-        rocky|almalinux|centos)
-            dnf install --assumeyes --setopt=install_weak_deps=True datacenter-gpu-manager-4-cuda${CUDA_VERSION} --allowerasing
-            ;;
-        *)
-            echo "Unsupported OS: $ID"
-            exit 1
-            ;;
-    esac
-
-    systemctl daemon-reload
-    systemctl restart nvidia-dcgm.service
     
     # Run DCGM Exporter in a container
     docker run -v $SPEC_FILE_ROOT/custom_dcgm_counters.csv:/etc/dcgm-exporter/custom-counters.csv \
