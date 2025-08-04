@@ -26,13 +26,11 @@
   "graphTooltip": 0,
   "id": null,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "default": true,
-        "type": "grafana-azure-monitor-datasource",
-        "uid": "azure-monitor-oob"
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 18,
@@ -50,21 +48,7 @@
         "content": "### 🧾 Dashboard Color Guide & Metric Behavior\n\n\n\n#### 🎯 **Threshold Color Legend (Tables)**\n\n\n| Color | Category         | Interpretation                                                                 |\n|-------|------------------|---------------------------------------------------------------------------------|\n| 🟢 Green   | Low to Moderate   | Indicates underutilization or balanced usage; ample resource headroom         |\n| 🔵 Blue    | Moderate-High     | Resources are being used efficiently and are under healthy load               |\n| 🟡 Yellow  | High              | Utilization is approaching limits; monitor if sustained                       |\n| 🔴 Red     | Very High         | Utilization is near/at saturation; risk of throttling or slowdowns if ongoing |\n\nFor **XID error, throttle and link flap values**, the same color codes may indicate health issues, but for **utilization**, high usage can be expected in performance-intensive environments.\n\n---\n\n#### 📊 **Heatmap Color Interpretation**\n\n🧠 Unlike tables, **heatmap colors show the frequency** of metric values over time — not severity.\n\n- Darker blocks = More frequent values in that bucket  \n- Lighter blocks = Less frequent  \n- Y-Axis = Instances (VMs)  \n- X-Axis = Time  \n- Each colored cell = how often a metric value occurred in that time window\n\n> 🚨 Heatmap **colors do not use threshold severity**. Use adjacent tables for specific per-instance severity context.\n\n---\n\n✅ **Tip:** Use both heatmaps and tables together:\n- **Heatmaps** = spot patterns & hotspots across fleet  \n- **Tables** = drill into specific instances or error types\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.2.8+security-01",
-      "targets": [
-        {
-          "azureMonitor": {
-            "allowedTimeGrainsMs": [],
-            "timeGrain": "auto"
-          },
-          "datasource": {
-            "type": "grafana-azure-monitor-datasource",
-            "uid": "azure-monitor-oob"
-          },
-          "queryType": "Azure Monitor",
-          "refId": "A"
-        }
-      ],
+      "pluginVersion": "11.6.3",
       "title": "README",
       "type": "text"
     },
@@ -106,8 +90,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -153,6 +136,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -177,7 +178,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -315,8 +316,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -375,6 +375,31 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": []
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -399,7 +424,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -533,8 +558,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -580,6 +604,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -604,7 +646,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -742,8 +784,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -789,6 +830,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -813,7 +872,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -968,11 +1027,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -1009,7 +1068,7 @@
           "unit": "percent"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1052,8 +1111,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -1094,6 +1152,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1118,7 +1194,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1199,11 +1275,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -1240,7 +1316,7 @@
           "unit": "percent"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1283,8 +1359,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -1325,6 +1400,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1349,7 +1442,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1451,11 +1544,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -1492,7 +1585,7 @@
           "unit": "percent"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1535,8 +1628,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -1577,6 +1669,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1606,7 +1716,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1687,11 +1797,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -1728,7 +1838,7 @@
           "unit": "percent"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1771,8 +1881,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -1813,6 +1922,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1837,7 +1964,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1918,11 +2045,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -1959,7 +2086,7 @@
           "unit": "percentunit"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2002,8 +2129,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -2044,6 +2170,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -2068,7 +2212,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2162,11 +2306,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -2203,7 +2347,7 @@
           "unit": ""
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2246,8 +2390,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -2299,6 +2442,24 @@
                 "value": 300
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -2323,7 +2484,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2425,11 +2586,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -2467,7 +2628,7 @@
           "unit": ""
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2510,8 +2671,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -2539,6 +2699,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -2563,7 +2741,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2665,11 +2843,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -2706,7 +2884,7 @@
           "unit": "iops"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2749,8 +2927,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -2777,6 +2954,24 @@
             "properties": [
               {
                 "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
               }
             ]
           }
@@ -2808,7 +3003,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2902,11 +3097,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -2943,7 +3138,7 @@
           "unit": "rotmhz"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2986,8 +3181,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -3016,6 +3210,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -3040,7 +3252,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3121,11 +3333,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -3162,7 +3374,7 @@
           "unit": "rotmhz"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3205,8 +3417,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -3235,6 +3446,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -3259,7 +3488,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3340,11 +3569,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -3381,7 +3610,7 @@
           "unit": "rotmhz"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3424,8 +3653,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -3454,6 +3682,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -3478,7 +3724,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3572,11 +3818,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -3614,7 +3860,7 @@
           "unit": "percent"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3657,8 +3903,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -3699,6 +3944,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -3723,7 +3986,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3804,11 +4067,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -3845,7 +4108,7 @@
           "unit": "celsius"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3888,8 +4151,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -3919,6 +4181,24 @@
                 "value": 300
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -3943,7 +4223,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4037,11 +4317,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -4079,7 +4359,7 @@
           "unit": "percent"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4122,8 +4402,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -4164,6 +4443,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -4188,7 +4485,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4269,11 +4566,11 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": "10"
+            "value": ""
           },
           "yBuckets": {
-            "mode": "count",
-            "value": "10"
+            "mode": "size",
+            "value": ""
           }
         },
         "cellGap": 1,
@@ -4310,7 +4607,7 @@
           "unit": "watt"
         }
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4353,8 +4650,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "blue",
@@ -4383,6 +4679,24 @@
                 "id": "custom.width"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -4407,7 +4721,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4455,8 +4769,9 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "30m",
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
@@ -4467,21 +4782,16 @@
           "value": "${datasource}"
         },
         "description": "Prometheus Data Source",
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": true,
           "text": "ccw_05051453/ccw",
           "value": "ccw_05051453/ccw"
         },
@@ -4489,33 +4799,26 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(dcgm_fi_dev_gpu_util, cluster)",
-        "hide": 0,
+        "definition": "label_values(node_cpu_seconds_total, cluster)",
         "includeAll": true,
-        "multi": false,
         "name": "cluster",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(dcgm_fi_dev_gpu_util, cluster)",
+          "query": "label_values(node_cpu_seconds_total, cluster)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
           "text": "avg",
           "value": "avg"
         },
         "description": "Operation to apply",
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "operation",
         "options": [
           {
@@ -4535,8 +4838,6 @@
           }
         ],
         "query": "avg,min,max",
-        "queryValue": "",
-        "skipUrlSync": false,
         "type": "custom"
       }
     ]
