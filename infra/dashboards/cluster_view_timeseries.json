@@ -28,7 +28,6 @@
   "graphTooltip": 1,
   "id": null,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -88,13 +87,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -123,10 +128,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -189,6 +196,13 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -196,8 +210,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -231,10 +244,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -297,6 +312,13 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -304,8 +326,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -331,10 +352,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -397,14 +420,20 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -430,10 +459,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -496,6 +527,13 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -503,8 +541,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -530,10 +567,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -596,13 +635,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -631,10 +676,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -697,13 +744,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -729,10 +782,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -795,13 +850,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -840,10 +901,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -919,13 +982,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -951,10 +1020,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1017,13 +1088,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1062,10 +1139,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1141,13 +1220,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1186,10 +1271,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1265,13 +1352,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1310,10 +1403,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1402,6 +1497,13 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -1409,8 +1511,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1435,10 +1536,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1501,6 +1604,13 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -1508,8 +1618,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1534,10 +1643,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1600,6 +1711,13 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "max": 1500,
           "min": 0,
@@ -1607,8 +1725,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1634,10 +1751,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1700,14 +1819,20 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1733,10 +1858,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1799,13 +1926,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1831,10 +1964,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1897,13 +2032,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1929,10 +2070,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1995,13 +2138,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2027,10 +2176,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2093,13 +2244,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2125,10 +2282,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2171,8 +2330,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2218,6 +2376,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -2242,7 +2418,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2380,8 +2556,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2440,6 +2615,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -2464,7 +2657,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2618,13 +2811,19 @@
             }
           },
           "decimals": 0,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2653,10 +2852,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2720,13 +2921,19 @@
             }
           },
           "decimals": 0,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2755,10 +2962,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2822,13 +3031,19 @@
             }
           },
           "decimals": 0,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2857,10 +3072,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2924,13 +3141,19 @@
             }
           },
           "decimals": 0,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2959,10 +3182,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3026,13 +3251,19 @@
             }
           },
           "decimals": 2,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3060,10 +3291,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3127,13 +3360,19 @@
             }
           },
           "decimals": 2,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3161,10 +3400,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3286,8 +3527,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3314,10 +3554,12 @@
           "sortDesc": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3361,8 +3603,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -3408,6 +3649,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -3432,7 +3691,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3585,14 +3844,20 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3631,10 +3896,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3710,13 +3977,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3743,10 +4016,12 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3809,13 +4084,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3840,10 +4121,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3906,13 +4189,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3938,10 +4227,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4004,13 +4295,19 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -4035,10 +4332,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4095,8 +4394,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -4142,6 +4440,24 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Node View",
+                    "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__data.fields.Instance}\n"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -4166,7 +4482,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4279,16 +4595,11 @@
       "type": "table"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of times that the count of local errors exceeded the set threshold",
       "fieldConfig": {
         "defaults": {
@@ -4328,14 +4639,19 @@
               "mode": "off"
             }
           },
-          "links": [],
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4346,31 +4662,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 148
       },
-      "hiddenSeries": false,
       "id": 220,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -4382,18 +4680,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4407,42 +4699,8 @@
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Link Integrity Errors ($Operation)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -4490,15 +4748,20 @@
             }
           },
           "decimals": 1,
-          "links": [],
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4542,11 +4805,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "7.5.4",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4577,16 +4841,11 @@
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of packets with errors Rx on a link",
       "fieldConfig": {
         "defaults": {
@@ -4626,14 +4885,19 @@
               "mode": "off"
             }
           },
-          "links": [],
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4644,31 +4908,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 156
       },
-      "hiddenSeries": false,
       "id": 219,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -4680,18 +4926,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4705,54 +4945,15 @@
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Link RX Errors ($Operation)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of TX error packets that were discarded.",
       "fieldConfig": {
         "defaults": {
@@ -4792,14 +4993,19 @@
               "mode": "off"
             }
           },
-          "links": [],
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Node View",
+              "url": "/d/9Qxi6EuNVsx/combined-node-ib-gpu-and-nvlink-metrics-dashboard?orgId=1&from=$__from&to=$__to&timezone=browser&${datasource:queryparam}&${cluster:queryparam}&var-instance=${__field.labels.instance}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4810,31 +5016,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 164
       },
-      "hiddenSeries": false,
       "id": 221,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -4846,18 +5034,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4871,56 +5053,20 @@
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Port TX Discards ($Operation)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
+          "text": [],
+          "value": []
         },
         "datasource": {
           "default": false,
@@ -4940,7 +5086,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
         "type": "query"
       },
@@ -4950,22 +5095,17 @@
           "text": "prometheus",
           "value": "${Datasource}"
         },
-        "hide": 0,
         "includeAll": false,
         "label": "Data Source",
-        "multi": false,
         "name": "Datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
           "text": "ccw_05051453/ccw",
           "value": "ccw_05051453/ccw"
         },
@@ -4973,34 +5113,27 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(dcgm_fi_dev_gpu_util, cluster)",
+        "definition": "label_values(node_cpu_seconds_total, cluster)",
         "description": "cluster name",
-        "hide": 0,
         "includeAll": true,
         "label": "Cluster",
-        "multi": false,
         "name": "cluster",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(dcgm_fi_dev_gpu_util, cluster)",
+          "query": "label_values(node_cpu_seconds_total, cluster)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
-          "text": "Average",
+          "text": "1",
           "value": "1"
         },
-        "hide": 0,
         "includeAll": false,
-        "multi": false,
         "name": "Operation",
         "options": [
           {
@@ -5020,8 +5153,6 @@
           }
         ],
         "query": "Average : 1, Minimum : 2,  Maximum : 3",
-        "queryValue": "",
-        "skipUrlSync": false,
         "type": "custom"
       }
     ]
