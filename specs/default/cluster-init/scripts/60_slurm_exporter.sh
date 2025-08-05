@@ -159,7 +159,7 @@ install_slurm_exporter() {
     fi
 
     # Run the Slurm Exporter container, expose the port so prometheus can scrape it. Redirect the host.docker.internal to the host gateway == localhost
-    docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --rm  -p 9080:8080 --add-host=host.docker.internal:host-gateway $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -cache-freq 10s
+    docker run -v /var:/var -e SLURM_JWT=${SLURM_JWT} -d --restart always -p 9080:8080 --add-host=host.docker.internal:host-gateway $SLURM_EXPORTER_IMAGE_NAME -server http://host.docker.internal:6820 -cache-freq 10s
     
     # Check if the container is running
     if [ "$(docker ps -q -f ancestor=$SLURM_EXPORTER_IMAGE_NAME)" ]; then
