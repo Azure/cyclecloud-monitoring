@@ -59,8 +59,11 @@ install_prerequisites() {
     if ! grep -q "AuthAltTypes=auth/jwt" /etc/slurm/slurm.conf; then
         sed -i --follow-symlinks '/^Include azure.conf/a '"$lines_to_insert"'' /etc/slurm/slurm.conf        
     fi
-    if ! grep -q "AuthAltTypes=auth/jwt" /etc/slurm/slurmdbd.conf; then
-        sed -i --follow-symlinks '/^# Authentication info/a '"$lines_to_insert"'' /etc/slurm/slurmdbd.conf        
+    # if /etc/slurm/slurmdbd.conf exists then insert the JWT token
+    if [ -e /etc/slurm/slurmdbd.conf ]; then
+        if ! grep -q "AuthAltTypes=auth/jwt" /etc/slurm/slurmdbd.conf; then
+            sed -i --follow-symlinks '/^# Authentication info/a '"$lines_to_insert"'' /etc/slurm/slurmdbd.conf
+        fi
     fi
 
     # Create an unprivileged user for slurmrestd
