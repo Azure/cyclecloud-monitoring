@@ -22,7 +22,9 @@ if [ -z "$USER_OBJECT_ID" ]; then
   exit 1
 fi
 
-az deployment group create --resource-group $RESOURCE_GROUP_NAME --template-file $THIS_DIR/main.bicep --parameters location=$LOCATION userObjectId=$USER_OBJECT_ID > $THIS_DIR/outputs.json
+deploymentName="monitoring-deployment-$(date +%s)"
+# Start the deployment
+az deployment group create --resource-group $RESOURCE_GROUP_NAME -o json -n $deploymentName --template-file $THIS_DIR/main.bicep --parameters location=$LOCATION userObjectId=$USER_OBJECT_ID > $THIS_DIR/outputs.json
 if [ $? -ne 0 ]; then
   echo "Deployment failed."
   exit 1
