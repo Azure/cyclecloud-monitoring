@@ -6,16 +6,20 @@ read_os()
     os_version=$(cat /etc/os-release | grep "^VERSION_ID\=" | cut -d'=' -f 2 | xargs)
 }
 
-function is_scheduler() {
+function is_slurm_scheduler() {
     jetpack config slurm.role | grep -q 'scheduler'
 }
 
+function is_scheduler() {
+    jetpack config roles | grep -q 'scheduler'
+}
+
 function is_login() {
-    jetpack config slurm.role | grep -q 'login'
+    jetpack config roles | grep -q 'login'
 }
 
 function is_compute() {
-    jetpack config slurm.role | grep -q 'execute'
+    jetpack config roles | grep -q 'execute'
 }
 
 function is_arm64() {

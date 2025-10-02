@@ -17,7 +17,7 @@ if ! is_monitoring_enabled; then
 fi
 
 # Only install Slurm Exporter on Scheduler
-if ! is_scheduler ; then
+if ! is_slurm_scheduler ; then
     echo "Do not install the Slurm Exporter since this is not the scheduler." 
     exit 0
 fi
@@ -190,7 +190,7 @@ function add_scraper() {
     systemctl restart prometheus
 }
 
-if is_scheduler ; then
+if is_slurm_scheduler ; then
     install_prerequisites
     install_slurm_exporter
     install_yq
