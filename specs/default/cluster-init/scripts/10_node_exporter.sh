@@ -75,5 +75,5 @@ function add_scraper() {
 
 # Always install node_exporter
 install_node_exporter
-install_yq
-add_scraper
+#install_yq
+#add_scraper

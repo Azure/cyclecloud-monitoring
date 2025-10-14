@@ -43,6 +43,6 @@ function add_scraper() {
 
 if is_compute ; then
     install_dcgm_exporter
-    install_yq
-    add_scraper
+#    install_yq
+#    add_scraper
 fi
