@@ -1,0 +1,5 @@
+{
+  "dcrResourceId": {
+    "value": "/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.Insights/dataCollectionRules/<dcr-name>"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "effect": {
+    "type": "String",
+    "metadata": {
+      "displayName": "Effect",
+      "description": "Enable or disable the execution of the policy."
+    },
+    "allowedValues": [
+      "DeployIfNotExists",
+      "Disabled"
+    ],
+    "defaultValue": "DeployIfNotExists"
+  },
+  "dcrResourceId": {
+    "type": "String",
+    "metadata": {
+      "displayName": "DCR/DCE Resource ID",
+      "description": "Full resource ID of the Data Collection Rule or Data Collection Endpoint to associate."
+    }
+  },
+  "resourceType": {
+    "type": "String",
+    "metadata": {
+      "displayName": "Association target type",
+      "description": "Choose whether you’re associating a Data Collection Rule or a Data Collection Endpoint."
+    },
+    "allowedValues": [
+      "Microsoft.Insights/dataCollectionRules",
+      "Microsoft.Insights/dataCollectionEndpoints"
+    ],
+    "defaultValue": "Microsoft.Insights/dataCollectionRules"
+  }
+}

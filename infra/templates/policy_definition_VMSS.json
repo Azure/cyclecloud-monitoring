@@ -1,0 +1,141 @@
+{
+  "if": {
+    "allOf": [
+      {
+        "anyOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Compute/virtualMachineScaleSets"
+          }
+        ]
+      },
+      {
+        "field": "tags['CycleCloudMonitoring']",
+        "equals": "enabled"
+      }
+    ]
+  },
+  "then": {
+    "effect": "[parameters('effect')]",
+    "details": {
+      "type": "Microsoft.Insights/dataCollectionRuleAssociations",
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/3913510d-42f4-4e42-8a64-420c390055eb",
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+        "/providers/Microsoft.Authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+        "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+      ],
+      "evaluationDelay": "AfterProvisioning",
+      "existenceCondition": {
+        "anyOf": [
+          {
+            "allOf": [
+              {
+                "value": "[parameters('resourceType')]",
+                "equals": "Microsoft.Insights/dataCollectionRules"
+              },
+              {
+                "field": "Microsoft.Insights/dataCollectionRuleAssociations/dataCollectionRuleId",
+                "equals": "[parameters('dcrResourceId')]"
+              }
+            ]
+          },
+          {
+            "allOf": [
+              {
+                "value": "[parameters('resourceType')]",
+                "equals": "Microsoft.Insights/dataCollectionEndpoints"
+              },
+              {
+                "field": "Microsoft.Insights/dataCollectionRuleAssociations/dataCollectionEndpointId",
+                "equals": "[parameters('dcrResourceId')]"
+              }
+            ]
+          }
+        ]
+      },
+      "deployment": {
+        "properties": {
+          "mode": "Incremental",
+          "template": {
+            "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+            "contentVersion": "1.0.0.0",
+            "parameters": {
+              "vmssName": {
+                "type": "string"
+              },
+              "location": {
+                "type": "string"
+              },
+              "dcrResourceId": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              }
+            },
+            "variables": {
+              "extensionName": "AzureMonitorLinuxAgent",
+              "extensionPublisher": "Microsoft.Azure.Monitor",
+              "extensionType": "AzureMonitorLinuxAgent",
+              "extensionTypeHandlerVersion": "1.36",
+              "dcrAssocName": "[concat('assoc-', uniqueString(concat(parameters('vmssName'), parameters('dcrResourceId'))))]",
+              "dceAssocName": "configurationAccessEndpoint",
+              "dcrType": "Microsoft.Insights/dataCollectionRules",
+              "dceType": "Microsoft.Insights/dataCollectionEndpoints"
+            },
+            "resources": [
+              {
+                "name": "[format('{0}/{1}', parameters('vmssName'), variables('extensionName'))]",
+                "type": "Microsoft.Compute/virtualMachineScaleSets/extensions",
+                "apiVersion": "2023-09-01",
+                "location": "[parameters('location')]",
+                "properties": {
+                  "publisher": "[variables('extensionPublisher')]",
+                  "type": "[variables('extensionType')]",
+                  "typeHandlerVersion": "[variables('extensionTypeHandlerVersion')]",
+                  "autoUpgradeMinorVersion": true,
+                  "enableAutomaticUpgrade": true
+                }
+              },
+              {
+                "condition": "[equals(parameters('resourceType'), variables('dcrType'))]",
+                "name": "[variables('dcrAssocName')]",
+                "type": "Microsoft.Insights/dataCollectionRuleAssociations",
+                "apiVersion": "2022-06-01",
+                "scope": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('vmssName'))]",
+                "properties": {
+                  "dataCollectionRuleId": "[parameters('dcrResourceId')]"
+                }
+              },
+              {
+                "condition": "[equals(parameters('resourceType'), variables('dceType'))]",
+                "name": "[variables('dceAssocName')]",
+                "type": "Microsoft.Insights/dataCollectionRuleAssociations",
+                "apiVersion": "2022-06-01",
+                "scope": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('vmssName'))]",
+                "properties": {
+                  "dataCollectionEndpointId": "[parameters('dcrResourceId')]"
+                }
+              }
+            ]
+          },
+          "parameters": {
+            "vmssName": {
+              "value": "[field('name')]"
+            },
+            "location": {
+              "value": "[field('location')]"
+            },
+            "dcrResourceId": {
+              "value": "[parameters('dcrResourceId')]"
+            },
+            "resourceType": {
+              "value": "[parameters('resourceType')]"
+            }
+          }
+        }
+      }
+    }
+  }
+}

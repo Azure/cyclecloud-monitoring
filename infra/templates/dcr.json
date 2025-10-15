@@ -1,0 +1,62 @@
+{
+  "properties": {
+    "description": "EUS DCR with Prom/MAC + CustomVMScrapeConfig",
+    "dataSources": {
+      "prometheusForwarder": [
+        {
+          "name": "myPromDataSource1",
+          "streams": [
+            "Microsoft-PrometheusMetrics"
+          ],
+          "customVMScrapeConfig": {
+            "global": {
+              "scrape_interval": "15s",
+              "evaluation_interval": "15s"
+            },
+            "scrape_configs": [
+              {
+                "job_name": "Microsoft-node_exporter",
+                "static_configs": [
+                  {
+                    "targets": [
+                      "localhost:9100"
+                    ]
+                  }
+                ]
+              },
+              {
+                "job_name": "Microsoft-gpu_exporter",
+                "static_configs": [
+                  {
+                    "targets": [
+                      "localhost:9400"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "destinations": {
+      "monitoringAccounts": [
+        {
+          "accountResourceId": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/myrg/providers/Microsoft.Monitor/accounts/myworkspace",
+          "name": "myMonAccountDest"
+        }
+      ]
+    },
+    "dataFlows": [
+      {
+        "streams": [
+          "Microsoft-PrometheusMetrics"
+        ],
+        "destinations": [
+          "myMonAccountDest"
+        ]
+      }
+    ]
+  },
+  "location": "somewhere"
+}

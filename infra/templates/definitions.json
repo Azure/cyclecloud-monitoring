@@ -1,0 +1,20 @@
+[
+    {
+        "policyDefinitionId": "/subscriptions/SUBSCRIPTION_ID/providers/Microsoft.Authorization/policyDefinitions/DeployAMAForCycleCloudVMs",
+        "policyDefinitionReferenceId": "DeployAMAForCycleCloudVMs",
+        "parameters": {
+            "dcrResourceId": {
+                "value": "[parameters('dcrResourceId')]"
+            }
+        }
+    }, 
+    {
+        "policyDefinitionId": "/subscriptions/SUBSCRIPTION_ID/providers/Microsoft.Authorization/policyDefinitions/DeployAMAForCycleCloudVMSS",
+        "policyDefinitionReferenceId": "DeployAMAForCycleCloudVMSS",
+        "parameters": {
+            "dcrResourceId": {
+                "value": "[parameters('dcrResourceId')]"
+            }
+        }
+    }
+]
