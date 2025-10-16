@@ -72,6 +72,9 @@
               },
               "resourceType": {
                 "type": "string"
+              },
+              "userAssignedManagedIdentityClientId": {
+                "type": "string"
               }
             },
             "variables": {
@@ -98,7 +101,8 @@
                   "typeHandlerVersion": "[variables('extensionTypeHandlerVersion')]",
                   "autoUpgradeMinorVersion": true,
                   "enableAutomaticUpgrade": true,
-                  "forceUpdateTag": "[variables('forceTag')]"
+                  "forceUpdateTag": "[variables('forceTag')]",
+                  "settings": "[if(empty(parameters('userAssignedManagedIdentityClientId')), json('{}'), json(concat('{\"authentication\":{\"managedIdentity\":{\"identifier-name\":\"client_id\",\"identifier-value\":\"', parameters('userAssignedManagedIdentityClientId'), '\"}}}')))]"
                 }
               },
               {
@@ -135,6 +139,9 @@
             },
             "resourceType": {
               "value": "[parameters('resourceType')]"
+            },
+            "userAssignedManagedIdentityClientId": {
+              "value": "[parameters('userAssignedManagedIdentityClientId')]"
             }
           }
         }

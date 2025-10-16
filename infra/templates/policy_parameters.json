@@ -22,12 +22,20 @@
     "type": "String",
     "metadata": {
       "displayName": "Association target type",
-      "description": "Choose whether you’re associating a Data Collection Rule or a Data Collection Endpoint."
+      "description": "Choose whether you're associating a Data Collection Rule or a Data Collection Endpoint."
     },
     "allowedValues": [
       "Microsoft.Insights/dataCollectionRules",
       "Microsoft.Insights/dataCollectionEndpoints"
     ],
     "defaultValue": "Microsoft.Insights/dataCollectionRules"
+  },
+  "userAssignedManagedIdentityClientId": {
+    "type": "String",
+    "metadata": {
+      "displayName": "User Assigned Managed Identity Client ID",
+      "description": "Client ID of the user assigned managed identity to use for Azure Monitor Agent authentication."
+    },
+    "defaultValue": ""
   }
 }

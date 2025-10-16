@@ -5,6 +5,9 @@
         "parameters": {
             "dcrResourceId": {
                 "value": "[parameters('dcrResourceId')]"
+            },
+            "userAssignedManagedIdentityClientId": {
+                "value": "[parameters('userAssignedManagedIdentityClientId')]"
             }
         }
     }, 
@@ -14,6 +17,9 @@
         "parameters": {
             "dcrResourceId": {
                 "value": "[parameters('dcrResourceId')]"
+            },
+            "userAssignedManagedIdentityClientId": {
+                "value": "[parameters('userAssignedManagedIdentityClientId')]"
             }
         }
     }
