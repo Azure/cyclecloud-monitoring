@@ -89,7 +89,7 @@
             },
             "resources": [
               {
-                "name": "[format('{0}/{1}', parameters('vmssName'), variables('extensionName'))]",
+                "name": "[concat(parameters('vmssName'), '/', variables('extensionPublisher'), '.', variables('extensionName'))]",
                 "type": "Microsoft.Compute/virtualMachineScaleSets/extensions",
                 "apiVersion": "2023-09-01",
                 "location": "[parameters('location')]",
