@@ -27,7 +27,6 @@
   "graphTooltip": 1,
   "id": null,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -63,8 +62,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -100,7 +98,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -108,7 +106,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_uname_info{instance=~\"^$instance$\", cluster=\"$cluster\"}",
+          "expr": "node_uname_info{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -116,6 +114,7 @@
           "refId": "A"
         }
       ],
+      "title": "",
       "transformations": [
         {
           "id": "joinByField",
@@ -172,8 +171,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -211,7 +209,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -219,7 +217,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "scalar(node_load1{instance=\"$instance\", cluster=\"$cluster\"}) * 100 / count(count(node_cpu_seconds_total{instance=\"$instance\", cluster=\"$cluster\"}) by (cpu))",
+          "expr": "scalar(node_load1{vm_instance=\"$instance\", \"microsoft.resourcegroupname\"=\"$cluster\"}) * 100 / count(count(node_cpu_seconds_total{vm_instance=\"$instance\", \"microsoft.resourcegroupname\"=\"$cluster\"}) by (cpu))",
           "format": "time_series",
           "legendFormat": "__auto",
           "range": true,
@@ -250,8 +248,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -289,7 +286,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -297,7 +294,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"$instance\", cluster=\"$cluster\"}[$__rate_interval])))",
+          "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\", vm_instance=\"$instance\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])))",
           "format": "time_series",
           "legendFormat": "__auto",
           "range": true,
@@ -326,8 +323,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -365,7 +361,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -373,7 +369,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "100 - (node_filesystem_avail_bytes{instance=\"$instance\",mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"} * 100) / node_filesystem_size_bytes{instance=\"$instance\",mountpoint=\"/\",fstype!=\"rootfs\",cluster=\"$cluster\"}",
+          "expr": "100 - (node_filesystem_avail_bytes{vm_instance=\"$instance\",mountpoint=\"/\",fstype!=\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"} * 100) / node_filesystem_size_bytes{vm_instance=\"$instance\",mountpoint=\"/\",fstype!=\"rootfs\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "legendFormat": "__auto",
           "range": true,
@@ -402,8 +398,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -448,7 +443,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -457,7 +452,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_time_seconds{instance=\"$instance\", cluster=\"$cluster\"} - node_boot_time_seconds{instance=\"$instance\", cluster=\"$cluster\"}",
+          "expr": "node_time_seconds{vm_instance=\"$instance\", \"microsoft.resourcegroupname\"=\"$cluster\"} - node_boot_time_seconds{vm_instance=\"$instance\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "instant": false,
           "legendFormat": "__auto",
@@ -497,8 +492,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -533,7 +527,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -541,7 +535,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_time_seconds{instance=\"$instance\", cluster=\"$cluster\"} - node_boot_time_seconds{instance=\"$instance\", cluster=\"$cluster\"}",
+          "expr": "node_time_seconds{vm_instance=\"$instance\", \"microsoft.resourcegroupname\"=\"$cluster\"} - node_boot_time_seconds{vm_instance=\"$instance\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "legendFormat": "__auto",
           "range": true,
@@ -604,8 +598,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -635,10 +628,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -646,7 +641,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - avg by (hostname, cpu) (rate(node_cpu_seconds_total{mode='idle', instance=~\"^$instance$\", cpu=~\"^$cpu$\", cluster=\"$cluster\" }[$__rate_interval]))))",
+          "expr": "(100 * (1 - avg by (hostname, cpu) (rate(node_cpu_seconds_total{mode='idle', vm_instance=~\"^$instance$\", cpu=~\"^$cpu$\", \"microsoft.resourcegroupname\"=\"$cluster\" }[$__rate_interval]))))",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
@@ -705,8 +700,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -737,10 +731,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -748,7 +744,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_cpu_frequency_hertz{instance=~\"^$instance$\", cpu=~\"^$cpu$\", cluster=\"$cluster\"} / 1000000",
+          "expr": "node_cpu_frequency_hertz{vm_instance=~\"^$instance$\", cpu=~\"^$cpu$\", \"microsoft.resourcegroupname\"=\"$cluster\"} / 1000000",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
@@ -809,8 +805,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -841,10 +836,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -852,9 +849,9 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - node_memory_memavailable_bytes{instance=~\"^$instance$\", cluster=\"$cluster\"} / node_memory_memtotal_bytes{instance=~\"^$instance$\", cluster=\"$cluster\"}))",
+          "expr": "(100 * (1 - node_memory_memavailable_bytes{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"} / node_memory_memtotal_bytes{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"}))",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -912,8 +909,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -944,10 +940,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -955,8 +953,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_memory_memavailable_bytes{instance=~\"^$instance$\", cluster=\"$cluster\"}",
-          "legendFormat": "{{instance}}",
+          "expr": "node_memory_memavailable_bytes{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1014,8 +1012,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1053,10 +1050,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1064,10 +1063,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_vmstat_pgmajfault{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_vmstat_pgmajfault{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "B"
         }
@@ -1125,8 +1124,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1156,10 +1154,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1167,7 +1167,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{instance=~\"^$instance$\",device!~\"rootfs\", cluster=\"$cluster\"} - node_filesystem_avail_bytes{instance=~\"^$instance$\",device!~\"rootfs\", cluster=\"$cluster\"}",
+          "expr": "node_filesystem_size_bytes{vm_instance=~\"^$instance$\",device!~\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"} - node_filesystem_avail_bytes{vm_instance=~\"^$instance$\",device!~\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "{{mountpoint}}",
           "range": true,
           "refId": "A"
@@ -1226,8 +1226,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1266,10 +1265,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1277,8 +1278,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(node_network_receive_bytes_total{device='eth0', instance=~\"^$instance$\", cluster=\"$cluster\"}[$__rate_interval]))",
-          "legendFormat": "{{instance}} - receive",
+          "expr": "(rate(node_network_receive_bytes_total{device='eth0', vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))",
+          "legendFormat": "{{vm_instance}} - receive",
           "range": true,
           "refId": "A"
         },
@@ -1288,10 +1289,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(node_network_transmit_bytes_total{device='eth0', instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": "(rate(node_network_transmit_bytes_total{device='eth0', vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - transmit",
+          "legendFormat": "{{vm_instance}} - transmit",
           "range": true,
           "refId": "B"
         }
@@ -1349,8 +1350,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1380,10 +1380,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1391,7 +1393,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_io_time_seconds_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\", cluster=\"$cluster\"} [$__rate_interval])",
+          "expr": "irate(node_disk_io_time_seconds_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\", \"microsoft.resourcegroupname\"=\"$cluster\"} [$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -1450,8 +1452,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1494,10 +1495,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1505,7 +1508,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_reads_completed_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_reads_completed_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - reads completed",
           "range": true,
           "refId": "A"
@@ -1516,7 +1519,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_writes_completed_total{instance=\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_writes_completed_total{vm_instance=\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - writes completed",
           "range": true,
           "refId": "B"
@@ -1575,8 +1578,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1619,10 +1621,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1630,7 +1634,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_read_bytes_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\", cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_read_bytes_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} -read",
           "range": true,
           "refId": "A"
@@ -1641,7 +1645,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_written_bytes_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_written_bytes_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - write",
           "range": true,
           "refId": "B"
@@ -1700,8 +1704,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1744,10 +1747,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1755,7 +1760,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=~\"^$instance$\", operation=~\"^READ$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_operations_requests_total{vm_instance=~\"^$instance$\", operation=~\"^READ$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - {{operation}}s completed",
           "range": true,
           "refId": "A"
@@ -1766,7 +1771,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=~\"^$instance$\", operation=~\"^WRITE$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_operations_requests_total{vm_instance=~\"^$instance$\", operation=~\"^WRITE$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
           "legendFormat": "{{export}} - {{operation}}s completed",
@@ -1827,8 +1832,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1871,10 +1875,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1882,7 +1888,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_total_read_bytes_total{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_total_read_bytes_total{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - read",
           "range": true,
           "refId": "A"
@@ -1893,7 +1899,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_total_write_bytes_total{instance=~\"^$instance$\", cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_total_write_bytes_total{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - write",
           "range": true,
           "refId": "B"
@@ -1936,8 +1942,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1973,7 +1978,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1981,7 +1986,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_gpu_util{instance=~\"^$instance$\", cluster=\"$cluster\", gpu=\"0\"}",
+          "expr": "dcgm_fi_dev_gpu_util{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\", gpu=\"0\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -1989,6 +1994,7 @@
           "refId": "A"
         }
       ],
+      "title": "",
       "transformations": [
         {
           "id": "labelsToFields",
@@ -2034,8 +2040,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2073,7 +2078,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2081,7 +2086,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg(dcgm_fi_dev_gpu_util{instance=~\"^$instance$\", cluster=\"$cluster\"})",
+          "expr": "avg(dcgm_fi_dev_gpu_util{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -2108,8 +2113,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -2147,7 +2151,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2155,7 +2159,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg ((dcgm_fi_dev_power_usage{instance=~\"^$instance$\",cluster=\"$cluster\"} / dcgm_fi_dev_power_mgmt_limit{instance=~\"^$instance$\",cluster=\"$cluster\"}) * 100)\r\n\r\n",
+          "expr": "avg ((dcgm_fi_dev_power_usage{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"} / dcgm_fi_dev_power_mgmt_limit{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}) * 100)\r\n\r\n",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
@@ -2182,8 +2186,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -2221,7 +2224,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2229,7 +2232,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg ((dcgm_fi_dev_gpu_temp{instance=~\"^$instance$\",cluster=\"$cluster\"} / dcgm_fi_dev_gpu_max_op_temp{instance=~\"^$instance$\",cluster=\"$cluster\"}) * 100) ",
+          "expr": "avg ((dcgm_fi_dev_gpu_temp{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"} / dcgm_fi_dev_gpu_max_op_temp{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}) * 100) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -2264,8 +2267,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
-                "value": null
+                "color": "#299c46"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -2310,7 +2312,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2318,7 +2320,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "max by (gpu) (dcgm_fi_dev_xid_errors{instance=~\"^$instance$\", cluster=\"$cluster\"})",
+          "expr": "max by (gpu) (dcgm_fi_dev_xid_errors{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"})",
           "legendFormat": "{{gpu}}",
           "range": true,
           "refId": "A"
@@ -2380,8 +2382,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2413,10 +2414,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2424,7 +2427,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_gpu_util{instance=~\"^$instance$\", gpu=~\"^$gpu$\", cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_gpu_util{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -2486,8 +2489,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2519,10 +2521,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2530,7 +2534,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_mem_copy_util{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_mem_copy_util{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -2590,8 +2594,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2622,10 +2625,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2633,7 +2638,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_sm_clock{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_sm_clock{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -2693,8 +2698,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2725,10 +2729,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2736,7 +2742,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_mem_clock{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_mem_clock{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -2796,8 +2802,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2829,10 +2834,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2840,7 +2847,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_gpu_temp{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_gpu_temp{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -2900,8 +2907,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2933,10 +2939,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2944,7 +2952,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_memory_temp{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_memory_temp{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -3004,8 +3012,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3037,10 +3044,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3048,7 +3057,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_power_usage{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_power_usage{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -3108,8 +3117,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3140,10 +3148,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3151,7 +3161,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_total_energy_consumption{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"} / 10^3",
+          "expr": "dcgm_fi_dev_total_energy_consumption{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"} / 10^3",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -3185,8 +3195,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3256,7 +3265,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3265,7 +3274,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_XID_ERRORS{instance=~\"^$instance$\",cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_XID_ERRORS{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "legendFormat": "__auto",
           "range": true,
@@ -3283,7 +3292,7 @@
                 "gpu",
                 "hostname",
                 "Value",
-                "instance"
+                "vm_instance"
               ]
             }
           }
@@ -3316,14 +3325,14 @@
               "hostname": {
                 "aggregations": []
               },
-              "instance": {
-                "aggregations": []
-              },
               "time_stamp": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": []
               }
             }
           }
@@ -3336,7 +3345,7 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value": "XID code",
@@ -3344,9 +3353,9 @@
               "gpu": "GPU",
               "gpu_id": "GPU ID",
               "hostname": "Instance",
-              "instance": "Instance",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -3393,8 +3402,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -3477,7 +3485,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3487,10 +3495,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{instance=~\"^$instance$\",cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3535,14 +3543,14 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "instance": {
-                "aggregations": []
-              },
               "time_stamp": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": []
               }
             }
           }
@@ -3555,16 +3563,16 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value (last)": "Throttle Code",
               "gpu": "GPU",
               "hostname": "Instance",
               "ib_port": "IB device",
-              "instance": "Instance",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -3584,16 +3592,11 @@
       "type": "table"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of single-bit persistent ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -3639,8 +3642,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3651,31 +3653,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 106
       },
-      "hiddenSeries": false,
       "id": 111,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -3687,18 +3671,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3706,60 +3684,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_sbe_agg_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_sbe_agg_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "SBE Persistent ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of double-bit persistent ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -3805,8 +3744,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3817,31 +3755,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 106
       },
-      "hiddenSeries": false,
       "id": 112,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -3853,18 +3773,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3872,60 +3786,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_dbe_agg_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_dbe_agg_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "DBE Persistent ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3101",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3102",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of single-bit volatile ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -3970,8 +3845,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3982,31 +3856,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 114
       },
-      "hiddenSeries": false,
       "id": 109,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -4018,18 +3874,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4037,60 +3887,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_sbe_vol_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_sbe_vol_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "SBE Volatile ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:773",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:774",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of double-bit volatile ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -4136,8 +3947,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4148,31 +3958,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 114
       },
-      "hiddenSeries": false,
       "id": 110,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -4184,18 +3976,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4203,48 +3989,14 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_dbe_vol_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_dbe_vol_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "DBE Volatile ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:2927",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:2928",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -4297,8 +4049,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4326,11 +4077,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4339,7 +4091,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(dcgm_fi_dev_thermal_violation{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
+          "expr": "increase(dcgm_fi_dev_thermal_violation{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -4399,8 +4151,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4428,11 +4179,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4441,7 +4193,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(dcgm_fi_dev_power_violation{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
+          "expr": "increase(dcgm_fi_dev_power_violation{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -4476,6 +4228,7 @@
             "mode": "shades"
           },
           "custom": {
+            "axisPlacement": "auto",
             "fillOpacity": 70,
             "hideFrom": {
               "legend": false,
@@ -4540,8 +4293,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -4567,11 +4319,12 @@
         "rowHeight": 0.9,
         "showValue": "auto",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.2+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4579,7 +4332,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_infiniband_physical_state_id{instance=~\"^$instance$\", device!=\"mlx5_an0\",cluster=\"$cluster\"}",
+          "expr": "node_infiniband_physical_state_id{vm_instance=~\"^$instance$\", device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -4601,6 +4354,7 @@
             "mode": "continuous-GrYlRd"
           },
           "custom": {
+            "axisPlacement": "auto",
             "fillOpacity": 70,
             "hideFrom": {
               "legend": false,
@@ -4639,8 +4393,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4669,11 +4422,12 @@
         "rowHeight": 0.9,
         "showValue": "auto",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.2+security-01",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4681,7 +4435,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "clamp_max(increase(node_infiniband_link_downed_total{instance=~\"^$instance$\",cluster=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval]), 1)",
+          "expr": "clamp_max(increase(node_infiniband_link_downed_total{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval]), 1)",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -4741,8 +4495,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4785,11 +4538,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4798,7 +4552,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(node_infiniband_port_data_received_bytes_total{instance=~\"^$instance$\",cluster=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
+          "expr": "rate(node_infiniband_port_data_received_bytes_total{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{device}} - receive",
           "range": true,
@@ -4810,7 +4564,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(node_infiniband_port_data_transmitted_bytes_total{instance=~\"^$instance$\", cluster=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
+          "expr": "rate(node_infiniband_port_data_transmitted_bytes_total{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
           "legendFormat": "{{device}} - transmit",
@@ -4871,8 +4625,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4901,11 +4654,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -4913,7 +4667,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(node_infiniband_port_errors_received_total{instance=~\"^$instance$\", cluster=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval])",
+          "expr": "increase(node_infiniband_port_errors_received_total{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -4972,8 +4726,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5002,11 +4755,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5014,7 +4768,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(node_infiniband_port_constraint_errors_received_total{instance=~\"^$instance$\",cluster=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
+          "expr": "increase(node_infiniband_port_constraint_errors_received_total{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -5073,8 +4827,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5103,11 +4856,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5115,7 +4869,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(node_infiniband_port_transmit_wait_total{instance=~\"^$instance$\", cluster=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval])",
+          "expr": "rate(node_infiniband_port_transmit_wait_total{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -5174,8 +4928,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5204,11 +4957,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5216,7 +4970,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(node_infiniband_port_constraint_errors_transmitted_total{instance=~\"^$instance$\",cluster=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
+          "expr": "increase(node_infiniband_port_constraint_errors_transmitted_total{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\", device!=\"mlx5_an0\"}[$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -5275,8 +5029,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5305,11 +5058,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5317,7 +5071,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(node_infiniband_port_discards_transmitted_total{instance=~\"^$instance$\", cluster=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval])",
+          "expr": "increase(node_infiniband_port_discards_transmitted_total{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\",device!=\"mlx5_an0\"}[$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -5365,8 +5119,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -5436,7 +5189,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5446,10 +5199,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval]), 1)",
+          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]), 1)",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -5494,9 +5247,6 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "instance": {
-                "aggregations": []
-              },
               "port": {
                 "aggregations": []
               },
@@ -5505,6 +5255,9 @@
                   "last"
                 ],
                 "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": []
               }
             }
           }
@@ -5517,17 +5270,17 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value (last)": "Link Health",
               "gpu": "GPU",
               "hostname": "Instance",
               "ib_port": "IB device",
-              "instance": "Instance",
               "port": "Port",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -5546,16 +5299,11 @@
       "type": "table"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of times that the count of local errors exceeded the set threshold",
       "fieldConfig": {
         "defaults": {
@@ -5601,8 +5349,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5613,31 +5360,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 164
       },
-      "hiddenSeries": false,
       "id": 2046,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -5649,18 +5378,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5668,48 +5391,14 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{instance=~\"^$instance$\", cluster=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Link Integrity Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -5764,8 +5453,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5809,11 +5497,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "7.5.4",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5821,7 +5510,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(dcgm_fi_prof_nvlink_rx_bytes{instance=~\"^$instance$\", cluster=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
+          "expr": "rate(dcgm_fi_prof_nvlink_rx_bytes{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}} - receive",
           "range": true,
           "refId": "A"
@@ -5832,7 +5521,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(dcgm_fi_prof_nvlink_tx_bytes{instance=~\"^$instance$\",cluster=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
+          "expr": "rate(dcgm_fi_prof_nvlink_tx_bytes{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
           "legendFormat": "GPU {{gpu}} - transmit",
@@ -5844,16 +5533,11 @@
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of packets with errors Rx on a link",
       "fieldConfig": {
         "defaults": {
@@ -5899,8 +5583,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5911,31 +5594,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 172
       },
-      "hiddenSeries": false,
       "id": 2047,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -5947,18 +5612,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -5966,60 +5625,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_nvlink_count_rx_errors{instance=~\"^$instance$\",cluster=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_nvlink_count_rx_errors{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\", gpu=~\"^$gpu$\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Link RX Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of TX error packets that were discarded.",
       "fieldConfig": {
         "defaults": {
@@ -6065,8 +5685,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -6077,31 +5696,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 180
       },
-      "hiddenSeries": false,
       "id": 2048,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -6113,18 +5714,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -6132,53 +5727,19 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_nvlink_count_tx_discards{instance=~\"^$instance$\", cluster=\"$cluster\",gpu=~\"^$gpu$\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_nvlink_count_tx_discards{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\",gpu=~\"^$gpu$\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Port TX Discards",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [
     "HPC/AI Researcher",
     "HPC/AI Data scientist"
@@ -6187,88 +5748,68 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "prometheus",
-          "value": "${Datasource}"
+          "text": "da-prom2",
+          "value": "ff18d1fgl0oaof"
         },
-        "hide": 0,
         "includeAll": false,
         "label": "Data Source",
-        "multi": false,
         "name": "Datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": true,
-          "text": "ccw_05051453/ccw",
-          "value": "ccw_05051453/ccw"
+          "text": "da-amp-rg",
+          "value": "da-amp-rg"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_cpu_seconds_total, cluster)",
-        "hide": 0,
+        "definition": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
         "includeAll": false,
         "label": "Cluster",
-        "multi": false,
         "name": "cluster",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(node_cpu_seconds_total, cluster)",
+          "query": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": "ccw-gpu-2",
-          "value": "ccw-gpu-2"
+          "text": "da-amp-vegjwdu",
+          "value": "da-amp-vegjwdu"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_uname_info{cluster=\"$cluster\"},instance)",
-        "hide": 0,
+        "definition": "label_values(node_uname_info,vm_instance)",
         "includeAll": false,
         "label": "Hostname",
-        "multi": false,
         "name": "instance",
         "options": [],
         "query": {
-          "qryType": 4,
-          "query": "label_values(node_uname_info{cluster=\"$cluster\"},instance)",
+          "qryType": 1,
+          "query": "label_values(node_uname_info,vm_instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -6277,29 +5818,23 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_cpu_seconds_total{instance=\"$instance\"}, cpu)",
-        "hide": 0,
+        "definition": "label_values(node_cpu_seconds_total{vm_instance=\"$instance\"}, cpu)",
         "includeAll": true,
         "label": "CPU",
         "multi": true,
         "name": "cpu",
         "options": [],
         "query": {
-          "query": "label_values(node_cpu_seconds_total{instance=\"$instance\"}, cpu)",
+          "query": "label_values(node_cpu_seconds_total{vm_instance=\"$instance\"}, cpu)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -6308,29 +5843,23 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_disk_reads_completed_total{instance=\"$instance\"}, device)",
-        "hide": 0,
+        "definition": "label_values(node_disk_reads_completed_total{vm_instance=\"$instance\"}, device)",
         "includeAll": true,
         "label": "Disk Devices",
         "multi": true,
         "name": "diskdevices",
         "options": [],
         "query": {
-          "query": "label_values(node_disk_reads_completed_total{instance=\"$instance\"}, device)",
+          "query": "label_values(node_disk_reads_completed_total{vm_instance=\"$instance\"}, device)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "/^(?!dm-|loop|tmpfs)/",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -6339,55 +5868,47 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(dcgm_fi_dev_gpu_util{instance=\"$instance\"}, gpu)",
-        "hide": 0,
+        "definition": "label_values(dcgm_fi_dev_gpu_util{vm_instance=\"$instance\"}, gpu)",
         "includeAll": true,
         "label": "GPU",
         "multi": true,
         "name": "gpu",
         "options": [],
         "query": {
-          "query": "label_values(dcgm_fi_dev_gpu_util{instance=\"$instance\"}, gpu)",
+          "query": "label_values(dcgm_fi_dev_gpu_util{vm_instance=\"$instance\"}, gpu)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
-          "text": "dcgm_fi_dev_power_mgmt_limit{cluster=\"ccw_05051453/ccw\",device=\"nvidia0\",gpu=\"0\",hostname=\"6f6bfae03eac\",instance=\"ccw-gpu-2\",job=\"dcgm_exporter\",modelname=\"nvidia a100 80gb pcie\",pci_bus_id=\"00000001:00:00.0\",physical_host=\"sat111100202001\",subscription=\"e3786699-5116-4dc9-82c6-a8aab043fb85\",uuid=\"gpu-1733d42c-5f9a-2390-658b-caaa75b982a9\"}",
-          "value": "dcgm_fi_dev_power_mgmt_limit{cluster=\"ccw_05051453/ccw\",device=\"nvidia0\",gpu=\"0\",hostname=\"6f6bfae03eac\",instance=\"ccw-gpu-2\",job=\"dcgm_exporter\",modelname=\"nvidia a100 80gb pcie\",pci_bus_id=\"00000001:00:00.0\",physical_host=\"sat111100202001\",subscription=\"e3786699-5116-4dc9-82c6-a8aab043fb85\",uuid=\"gpu-1733d42c-5f9a-2390-658b-caaa75b982a9\"}"
+          "text": "dcgm_fi_dev_power_mgmt_limit{device=\"nvidia0\",gpu=\"0\",hostname=\"3ef0d16b0a06\",microsoft.amwresourceid=\"/subscriptions/16d7fc29-159c-4855-99b5-222e04b9a7ba/resourcegroups/da-amp-rg/providers/microsoft.monitor/accounts/da-amp-amw\",microsoft.resourcegroupname=\"da-amp-rg\",microsoft.resourceid=\"/subscriptions/16d7fc29-159c-4855-99b5-222e04b9a7ba/resourcegroups/da-amp-rg/providers/microsoft.compute/virtualmachines/da-amp-vmss_cbe2cd4e\",microsoft.resourcetype=\"microsoft.compute/virtualmachines\",microsoft.subscriptionid=\"16d7fc29-159c-4855-99b5-222e04b9a7ba\",modelname=\"nvidia h100 80gb hbm3\",pci_bus_id=\"00000001:00:00.0\",uuid=\"gpu-89ed0d7a-0d6e-349e-2a36-3a7b464aea45\",vm_instance=\"da-amp-vegjwdu\"}",
+          "value": "dcgm_fi_dev_power_mgmt_limit{device=\"nvidia0\",gpu=\"0\",hostname=\"3ef0d16b0a06\",microsoft.amwresourceid=\"/subscriptions/16d7fc29-159c-4855-99b5-222e04b9a7ba/resourcegroups/da-amp-rg/providers/microsoft.monitor/accounts/da-amp-amw\",microsoft.resourcegroupname=\"da-amp-rg\",microsoft.resourceid=\"/subscriptions/16d7fc29-159c-4855-99b5-222e04b9a7ba/resourcegroups/da-amp-rg/providers/microsoft.compute/virtualmachines/da-amp-vmss_cbe2cd4e\",microsoft.resourcetype=\"microsoft.compute/virtualmachines\",microsoft.subscriptionid=\"16d7fc29-159c-4855-99b5-222e04b9a7ba\",modelname=\"nvidia h100 80gb hbm3\",pci_bus_id=\"00000001:00:00.0\",uuid=\"gpu-89ed0d7a-0d6e-349e-2a36-3a7b464aea45\",vm_instance=\"da-amp-vegjwdu\"}"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", instance=\"$instance\"}",
+        "definition": "dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", vm_instance=\"$instance\"}",
         "hide": 2,
         "includeAll": false,
-        "multi": false,
         "name": "powerlimit",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", instance=\"$instance\"}",
+          "query": "dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", vm_instance=\"$instance\"}",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
-          "text": "dcgm_fi_dev_power_mgmt_limit{cluster=\"ccw_05051453/ccw\",device=\"nvidia0\",gpu=\"0\",hostname=\"6f6bfae03eac\",instance=\"ccw-gpu-2\",job=\"dcgm_exporter\",modelname=\"nvidia a100 80gb pcie\",pci_bus_id=\"00000001:00:00.0\",physical_host=\"sat111100202001\",subscription=\"e3786699-5116-4dc9-82c6-a8aab043fb85\",uuid=\"gpu-1733d42c-5f9a-2390-658b-caaa75b982a9\"}",
-          "value": "dcgm_fi_dev_power_mgmt_limit{cluster=\"ccw_05051453/ccw\",device=\"nvidia0\",gpu=\"0\",hostname=\"6f6bfae03eac\",instance=\"ccw-gpu-2\",job=\"dcgm_exporter\",modelname=\"nvidia a100 80gb pcie\",pci_bus_id=\"00000001:00:00.0\",physical_host=\"sat111100202001\",subscription=\"e3786699-5116-4dc9-82c6-a8aab043fb85\",uuid=\"gpu-1733d42c-5f9a-2390-658b-caaa75b982a9\"}"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
@@ -6396,7 +5917,6 @@
         "definition": "dcgm_fi_dev_power_mgmt_limit{gpu=\"0\",instance=\"$instance\"}",
         "hide": 2,
         "includeAll": false,
-        "multi": false,
         "name": "templimit",
         "options": [],
         "query": {
@@ -6406,35 +5926,29 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
-          "text": "sat111100202001",
-          "value": "sat111100202001"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", instance=\"$instance\"},physical_host)",
+        "definition": "label_values(dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", vm_instance=\"$instance\"},physical_host)",
         "hide": 2,
         "includeAll": false,
-        "multi": false,
         "name": "physicalhost",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", instance=\"$instance\"},physical_host)",
+          "query": "label_values(dcgm_fi_dev_power_mgmt_limit{gpu=\"0\", vm_instance=\"$instance\"},physical_host)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -6444,7 +5958,6 @@
     "to": "now"
   },
   "timepicker": {
-    "hidden": false,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -6455,6 +5968,5 @@
   "timezone": "browser",
   "title": "Combined Node, IB, GPU & NVLink Metrics Dashboard (w/o GPU Profiling)",
   "uid": "9Qxi6EuNVsxk",
-  "version": 8,
-  "weekStart": ""
+  "version": 2
 }
