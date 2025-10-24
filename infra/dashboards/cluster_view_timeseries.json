@@ -142,8 +142,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (node_load1{cluster=\"$cluster\"}) / on(instance) count by (instance) (group by (instance, cpu) (node_cpu_seconds_total{cluster=\"$cluster\"}))) * ($Operation== bool 1) + (min by(instance) (node_load1{cluster=\"$cluster\"}) / on(instance) count by (instance) (group by (instance, cpu) (node_cpu_seconds_total{cluster=\"$cluster\"}))) * ($Operation== bool 2) + (max by(instance) (node_load1{cluster=\"$cluster\"}) / on(instance) count by (instance) (group by (instance, cpu) (node_cpu_seconds_total{cluster=\"$cluster\"}))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} - 1m",
+          "expr": "(avg by(vm_instance) (node_load1{\"microsoft.resourcegroupname\"=\"$cluster\"}) / on(vm_instance) count by (vm_instance) (group by (vm_instance, cpu) (node_cpu_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}))) * ($Operation== bool 1) + (min by(vm_instance) (node_load1{\"microsoft.resourcegroupname\"=\"$cluster\"}) / on(vm_instance) count by (vm_instance) (group by (vm_instance, cpu) (node_cpu_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}))) * ($Operation== bool 2) + (max by(vm_instance) (node_load1{\"microsoft.resourcegroupname\"=\"$cluster\"}) / on(vm_instance) count by (vm_instance) (group by (vm_instance, cpu) (node_cpu_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} - 1m",
           "range": true,
           "refId": "A"
         }
@@ -258,8 +258,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"}))) * ($Operation== bool 1) + (min by(instance) (100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"}))) * ($Operation== bool 2) + (max by(instance) (100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"}))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"}))) * ($Operation== bool 1) + (min by(vm_instance) (100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"}))) * ($Operation== bool 2) + (max by(vm_instance) (100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\", \"microsoft.resourcegroupname\"=\"$cluster\"}))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -366,8 +366,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (100 * (1 - avg by(instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", cluster=\"$cluster\"}[$__rate_interval])))))  *  ($Operation== bool 1)  + (min by(instance) (100 * (1 - avg by(instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", cluster=\"$cluster\"}[$__rate_interval])))))  *  ($Operation== bool 2)  + (max by(instance) (100 * (1 - avg by(instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", cluster=\"$cluster\"}[$__rate_interval])))))  *  ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (100 * (1 - avg by(vm_instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])))))  *  ($Operation== bool 1)  + (min by(vm_instance) (100 * (1 - avg by(vm_instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])))))  *  ($Operation== bool 2)  + (max by(vm_instance) (100 * (1 - avg by(vm_instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])))))  *  ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -473,7 +473,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (node_cpu_frequency_hertz{cluster=\"$cluster\"})/ 1000000)  *  ($Operation== bool 1)  + (min by(instance) (node_cpu_frequency_hertz{cluster=\"$cluster\"})/ 1000000)  *  ($Operation== bool 2)  + (max by(instance) (node_cpu_frequency_hertz{cluster=\"$cluster\"})/ 1000000)  *  ($Operation== bool 3)",
+          "expr": "(avg by(vm_instance) (node_cpu_frequency_hertz{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 1000000)  *  ($Operation== bool 1)  + (min by(vm_instance) (node_cpu_frequency_hertz{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 1000000)  *  ($Operation== bool 2)  + (max by(vm_instance) (node_cpu_frequency_hertz{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 1000000)  *  ($Operation== bool 3)",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -581,8 +581,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (100 * (1 - (node_memory_MemAvailable_bytes{cluster=\"$cluster\"} / node_memory_MemTotal_bytes{cluster=\"$cluster\"})))) * ($Operation== bool 1) + (min by(instance) (100 * (1 - (node_memory_MemAvailable_bytes{cluster=\"$cluster\"} / node_memory_MemTotal_bytes{cluster=\"$cluster\"})))) * ($Operation== bool 2) + (max by(instance) (100 * (1 - (node_memory_MemAvailable_bytes{cluster=\"$cluster\"} / node_memory_MemTotal_bytes{cluster=\"$cluster\"})))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (100 * (1 - (node_memory_MemAvailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"} / node_memory_MemTotal_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"})))) * ($Operation== bool 1) + (min by(vm_instance) (100 * (1 - (node_memory_MemAvailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"} / node_memory_MemTotal_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"})))) * ($Operation== bool 2) + (max by(vm_instance) (100 * (1 - (node_memory_MemAvailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"} / node_memory_MemTotal_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"})))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -690,8 +690,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (rate(node_vmstat_pgmajfault{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(node_vmstat_pgmajfault{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(node_vmstat_pgmajfault{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} ",
+          "expr": "(avg by(vm_instance) (rate(node_vmstat_pgmajfault{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(node_vmstat_pgmajfault{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(node_vmstat_pgmajfault{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} ",
           "range": true,
           "refId": "A"
         }
@@ -796,7 +796,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (node_memory_memavailable_bytes{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (node_memory_memavailable_bytes{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (node_memory_memavailable_bytes{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "expr": "(avg by(vm_instance) (node_memory_memavailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (node_memory_memavailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (node_memory_memavailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -915,8 +915,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(sum by(instance) (rate(node_network_receive_bytes_total{device='eth0', cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(node_network_receive_bytes_total{device='eth0', cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(node_network_receive_bytes_total{device='eth0', cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} - receive",
+          "expr": "(sum by(vm_instance) (rate(node_network_receive_bytes_total{device='eth0', \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(node_network_receive_bytes_total{device='eth0', \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(node_network_receive_bytes_total{device='eth0', \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} - receive",
           "range": true,
           "refId": "A"
         },
@@ -926,10 +926,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(sum by(instance) (rate(node_network_transmit_bytes_total{device='eth0',cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(node_network_transmit_bytes_total{device='eth0',cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(node_network_transmit_bytes_total{device='eth0',cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "expr": "(sum by(vm_instance) (rate(node_network_transmit_bytes_total{device='eth0',\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(node_network_transmit_bytes_total{device='eth0',\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(node_network_transmit_bytes_total{device='eth0',\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - transmit",
+          "legendFormat": "{{vm_instance}} - transmit",
           "range": true,
           "refId": "B"
         }
@@ -1034,8 +1034,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (irate(node_disk_io_time_seconds_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (irate(node_disk_io_time_seconds_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (irate(node_disk_io_time_seconds_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (irate(node_disk_io_time_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (irate(node_disk_io_time_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (irate(node_disk_io_time_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1153,8 +1153,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (irate(node_disk_read_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (irate(node_disk_read_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (irate(node_disk_read_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} - read",
+          "expr": "(avg by(vm_instance) (irate(node_disk_read_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (irate(node_disk_read_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (irate(node_disk_read_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} - read",
           "range": true,
           "refId": "A"
         },
@@ -1164,10 +1164,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (irate(node_disk_written_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (irate(node_disk_written_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (irate(node_disk_written_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "expr": "(avg by(vm_instance) (irate(node_disk_written_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (irate(node_disk_written_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (irate(node_disk_written_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - write",
+          "legendFormat": "{{vm_instance}} - write",
           "range": true,
           "refId": "B"
         }
@@ -1285,8 +1285,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^READ$\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^READ$\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^READ$\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} - read",
+          "expr": "(avg by(vm_instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^READ$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^READ$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^READ$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} - read",
           "range": true,
           "refId": "A"
         },
@@ -1296,10 +1296,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^WRITE$\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^WRITE$\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^WRITE$\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "expr": "(avg by(vm_instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^WRITE$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^WRITE$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (irate(node_mountstats_nfs_operations_requests_total{operation=~\"^WRITE$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - write",
+          "legendFormat": "{{vm_instance}} - write",
           "range": true,
           "refId": "B"
         }
@@ -1417,8 +1417,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(sum by(instance) (irate(node_mountstats_nfs_total_read_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (irate(node_mountstats_nfs_total_read_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (irate(node_mountstats_nfs_total_read_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} - read",
+          "expr": "(sum by(vm_instance) (irate(node_mountstats_nfs_total_read_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (irate(node_mountstats_nfs_total_read_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (irate(node_mountstats_nfs_total_read_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} - read",
           "range": true,
           "refId": "A"
         },
@@ -1428,10 +1428,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(sum by(instance) (irate(node_mountstats_nfs_total_write_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (irate(node_mountstats_nfs_total_write_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (irate(node_mountstats_nfs_total_write_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "expr": "(sum by(vm_instance) (irate(node_mountstats_nfs_total_write_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (irate(node_mountstats_nfs_total_write_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (irate(node_mountstats_nfs_total_write_bytes_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - write",
+          "legendFormat": "{{vm_instance}} - write",
           "range": true,
           "refId": "B"
         }
@@ -1550,7 +1550,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "expr": "(avg by(vm_instance) (DCGM_FI_DEV_GPU_UTIL{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (DCGM_FI_DEV_GPU_UTIL{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (DCGM_FI_DEV_GPU_UTIL{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1657,8 +1657,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (DCGM_FI_DEV_MEM_COPY_UTIL{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (DCGM_FI_DEV_MEM_COPY_UTIL{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (DCGM_FI_DEV_MEM_COPY_UTIL{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (DCGM_FI_DEV_MEM_COPY_UTIL{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (DCGM_FI_DEV_MEM_COPY_UTIL{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (DCGM_FI_DEV_MEM_COPY_UTIL{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1765,8 +1765,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (DCGM_FI_DEV_SM_CLOCK{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (DCGM_FI_DEV_SM_CLOCK{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (DCGM_FI_DEV_SM_CLOCK{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (DCGM_FI_DEV_SM_CLOCK{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (DCGM_FI_DEV_SM_CLOCK{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (DCGM_FI_DEV_SM_CLOCK{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1872,8 +1872,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (DCGM_FI_DEV_MEM_CLOCK{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (DCGM_FI_DEV_MEM_CLOCK{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (DCGM_FI_DEV_MEM_CLOCK{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (DCGM_FI_DEV_MEM_CLOCK{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (DCGM_FI_DEV_MEM_CLOCK{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (DCGM_FI_DEV_MEM_CLOCK{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1978,7 +1978,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "expr": "(avg by(vm_instance) (DCGM_FI_DEV_GPU_TEMP{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (DCGM_FI_DEV_GPU_TEMP{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (DCGM_FI_DEV_GPU_TEMP{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -2084,8 +2084,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (DCGM_FI_DEV_MEMORY_TEMP{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (DCGM_FI_DEV_MEMORY_TEMP{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (DCGM_FI_DEV_MEMORY_TEMP{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (DCGM_FI_DEV_MEMORY_TEMP{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (DCGM_FI_DEV_MEMORY_TEMP{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (DCGM_FI_DEV_MEMORY_TEMP{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2190,8 +2190,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(instance) (DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(instance) (DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\"}))  *  ($Operation== bool 3) ",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (DCGM_FI_DEV_POWER_USAGE{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 1)  + (min by(vm_instance) (DCGM_FI_DEV_POWER_USAGE{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 2)  + (max by(vm_instance) (DCGM_FI_DEV_POWER_USAGE{\"microsoft.resourcegroupname\"=\"$cluster\"}))  *  ($Operation== bool 3) ",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2296,8 +2296,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (dcgm_fi_dev_total_energy_consumption{cluster=\"$cluster\"})/ 10^3)  *  ($Operation== bool 1)  + (min by(hostname) (dcgm_fi_dev_total_energy_consumption{cluster=\"$cluster\"})/ 10^3)  *  ($Operation== bool 2)  + (max by(instance) (dcgm_fi_dev_total_energy_consumption{cluster=\"$cluster\"})/ 10^3)  *  ($Operation== bool 3) ",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (dcgm_fi_dev_total_energy_consumption{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 10^3)  *  ($Operation== bool 1)  + (min by(vm_instance) (dcgm_fi_dev_total_energy_consumption{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 10^3)  *  ($Operation== bool 2)  + (max by(vm_instance) (dcgm_fi_dev_total_energy_consumption{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 10^3)  *  ($Operation== bool 3) ",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2427,9 +2427,9 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_XID_ERRORS{cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_XID_ERRORS{\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2667,10 +2667,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2866,8 +2866,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_ecc_sbe_agg_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_ecc_sbe_agg_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_ecc_sbe_agg_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_ecc_sbe_agg_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_ecc_sbe_agg_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_ecc_sbe_agg_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2976,8 +2976,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_ecc_dbe_agg_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_ecc_dbe_agg_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_ecc_dbe_agg_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} ",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_ecc_dbe_agg_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_ecc_dbe_agg_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_ecc_dbe_agg_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} ",
           "range": true,
           "refId": "A"
         }
@@ -3086,7 +3086,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_ecc_sbe_vol_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_ecc_sbe_vol_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_ecc_sbe_vol_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_ecc_sbe_vol_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_ecc_sbe_vol_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_ecc_sbe_vol_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
           "legendFormat": "{{hostname}}",
           "range": true,
           "refId": "A"
@@ -3196,8 +3196,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_ecc_dbe_vol_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_ecc_dbe_vol_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_ecc_dbe_vol_total{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_ecc_dbe_vol_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_ecc_dbe_vol_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_ecc_dbe_vol_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3305,8 +3305,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_thermal_violation{cluster=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_thermal_violation{cluster=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_thermal_violation{cluster=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_thermal_violation{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_thermal_violation{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_thermal_violation{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3414,8 +3414,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_power_violation{cluster=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_power_violation{cluster=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_power_violation{cluster=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_power_violation{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_power_violation{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_power_violation{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9)) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3568,8 +3568,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "min by (instance) (node_infiniband_physical_state_id{device!=\"mlx5_an0\", cluster=\"$cluster\"})",
-          "legendFormat": "{{instance}}",
+          "expr": "min by (vm_instance) (node_infiniband_physical_state_id{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"})",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3701,10 +3701,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "clamp_max(increase(node_infiniband_link_downed_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]), 1)",
+          "expr": "clamp_max(increase(node_infiniband_link_downed_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]), 1)",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3910,8 +3910,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (rate(node_infiniband_port_data_received_bytes_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(node_infiniband_port_data_received_bytes_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(node_infiniband_port_data_received_bytes_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} - receive",
+          "expr": "(avg by(vm_instance) (rate(node_infiniband_port_data_received_bytes_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(node_infiniband_port_data_received_bytes_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(node_infiniband_port_data_received_bytes_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} - receive",
           "range": true,
           "refId": "A"
         },
@@ -3921,10 +3921,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (rate(node_infiniband_port_data_transmitted_bytes_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(node_infiniband_port_data_transmitted_bytes_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(node_infiniband_port_data_transmitted_bytes_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "expr": "(avg by(vm_instance) (rate(node_infiniband_port_data_transmitted_bytes_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(node_infiniband_port_data_transmitted_bytes_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(node_infiniband_port_data_transmitted_bytes_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - transmit",
+          "legendFormat": "{{vm_instance}} - transmit",
           "range": true,
           "refId": "B"
         }
@@ -4030,8 +4030,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(node_infiniband_port_errors_received_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(node_infiniband_port_errors_received_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(node_infiniband_port_errors_received_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(node_infiniband_port_errors_received_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(node_infiniband_port_errors_received_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(node_infiniband_port_errors_received_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4135,8 +4135,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(node_infiniband_port_constraint_errors_received_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(node_infiniband_port_constraint_errors_received_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(node_infiniband_port_constraint_errors_received_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(node_infiniband_port_constraint_errors_received_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(node_infiniband_port_constraint_errors_received_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(node_infiniband_port_constraint_errors_received_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4241,8 +4241,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (rate(node_infiniband_port_transmit_wait_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(node_infiniband_port_transmit_wait_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(node_infiniband_port_transmit_wait_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (rate(node_infiniband_port_transmit_wait_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(node_infiniband_port_transmit_wait_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(node_infiniband_port_transmit_wait_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4346,8 +4346,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(node_infiniband_port_discards_transmitted_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(node_infiniband_port_discards_transmitted_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(node_infiniband_port_discards_transmitted_total{device!=\"mlx5_an0\",cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(node_infiniband_port_discards_transmitted_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(node_infiniband_port_discards_transmitted_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(node_infiniband_port_discards_transmitted_total{device!=\"mlx5_an0\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4492,10 +4492,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{cluster=\"$cluster\"}[$__rate_interval]), 1)",
+          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]), 1)",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4693,8 +4693,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4818,8 +4818,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (rate(dcgm_fi_prof_nvlink_rx_bytes{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(dcgm_fi_prof_nvlink_rx_bytes{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(dcgm_fi_prof_nvlink_rx_bytes{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}} - receive ",
+          "expr": "(avg by(vm_instance) (rate(dcgm_fi_prof_nvlink_rx_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(dcgm_fi_prof_nvlink_rx_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(dcgm_fi_prof_nvlink_rx_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}} - receive ",
           "range": true,
           "refId": "A"
         },
@@ -4829,10 +4829,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (rate(dcgm_fi_prof_nvlink_tx_bytes{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (rate(dcgm_fi_prof_nvlink_tx_bytes{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (rate(dcgm_fi_prof_nvlink_tx_bytes{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "expr": "(avg by(vm_instance) (rate(dcgm_fi_prof_nvlink_tx_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (rate(dcgm_fi_prof_nvlink_tx_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (rate(dcgm_fi_prof_nvlink_tx_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - transmit",
+          "legendFormat": "{{vm_instance}} - transmit",
           "range": true,
           "refId": "B"
         }
@@ -4939,8 +4939,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_nvlink_count_rx_errors{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_nvlink_count_rx_errors{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_nvlink_count_rx_errors{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_rx_errors{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_rx_errors{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_rx_errors{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -5047,8 +5047,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(avg by(instance) (increase(dcgm_fi_dev_nvlink_count_tx_discards{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(instance) (increase(dcgm_fi_dev_nvlink_count_tx_discards{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(instance) (increase(dcgm_fi_dev_nvlink_count_tx_discards{cluster=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
-          "legendFormat": "{{instance}}",
+          "expr": "(avg by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_tx_discards{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 1) + (min by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_tx_discards{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 2) + (max by(vm_instance) (increase(dcgm_fi_dev_nvlink_count_tx_discards{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))) * ($Operation== bool 3)",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -5091,9 +5091,8 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "prometheus",
-          "value": "${Datasource}"
+          "text": "da-prom2",
+          "value": "ff18d1fgl0oaof"
         },
         "includeAll": false,
         "label": "Data Source",
@@ -5113,7 +5112,7 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_cpu_seconds_total, cluster)",
+        "definition": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
         "description": "cluster name",
         "includeAll": true,
         "label": "Cluster",
@@ -5121,7 +5120,7 @@
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(node_cpu_seconds_total, cluster)",
+          "query": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -5172,6 +5171,5 @@
   "timezone": "browser",
   "title": "Cluster View (Time Series)",
   "uid": "ncgMA4Z4k2xx",
-  "version": 6,
-  "weekStart": ""
+  "version": 2
 }
