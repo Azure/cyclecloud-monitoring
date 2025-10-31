@@ -71,12 +71,12 @@ Then repeat for each Cluster-Init entry and click on the **Save** button at the 
 ## Monitoring Configuration Parameters
 The three monitoring parameters below need to be set for each node and node array definitions.
 ```yaml
-monitoring.enabled = true
-monitoring.identity_client_id = < Client ID of the Managed Identity with Monitoring Metrics Publisher role>
-monitoring.ingestion_endpoint = < The Azure Monitor Workspace in which to push metrics>
+cyclecloud.monitoring.enabled = true
+cyclecloud.monitoring.identity_client_id = < Client ID of the Managed Identity with Monitoring Metrics Publisher role>
+cyclecloud.monitoring.ingestion_endpoint = < The Azure Monitor Workspace in which to push metrics>
 ```
 
-From the machine where you ran the managed infrastructure deployment, the value for `monitoring.identity_client_id` can be retrieved by executing this command:
+From the machine where you ran the managed infrastructure deployment, the value for `cyclecloud.monitoring.identity_client_id` can be retrieved by executing this command:
 
 ```bash
 az identity show -n <umi_name> -g <umi_resource_group> --query 'clientId' -o tsv
