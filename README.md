@@ -5,7 +5,6 @@ This repository provides scripts and configuration files for monitoring Azure Cy
 - Installation and configuration of:
     - Prometheus Node Exporter (with Infiniband support)
     - NVidia DCGM exporter (for Nvidia GPU nodes)
-    - SchedMD Slurm exporter (for Slurm clusters).
 
 ## Build the Managed Monitoring Infrastructure
 This repository includes a utility script that constructs the Managed Monitoring Infrastructure. These commands need to be run from a machine which can create azure resources, like a local laptop or a deployment agent. Don’t run these from the CycleCloud VM or from Cloud Shell.
@@ -107,7 +106,6 @@ You can verify that the started nodes are pushing metrics in the monitoring work
 To control the configured exporters are exposing metrics, connect to a node and execute these `curls` commands :
 - For the Node Exporter : `curl -s http://localhost:9100/metrics` - available on all nodes
 - For the DCGM Exporter : `curl -s http://localhost:9400/metrics` - only available on VM type with NVidia GPU
-- For the Slurm Exporter : `curl -s http://localhost:9080/metrics` - only available on the Slurm scheduler VM
 
 ## Accessing the Monitoring Dashboards
 Once the cluster is started, you can access the Grafana dashboards by browsing to the Azure Managed Grafana instance created by the deployment script. The URL can be retrieved by browsing the Endpoint of the Azure Managed Grafana instance in the Azure portal, and when connected, access the pre-built dashboards under the `Dashboards/Azure CycleCloud` folder.
