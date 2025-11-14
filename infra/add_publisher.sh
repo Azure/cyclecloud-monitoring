@@ -18,7 +18,7 @@ if [ -z "$UMI_RG_NAME" ]; then
     exit 1
 fi
 
-UMI_PID=$(az identity show -n $UMI_NAME -g $UMI_RG_NAME --query 'principalId' -o tsv)
+UMI_PID=$(az identity show -n $UMI_NAME -g $UMI_RG_NAME --query 'principalId' -o tsv | tr -d '\n' | tr -d '\r')
 if [ -z "$UMI_PID" ]; then
   echo "Failed to retrieve User Managed Identity principal ID."
   exit 1
