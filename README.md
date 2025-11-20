@@ -112,3 +112,6 @@ To control the configured exporters are exposing metrics, connect to a node and 
 ## Accessing the Monitoring Dashboards
 Once the cluster is started, you can access the Grafana dashboards by browsing to the Azure Managed Grafana instance created by the deployment script. The URL can be retrieved by browsing the Endpoint of the Azure Managed Grafana instance in the Azure portal, and when connected, access the pre-built dashboards under the `Dashboards/Azure CycleCloud` folder.
 
+## Limitations
+Azure Monitor Workspace has a default limit of 1M timeseries and 1M events per minute. Reaching this limit will imply throttling and a long tailing in ingestion. As it stands, the current exporters will reach these limits for ~125 Hbv4 nodes with 176 cores, ~154 NDv5 nodes with 96 cores, and ~285 NCv4 nodes with 48 cores. 
+
