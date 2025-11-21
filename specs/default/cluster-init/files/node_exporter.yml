@@ -7,3 +7,8 @@ scrape_configs:
         target_label: instance
         regex: '([^:]+)(:[0-9]+)?'
         replacement: '${1}'
+    metric_relabel_configs:
+      # Keep only needed metrics in dashboards
+      - source_labels: [__name__]
+        regex: 'node_boot_time_seconds|node_uname_info|node_cpu_seconds_total|node_load1|node_cpu_frequency_hertz|node_mountstats_nfs_operations_request_time_seconds_total|node_mountstats_nfs_operations_requests_total|node_mountstats_nfs_total_read_bytes_total|node_mountstats_nfs_total_write_bytes_total|node_disk_io_time_seconds_total|node_disk_read_bytes_total|node_disk_reads_completed_total|node_disk_writes_completed_total|node_disk_written_bytes_total|node_filesystem_avail_bytes|node_filesystem_size_bytes|node_infiniband_link_downed_total|node_infiniband_physical_state_id|node_infiniband_port_constraint_errors_received_total|node_infiniband_port_constraint_errors_transmitted_total|node_infiniband_port_data_received_bytes_total|node_infiniband_port_data_transmitted_bytes_total|node_infiniband_port_discards_transmitted_total|node_infiniband_port_errors_received_total|node_infiniband_port_transmit_wait_total|node_memory_MemAvailable_bytes|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_vmstat_pgmajfault|node_time_seconds'
+        action: keep

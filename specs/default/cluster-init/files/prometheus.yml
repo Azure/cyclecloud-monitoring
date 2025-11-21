@@ -15,11 +15,4 @@ remote_write:
         client_id: identity_client_id
  
 scrape_configs:
-  - job_name: prometheus
-    static_configs:
-      - targets: ["instance_name:9090"]
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: '([^:]+)(:[0-9]+)?'
-        replacement: '${1}'
+
