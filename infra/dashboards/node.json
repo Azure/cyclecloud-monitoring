@@ -27,7 +27,6 @@
   "graphTooltip": 0,
   "id": null,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -95,8 +94,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -126,10 +124,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -137,7 +137,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - avg by (instance, cpu) (rate(node_cpu_seconds_total{mode='idle', instance=~\"^$instance$\", cpu=~\"^$cpu$\", cluster=\"$cluster\"}[$__rate_interval]))))",
+          "expr": "(100 * (1 - avg by (vm_instance, cpu) (rate(node_cpu_seconds_total{mode='idle', vm_instance=~\"^$instance$\", cpu=~\"^$cpu$\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))))",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
@@ -196,8 +196,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -228,10 +227,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -239,7 +240,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_cpu_frequency_hertz{instance=~\"^$instance$\", cpu=~\"^$cpu$\", cluster=\"$cluster\"} / 1000000",
+          "expr": "node_cpu_frequency_hertz{vm_instance=~\"^$instance$\", cpu=~\"^$cpu$\", \"microsoft.resourcegroupname\"=\"$cluster\"} / 1000000",
           "legendFormat": "CPU {{cpu}}",
           "range": true,
           "refId": "A"
@@ -301,8 +302,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -332,10 +332,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -343,8 +345,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "scalar(node_load1{cluster=\"$cluster\", instance=~\"^$instance$\"}) * 100 / count(count(node_cpu_seconds_total{cluster=\"$cluster\", instance=~\"^$instance$\"}) by (cpu))",
-          "legendFormat": "{{instance}}",
+          "expr": "scalar(node_load1{\"microsoft.resourcegroupname\"=\"$cluster\", vm_instance=~\"^$instance$\"}) * 100 / count(count(node_cpu_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\", vm_instance=~\"^$instance$\"}) by (cpu))",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -417,8 +419,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -449,10 +450,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -460,9 +463,9 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - node_memory_memavailable_bytes{instance=~\"^$instance$\", cluster=\"$cluster\"} / node_memory_memtotal_bytes{instance=~\"^$instance$\",cluster=\"$cluster\"}))",
+          "expr": "(100 * (1 - node_memory_memavailable_bytes{vm_instance=~\"^$instance$\", \"microsoft.resourcegroupname\"=\"$cluster\"} / node_memory_memtotal_bytes{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}))",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -522,8 +525,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -554,10 +556,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -565,9 +569,9 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - node_memory_memavailable_bytes{instance=~\"^$instance$\",cluster=\"$cluster\"} / node_memory_memtotal_bytes{instance=~\"^$instance$\",cluster=\"$cluster\"}))",
+          "expr": "(100 * (1 - node_memory_memavailable_bytes{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"} / node_memory_memtotal_bytes{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}))",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -625,8 +629,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -656,10 +659,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -667,8 +672,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_vmstat_pgmajfault{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
-          "legendFormat": "{{instance}}",
+          "expr": "irate(node_vmstat_pgmajfault{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -739,8 +744,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -779,10 +783,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -790,8 +796,8 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(node_network_receive_bytes_total{device='eth0', instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval]))",
-          "legendFormat": "{{instance}} - receive",
+          "expr": "(rate(node_network_receive_bytes_total{device='eth0', vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))",
+          "legendFormat": "{{vm_instance}} - receive",
           "range": true,
           "refId": "A"
         },
@@ -801,10 +807,10 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(node_network_transmit_bytes_total{device='eth0', instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": "(rate(node_network_transmit_bytes_total{device='eth0', vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{instance}} - transmit",
+          "legendFormat": "{{vm_instance}} - transmit",
           "range": true,
           "refId": "B"
         }
@@ -875,8 +881,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -906,10 +911,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -917,7 +924,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{instance=~\"^$instance$\",device!~\"rootfs\",cluster=\"$cluster\"} - node_filesystem_avail_bytes{instance=~\"^$instance$\",device!~\"rootfs\",cluster=\"$cluster\"}",
+          "expr": "node_filesystem_size_bytes{vm_instance=~\"^$instance$\",device!~\"rootfs\",\"microsoft.resourcegroupname\"=\"$cluster\"} - node_filesystem_avail_bytes{vm_instance=~\"^$instance$\",device!~\"rootfs\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "{{mountpoint}}",
           "range": true,
           "refId": "A"
@@ -976,8 +983,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1020,10 +1026,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1031,7 +1039,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_reads_completed_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_reads_completed_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - reads completed",
           "range": true,
           "refId": "A"
@@ -1042,7 +1050,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_writes_completed_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_writes_completed_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - writes completed",
           "range": true,
           "refId": "B"
@@ -1101,8 +1109,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1132,10 +1139,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1143,7 +1152,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_io_time_seconds_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"} [$__rate_interval])",
+          "expr": "irate(node_disk_io_time_seconds_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"} [$__rate_interval])",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -1202,8 +1211,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1246,10 +1254,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1257,7 +1267,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_read_bytes_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_read_bytes_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - read",
           "range": true,
           "refId": "A"
@@ -1268,7 +1278,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_disk_written_bytes_total{instance=~\"^$instance$\",device=~\"^$diskdevices$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_disk_written_bytes_total{vm_instance=~\"^$instance$\",device=~\"^$diskdevices$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{device}} - write",
           "range": true,
           "refId": "B"
@@ -1340,8 +1350,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1384,10 +1393,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1395,7 +1406,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=~\"^$instance$\", operation=~\"^READ$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_operations_requests_total{vm_instance=~\"^$instance$\", operation=~\"^READ$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - {{operation}}s completed",
           "range": true,
           "refId": "A"
@@ -1406,7 +1417,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_operations_requests_total{instance=~\"^$instance$\", operation=~\"^WRITE$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_operations_requests_total{vm_instance=~\"^$instance$\", operation=~\"^WRITE$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
           "legendFormat": "{{export}} - {{operation}}s completed",
@@ -1467,8 +1478,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1511,10 +1521,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1522,7 +1534,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_total_read_bytes_total{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_total_read_bytes_total{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - read",
           "range": true,
           "refId": "A"
@@ -1533,7 +1545,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "irate(node_mountstats_nfs_total_write_bytes_total{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "irate(node_mountstats_nfs_total_write_bytes_total{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{export}} - write",
           "range": true,
           "refId": "B"
@@ -1543,7 +1555,9 @@
       "type": "timeseries"
     }
   ],
-  "schemaVersion": 39,
+  "preload": false,
+  "refresh": "",
+  "schemaVersion": 41,
   "tags": [
     "Moneo Refined"
   ],
@@ -1551,85 +1565,68 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "prometheus",
-          "value": "${Datasource}"
+          "text": "da-prom2",
+          "value": "ff18d1fgl0oaof"
         },
-        "hide": 0,
         "includeAll": false,
         "label": "Data Source",
-        "multi": false,
         "name": "Datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "ccw_05051453/ccw",
-          "value": "ccw_05051453/ccw"
+          "text": "da-amp-rg",
+          "value": "da-amp-rg"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_cpu_seconds_total, cluster)",
-        "hide": 0,
+        "definition": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
         "includeAll": false,
         "label": "Cluster",
-        "multi": false,
         "name": "cluster",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(node_cpu_seconds_total, cluster)",
+          "query": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": "ccw-gpu-2",
-          "value": "ccw-gpu-2"
+          "text": "da-amp-vegjwdu",
+          "value": "da-amp-vegjwdu"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_uname_info{cluster=\"$cluster\"},instance)",
-        "hide": 0,
+        "definition": "label_values(node_uname_info,vm_instance)",
         "includeAll": false,
         "label": "Instance",
-        "multi": false,
         "name": "instance",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(node_uname_info{cluster=\"$cluster\"},instance)",
+          "query": "label_values(node_uname_info,vm_instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1638,29 +1635,23 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_cpu_seconds_total{instance=\"$instance\"}, cpu)",
-        "hide": 0,
+        "definition": "label_values(node_cpu_seconds_total{vm_instance=\"$instance\"}, cpu)",
         "includeAll": true,
         "label": "CPU",
         "multi": true,
         "name": "cpu",
         "options": [],
         "query": {
-          "query": "label_values(node_cpu_seconds_total{instance=\"$instance\"}, cpu)",
+          "query": "label_values(node_cpu_seconds_total{vm_instance=\"$instance\"}, cpu)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1669,21 +1660,18 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_disk_reads_completed_total{instance=\"$instance\"}, device)",
-        "hide": 0,
+        "definition": "label_values(node_disk_reads_completed_total{vm_instance=\"$instance\"}, device)",
         "includeAll": true,
         "label": "Disk Devices",
         "multi": true,
         "name": "diskdevices",
         "options": [],
         "query": {
-          "query": "label_values(node_disk_reads_completed_total{instance=\"$instance\"}, device)",
+          "query": "label_values(node_disk_reads_completed_total{vm_instance=\"$instance\"}, device)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "/^(?!dm-|loop|tmpfs)/",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -1696,6 +1684,5 @@
   "timezone": "",
   "title": "Node View",
   "uid": "2dx-qfVVzc",
-  "version": 7,
-  "weekStart": ""
+  "version": 2
 }
