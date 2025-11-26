@@ -84,7 +84,7 @@ az identity show -n <umi_name> -g <umi_resource_group> --query 'clientId' -o tsv
 
 If using CCWS, the value for the name will be `ccwLockerManagedIdentity` and the resource group will be the one created by CCWS.
 
-The value for the `monitoring.ingestion_endpoint` can be retrieved by running this command:
+The value for the `cyclecloud.monitoring.ingestion_endpoint` can be retrieved by running this command:
 ```bash
 jq -r '.properties.outputs.ingestionEndpoint.value' <infra_monitoring_dir>/outputs.json
 ```
