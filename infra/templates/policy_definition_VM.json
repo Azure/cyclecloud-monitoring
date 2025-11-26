@@ -81,7 +81,7 @@
               "extensionName": "AzureMonitorLinuxAgent",
               "extensionPublisher": "Microsoft.Azure.Monitor",
               "extensionType": "AzureMonitorLinuxAgent",
-              "extensionTypeHandlerVersion": "1.37",
+              "extensionTypeHandlerVersion": "1.38",
               "dcrAssocName": "[concat('assoc-', uniqueString(concat(parameters('vmName'), parameters('dcrResourceId'))))]",
               "dceAssocName": "configurationAccessEndpoint",
               "dcrType": "Microsoft.Insights/dataCollectionRules",
