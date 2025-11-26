@@ -4,7 +4,7 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPEC_FILE_ROOT="$script_dir/../files"
 source "$SPEC_FILE_ROOT/common.sh" 
 
-NODE_EXPORTER_VERSION=1.9.1
+NODE_EXPORTER_VERSION=1.10.2
 NODE_EXPORTER_PACKAGE=node_exporter-$NODE_EXPORTER_VERSION.linux-amd64.tar.gz
 if is_arm64; then
     NODE_EXPORTER_PACKAGE=node_exporter-$NODE_EXPORTER_VERSION.linux-arm64.tar.gz

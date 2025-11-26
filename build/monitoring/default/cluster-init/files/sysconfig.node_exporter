@@ -14,4 +14,7 @@ OPTIONS="--collector.disable-defaults \
 --collector.netdev.device-include=eth0 \
 --collector.vmstat \
 --collector.time \
+--collector.nfs \ 
+--collector.nfsd \ 
+--collector.pressure \ 
 --web.disable-exporter-metrics"
