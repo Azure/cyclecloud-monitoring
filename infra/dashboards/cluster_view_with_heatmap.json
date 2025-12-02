@@ -187,9 +187,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_XID_ERRORS{cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_XID_ERRORS{\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -205,7 +205,7 @@
                 "gpu",
                 "hostname",
                 "Value",
-                "instance"
+                "vm_instance"
               ]
             }
           }
@@ -238,14 +238,14 @@
               "hostname": {
                 "aggregations": []
               },
-              "instance": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
               "time_stamp": {
                 "aggregations": [
                   "last"
                 ],
+                "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": [],
                 "operation": "groupby"
               }
             }
@@ -259,7 +259,7 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value": "XID code",
@@ -267,9 +267,9 @@
               "gpu": "GPU",
               "gpu_id": "GPU ID",
               "hostname": "Instance",
-              "instance": "Instance",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -434,10 +434,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -450,7 +450,7 @@
             "include": {
               "names": [
                 "device",
-                "instance",
+                "vm_instance",
                 "Value",
                 "gpu"
               ]
@@ -483,14 +483,14 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "instance": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
               "time_stamp": {
                 "aggregations": [
                   "last"
                 ],
+                "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": [],
                 "operation": "groupby"
               }
             }
@@ -504,16 +504,16 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value (last)": "Throttle Code",
               "gpu": "GPU",
               "hostname": "Instance",
               "ib_port": "IB device",
-              "instance": "Instance",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -656,10 +656,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{cluster=\"$cluster\"}[$__rate_interval]), 1)",
+          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]), 1)",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -672,7 +672,7 @@
             "include": {
               "names": [
                 "device",
-                "instance",
+                "vm_instance",
                 "Value",
                 "gpu"
               ]
@@ -705,10 +705,6 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "instance": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
               "port": {
                 "aggregations": []
               },
@@ -716,6 +712,10 @@
                 "aggregations": [
                   "last"
                 ],
+                "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": [],
                 "operation": "groupby"
               }
             }
@@ -729,17 +729,17 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value (last)": "Link Health",
               "gpu": "GPU",
               "hostname": "Instance",
               "ib_port": "IB device",
-              "instance": "Instance",
               "port": "Port",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -882,10 +882,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "clamp_max(increase(node_infiniband_link_downed_total{device!=\"mlx5_an0\", cluster=\"$cluster\"}[$__rate_interval]), 1)",
+          "expr": "clamp_max(increase(node_infiniband_link_downed_total{device!=\"mlx5_an0\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]), 1)",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -897,7 +897,7 @@
           "options": {
             "include": {
               "names": [
-                "instance",
+                "vm_instance",
                 "Value",
                 "port",
                 "device"
@@ -928,10 +928,6 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "instance": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
               "port": {
                 "aggregations": []
               },
@@ -939,6 +935,10 @@
                 "aggregations": [
                   "last"
                 ],
+                "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": [],
                 "operation": "groupby"
               }
             }
@@ -952,17 +952,17 @@
             "indexByName": {
               "Value (last)": 2,
               "device": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value (last)": "Link Health",
               "device": "Device",
               "hostname": "Instance",
               "ib_port": "IB device",
-              "instance": "Instance",
               "port": "Port",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -1076,9 +1076,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_gpu_util{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_gpu_util{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1202,7 +1202,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_gpu_util{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_gpu_util{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -1222,7 +1222,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "GPU Utilization",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -1324,9 +1324,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (100 * (1 - ${operation} by(instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\",cluster=\"$cluster\"}[$__rate_interval]))))",
+          "expr": "${operation} by(vm_instance) (100 * (1 - ${operation} by(vm_instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))))",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1450,7 +1450,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (100 * (1 - ${operation} by(instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", cluster=\"$cluster\"}[$__rate_interval]))))",
+          "expr": "${operation} by(vm_instance) (100 * (1 - ${operation} by(vm_instance, cpu) (rate(node_cpu_seconds_total{mode=\"idle\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]))))",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -1470,7 +1470,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "CPU Utilization",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -1593,9 +1593,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_mem_copy_util{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_mem_copy_util{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1724,7 +1724,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_mem_copy_util{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_mem_copy_util{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -1744,7 +1744,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Memory Copy Utilization",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -1846,9 +1846,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (100 * (1 - (node_memory_MemAvailable_bytes{cluster=\"$cluster\"} / (node_memory_MemTotal_bytes{cluster=\"$cluster\"}))))",
+          "expr": "$operation by(vm_instance) (100 * (1 - (node_memory_MemAvailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"} / (node_memory_MemTotal_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}))))",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -1972,7 +1972,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (100 * (1 - (node_memory_MemAvailable_bytes{cluster=\"$cluster\"} / (node_memory_MemTotal_bytes{cluster=\"$cluster\"}))))",
+          "expr": "$operation by(vm_instance) (100 * (1 - (node_memory_MemAvailable_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"} / (node_memory_MemTotal_bytes{\"microsoft.resourcegroupname\"=\"$cluster\"}))))",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -1992,7 +1992,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Node Memory Utilization",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -2094,9 +2094,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (rate(node_disk_io_time_seconds_total{cluster=\"$cluster\"}[$__rate_interval])\r\n)",
+          "expr": "${operation} by(vm_instance) (rate(node_disk_io_time_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])\r\n)",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2220,7 +2220,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (\r\n  rate(node_disk_io_time_seconds_total{cluster=\"$cluster\"}[$__rate_interval])\r\n)",
+          "expr": "${operation} by(vm_instance) (\r\n  rate(node_disk_io_time_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])\r\n)",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -2240,7 +2240,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Disk (I/O) Utilization",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -2355,9 +2355,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (node_load1{cluster=\"$cluster\"}) / on(instance) count by (instance) (group by (instance, cpu) (node_cpu_seconds_total{cluster=\"$cluster\"}))",
+          "expr": "${operation} by(vm_instance) (node_load1{\"microsoft.resourcegroupname\"=\"$cluster\"}) / on(vm_instance) count by (vm_instance) (group by (vm_instance, cpu) (node_cpu_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}))",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2492,7 +2492,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance)(node_load1{cluster=\"$cluster\"}) / on(instance) count by (instance) (group by (instance, cpu) (node_cpu_seconds_total{cluster=\"$cluster\"}))",
+          "expr": "${operation} by(vm_instance)(node_load1{\"microsoft.resourcegroupname\"=\"$cluster\"}) / on(vm_instance) count by (vm_instance) (group by (vm_instance, cpu) (node_cpu_seconds_total{\"microsoft.resourcegroupname\"=\"$cluster\"}))",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -2512,7 +2512,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Normalized CPU Load (Load1 / Core Count)",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -2636,9 +2636,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (\r\n  rate(node_vmstat_pgmajfault{cluster=\"$cluster\"}[$__rate_interval])\r\n)",
+          "expr": "${operation} by(vm_instance) (\r\n  rate(node_vmstat_pgmajfault{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])\r\n)",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2749,7 +2749,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (\r\n  rate(node_vmstat_pgmajfault{cluster=\"$cluster\"}[$__rate_interval])\r\n)",
+          "expr": "${operation} by(vm_instance) (\r\n  rate(node_vmstat_pgmajfault{\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])\r\n)",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -2769,7 +2769,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Memory Major Page Faults",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -2892,9 +2892,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (\r\n  rate(node_mountstats_nfs_operations_request_time_seconds_total{operation=~\"READ|WRITE\", cluster=\"$cluster\"}[$__rate_interval])\r\n)",
+          "expr": "${operation} by(vm_instance) (\r\n  rate(node_mountstats_nfs_operations_request_time_seconds_total{operation=~\"READ|WRITE\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])\r\n)",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3011,7 +3011,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "${operation} by(instance) (\r\n  rate(node_mountstats_nfs_operations_request_time_seconds_total{operation=~\"READ|WRITE\", cluster=\"$cluster\"}[$__rate_interval])\r\n)",
+          "expr": "${operation} by(vm_instance) (\r\n  rate(node_mountstats_nfs_operations_request_time_seconds_total{operation=~\"READ|WRITE\", \"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])\r\n)",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -3031,7 +3031,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "NFS I/O Operations",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -3146,9 +3146,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_sm_clock{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_sm_clock{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3260,7 +3260,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_sm_clock{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_sm_clock{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -3280,7 +3280,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Frequency",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -3382,9 +3382,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_mem_clock{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_mem_clock{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3496,7 +3496,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_mem_clock{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_mem_clock{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -3516,7 +3516,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Frequency",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -3618,9 +3618,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by(instance) (node_cpu_frequency_hertz{cluster=\"$cluster\"})/ 1000000",
+          "expr": "avg by(vm_instance) (node_cpu_frequency_hertz{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 1000000",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3732,7 +3732,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by(instance) (node_cpu_frequency_hertz{cluster=\"$cluster\"})/ 1000000",
+          "expr": "avg by(vm_instance) (node_cpu_frequency_hertz{\"microsoft.resourcegroupname\"=\"$cluster\"})/ 1000000",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -3752,7 +3752,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Frequency",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -3868,9 +3868,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) ((dcgm_fi_dev_gpu_temp{cluster=\"$cluster\"} / dcgm_fi_dev_gpu_max_op_temp{cluster=\"$cluster\"}) * 100) ",
+          "expr": "$operation by(vm_instance) ((dcgm_fi_dev_gpu_temp{\"microsoft.resourcegroupname\"=\"$cluster\"} / dcgm_fi_dev_gpu_max_op_temp{\"microsoft.resourcegroupname\"=\"$cluster\"}) * 100) ",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -3994,7 +3994,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) ((dcgm_fi_dev_gpu_temp{cluster=\"$cluster\"} / dcgm_fi_dev_gpu_max_op_temp{cluster=\"$cluster\"}) * 100) ",
+          "expr": "$operation by(vm_instance) ((dcgm_fi_dev_gpu_temp{\"microsoft.resourcegroupname\"=\"$cluster\"} / dcgm_fi_dev_gpu_max_op_temp{\"microsoft.resourcegroupname\"=\"$cluster\"}) * 100) ",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -4014,7 +4014,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Utilization (Temp/Max Op Temp)",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -4116,9 +4116,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_gpu_temp{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_gpu_temp{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4231,7 +4231,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_gpu_temp{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_gpu_temp{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -4251,7 +4251,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Temperature",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -4367,9 +4367,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) ((dcgm_fi_dev_power_usage{cluster=\"$cluster\"} / dcgm_fi_dev_power_mgmt_limit{cluster=\"$cluster\"}) * 100)",
+          "expr": "$operation by(vm_instance) ((dcgm_fi_dev_power_usage{\"microsoft.resourcegroupname\"=\"$cluster\"} / dcgm_fi_dev_power_mgmt_limit{\"microsoft.resourcegroupname\"=\"$cluster\"}) * 100)",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4493,7 +4493,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) ((dcgm_fi_dev_power_usage{cluster=\"$cluster\"} / dcgm_fi_dev_power_mgmt_limit{cluster=\"$cluster\"}) * 100)",
+          "expr": "$operation by(vm_instance) ((dcgm_fi_dev_power_usage{\"microsoft.resourcegroupname\"=\"$cluster\"} / dcgm_fi_dev_power_mgmt_limit{\"microsoft.resourcegroupname\"=\"$cluster\"}) * 100)",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -4513,7 +4513,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Power Utilization (GPU Power Draw/Max Power Limit)",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -4615,9 +4615,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_power_usage{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_power_usage{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "heatmap",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -4729,7 +4729,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "$operation by(instance) (dcgm_fi_dev_power_usage{cluster=\"$cluster\"})",
+          "expr": "$operation by(vm_instance) (dcgm_fi_dev_power_usage{\"microsoft.resourcegroupname\"=\"$cluster\"})",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -4749,7 +4749,7 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Power",
-              "instance": "Instance"
+              "vm_instance": "Instance"
             }
           }
         },
@@ -4777,9 +4777,8 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "prometheus",
-          "value": "${datasource}"
+          "text": "da-prom2",
+          "value": "ff18d1fgl0oaof"
         },
         "description": "Prometheus Data Source",
         "includeAll": false,
@@ -4792,20 +4791,20 @@
       },
       {
         "current": {
-          "text": "ccw_05051453/ccw",
-          "value": "ccw_05051453/ccw"
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(node_cpu_seconds_total, cluster)",
+        "definition": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
         "includeAll": true,
         "name": "cluster",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(node_cpu_seconds_total, cluster)",
+          "query": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -4850,6 +4849,5 @@
   "timezone": "",
   "title": "Cluster View (Heat Map & Tables)",
   "uid": "resourcedash",
-  "version": 6,
-  "weekStart": ""
+  "version": 2
 }

@@ -27,14 +27,9 @@
   "graphTooltip": 1,
   "id": null,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Datasource}"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -99,8 +94,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -132,10 +126,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -143,7 +139,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_gpu_util{instance=~\"^$instance$\", gpu=~\"^$gpu$\", cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_gpu_util{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -205,8 +201,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -238,10 +233,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -249,7 +246,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_mem_copy_util{instance=~\"^$instance$\", gpu=~\"^$gpu$\", cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_mem_copy_util{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\", \"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -260,10 +257,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Datasource}"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -326,8 +319,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -358,10 +350,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -369,7 +363,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_sm_clock{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_sm_clock{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -429,8 +423,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -461,10 +454,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -472,7 +467,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_mem_clock{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_mem_clock{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -483,10 +478,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Datasource}"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -549,8 +540,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -582,10 +572,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -593,7 +585,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_gpu_temp{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_gpu_temp{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -653,8 +645,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -686,10 +677,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -697,7 +690,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_memory_temp{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_memory_temp{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -708,10 +701,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Datasource}"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -774,8 +763,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -807,10 +795,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -818,7 +808,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_power_usage{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_power_usage{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -878,8 +868,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -910,10 +899,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -921,7 +912,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_total_energy_consumption{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"} / 10^3",
+          "expr": "dcgm_fi_dev_total_energy_consumption{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"} / 10^3",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -968,8 +959,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1044,7 +1034,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1053,7 +1043,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_XID_ERRORS{instance=~\"^$instance$\",cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_XID_ERRORS{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "legendFormat": "__auto",
           "range": true,
@@ -1071,7 +1061,7 @@
                 "gpu",
                 "hostname",
                 "Value",
-                "instance"
+                "vm_instance"
               ]
             }
           }
@@ -1104,14 +1094,14 @@
               "hostname": {
                 "aggregations": []
               },
-              "instance": {
-                "aggregations": []
-              },
               "time_stamp": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": []
               }
             }
           }
@@ -1124,7 +1114,7 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value": "XID code",
@@ -1132,9 +1122,9 @@
               "gpu": "GPU",
               "gpu_id": "GPU ID",
               "hostname": "Instance",
-              "instance": "Instance",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -1155,10 +1145,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Datasource}"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1171,16 +1157,11 @@
       "type": "row"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of single-bit persistent ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -1226,8 +1207,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1238,31 +1218,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 46
       },
-      "hiddenSeries": false,
       "id": 56,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -1274,18 +1236,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1293,60 +1249,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_sbe_agg_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_sbe_agg_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "SBE Persistent ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of double-bit persistent ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -1392,8 +1309,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1404,31 +1320,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 46
       },
-      "hiddenSeries": false,
       "id": 57,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -1440,18 +1338,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1459,60 +1351,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_dbe_agg_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_dbe_agg_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "DBE Persistent ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3101",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3102",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of single-bit volatile ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -1557,8 +1410,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1569,31 +1421,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 54
       },
-      "hiddenSeries": false,
       "id": 58,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -1605,18 +1439,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1624,60 +1452,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_sbe_vol_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_sbe_vol_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "SBE Volatile ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:773",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:774",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of double-bit volatile ECC errors",
       "fieldConfig": {
         "defaults": {
@@ -1723,8 +1512,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1735,31 +1523,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 54
       },
-      "hiddenSeries": false,
       "id": 59,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -1771,18 +1541,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1790,48 +1554,14 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_dbe_vol_total{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_dbe_vol_total{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "DBE Volatile ECC Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:2927",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:2928",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -1874,8 +1604,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1963,7 +1692,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -1973,10 +1702,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{instance=~\"^$instance$\",cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_CLOCKS_EVENT_REASONS{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2021,14 +1750,14 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "instance": {
-                "aggregations": []
-              },
               "time_stamp": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": []
               }
             }
           }
@@ -2041,16 +1770,16 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value (last)": "Throttle Code",
               "gpu": "GPU",
               "hostname": "Instance",
               "ib_port": "IB device",
-              "instance": "Instance",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -2120,8 +1849,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2149,11 +1877,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2162,7 +1891,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(dcgm_fi_dev_thermal_violation{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
+          "expr": "increase(dcgm_fi_dev_thermal_violation{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -2222,8 +1951,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2251,11 +1979,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2264,7 +1993,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(dcgm_fi_dev_power_violation{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
+          "expr": "increase(dcgm_fi_dev_power_violation{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]) / 1e9",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -2312,8 +2041,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2383,7 +2111,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.2.8",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2393,10 +2121,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{instance=~\"^$instance$\",cluster=\"$cluster\"}[$__rate_interval]), 1)",
+          "expr": "clamp_max(increase(dcgm_fi_dev_nvlink_count_link_recovery_failed_events{vm_instance=~\"^$instance$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval]), 1)",
           "format": "table",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{vm_instance}}",
           "range": true,
           "refId": "A"
         }
@@ -2441,9 +2169,6 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "instance": {
-                "aggregations": []
-              },
               "port": {
                 "aggregations": []
               },
@@ -2452,6 +2177,9 @@
                   "last"
                 ],
                 "operation": "groupby"
+              },
+              "vm_instance": {
+                "aggregations": []
               }
             }
           }
@@ -2464,17 +2192,17 @@
             "indexByName": {
               "Value (last)": 2,
               "gpu": 1,
-              "instance": 0
+              "vm_instance": 0
             },
             "renameByName": {
               "Value (last)": "Link Health",
               "gpu": "GPU",
               "hostname": "Instance",
               "ib_port": "IB device",
-              "instance": "Instance",
               "port": "Port",
               "time_stamp": "Time Stamp",
-              "time_stamp (last)": "Time Stamp"
+              "time_stamp (last)": "Time Stamp",
+              "vm_instance": "Instance"
             }
           }
         },
@@ -2493,16 +2221,11 @@
       "type": "table"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of times that the count of local errors exceeded the set threshold",
       "fieldConfig": {
         "defaults": {
@@ -2548,8 +2271,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2560,31 +2282,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 80
       },
-      "hiddenSeries": false,
       "id": 66,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -2596,18 +2300,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2615,48 +2313,14 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_nvlink_count_local_link_integrity_errors{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Link Integrity Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2711,8 +2375,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2756,11 +2419,12 @@
           "width": 250
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "7.5.4",
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2768,7 +2432,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(dcgm_fi_prof_nvlink_rx_bytes{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "rate(dcgm_fi_prof_nvlink_rx_bytes{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}} - receive",
           "range": true,
           "refId": "A"
@@ -2779,7 +2443,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(dcgm_fi_prof_nvlink_tx_bytes{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "rate(dcgm_fi_prof_nvlink_tx_bytes{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
           "legendFormat": "GPU {{gpu}} - transmit",
@@ -2791,16 +2455,11 @@
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of packets with errors Rx on a link",
       "fieldConfig": {
         "defaults": {
@@ -2846,8 +2505,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2858,31 +2516,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 88
       },
-      "hiddenSeries": false,
       "id": 68,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -2894,18 +2534,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -2913,60 +2547,21 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_nvlink_count_rx_errors{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_nvlink_count_rx_errors{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Link RX Errors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "default": false,
         "type": "prometheus",
         "uid": "${Datasource}"
       },
-      "decimals": 0,
       "description": "Total number of TX error packets that were discarded.",
       "fieldConfig": {
         "defaults": {
@@ -3012,8 +2607,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3024,31 +2618,13 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 96
       },
-      "hiddenSeries": false,
       "id": 69,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
         "alertThreshold": true,
         "legend": {
@@ -3060,18 +2636,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "pluginVersion": "11.6.3",
       "targets": [
         {
           "datasource": {
@@ -3079,53 +2649,19 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_nvlink_count_tx_discards{instance=~\"^$instance$\", gpu=~\"^$gpu$\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_nvlink_count_tx_discards{vm_instance=~\"^$instance$\", gpu=~\"^$gpu$\",\"microsoft.resourcegroupname\"=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "GPU {{gpu}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Port TX Discards",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3014",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3015",
-          "decimals": 0,
-          "format": "short",
-          "logBase": 1,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "5s",
-  "revision": 1,
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [
     "Moneo Refined"
   ],
@@ -3133,88 +2669,68 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "prometheus",
-          "value": "${Datasource}"
+          "text": "da-prom2",
+          "value": "ff18d1fgl0oaof"
         },
-        "hide": 0,
         "includeAll": false,
         "label": "Data Source",
-        "multi": false,
         "name": "Datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {
-          "selected": false,
-          "text": "ccw_05051453/ccw",
-          "value": "ccw_05051453/ccw"
+          "text": "da-amp-rg",
+          "value": "da-amp-rg"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_cpu_seconds_total, cluster)",
-        "hide": 0,
+        "definition": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
         "includeAll": false,
         "label": "Cluster",
-        "multi": false,
         "name": "cluster",
         "options": [],
         "query": {
           "qryType": 5,
-          "query": "label_values(node_cpu_seconds_total, cluster)",
+          "query": "label_values(node_cpu_seconds_total, microsoft.resourcegroupname)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": "ccw-gpu-2",
-          "value": "ccw-gpu-2"
+          "text": "da-amp-vegjwdu",
+          "value": "da-amp-vegjwdu"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(node_uname_info{cluster=\"$cluster\"},instance)",
-        "hide": 0,
+        "definition": "label_values(node_uname_info,vm_instance)",
         "includeAll": false,
         "label": "Hostname",
-        "multi": false,
         "name": "instance",
         "options": [],
         "query": {
-          "qryType": 4,
-          "query": "label_values(node_uname_info{cluster=\"$cluster\"},instance)",
+          "qryType": 1,
+          "query": "label_values(node_uname_info,vm_instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -3223,21 +2739,18 @@
           "type": "prometheus",
           "uid": "${Datasource}"
         },
-        "definition": "label_values(dcgm_fi_dev_gpu_util{instance=\"$instance\"}, gpu)",
-        "hide": 0,
+        "definition": "label_values(dcgm_fi_dev_gpu_util{vm_instance=\"$instance\"}, gpu)",
         "includeAll": true,
         "label": "GPU",
         "multi": true,
         "name": "gpu",
         "options": [],
         "query": {
-          "query": "label_values(dcgm_fi_dev_gpu_util{instance=\"$instance\"}, gpu)",
+          "query": "label_values(dcgm_fi_dev_gpu_util{vm_instance=\"$instance\"}, gpu)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -3247,7 +2760,6 @@
     "to": "now"
   },
   "timepicker": {
-    "hidden": false,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -3258,6 +2770,5 @@
   "timezone": "browser",
   "title": "GPU Device View",
   "uid": "9Qxi6EuNVxaaaaa",
-  "version": 4,
-  "weekStart": ""
+  "version": 2
 }
