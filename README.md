@@ -92,3 +92,4 @@ Once the cluster is started, you can access the Grafana dashboards by browsing t
 ## Limitations
 Azure Monitor Workspace has a default limit of 1M timeseries and 1M events per minute. Reaching this limit will imply throttling and a long tailing in ingestion. As it stands, the current exporters will reach these limits for ~125 Hbv4 nodes with 176 cores, ~154 NDv5 nodes with 96 cores, and ~285 NCv4 nodes with 48 cores. 
 
+> Note : see the online documentation if you need to increase these limits: https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/azure-monitor-workspace-monitor-ingest-limits?tabs=azure-portal#request-for-an-increase-in-ingestion-limits-preview 
