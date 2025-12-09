@@ -6,10 +6,6 @@ read_os()
     os_version=$(cat /etc/os-release | grep "^VERSION_ID\=" | cut -d'=' -f 2 | xargs)
 }
 
-function is_slurm_scheduler() {
-    jetpack config slurm.role | grep -q 'scheduler'
-}
-
 function is_scheduler() {
     jetpack config roles | grep -q 'scheduler'
 }
