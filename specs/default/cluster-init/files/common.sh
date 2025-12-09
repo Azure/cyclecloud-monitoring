@@ -43,5 +43,5 @@ function install_yq() {
 }
 
 function is_monitoring_enabled() {
-    jetpack config monitoring.enabled | tr '[:upper:]' '[:lower:]' | grep -q 'true'
+    jetpack config cyclecloud.monitoring.enabled | tr '[:upper:]' '[:lower:]' | grep -q 'true'
 }

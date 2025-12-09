@@ -58,8 +58,8 @@ function install_prometheus() {
     # copy the prometheus configuration file
     cp -v $SPEC_FILE_ROOT/prometheus.yml $PROM_CONFIG
 
-    INGESTION_ENDPOINT=$(jetpack config monitoring.ingestion_endpoint)
-    IDENTITY_CLIENT_ID=$(jetpack config monitoring.identity_client_id)
+    INGESTION_ENDPOINT=$(jetpack config cyclecloud.monitoring.ingestion_endpoint)
+    IDENTITY_CLIENT_ID=$(jetpack config cyclecloud.monitoring.identity_client_id)
     INSTANCE_NAME=$(hostname)
     # update the configuration file
     sed -i "s/instance_name/$INSTANCE_NAME/g" $PROM_CONFIG
