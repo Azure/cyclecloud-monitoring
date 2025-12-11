@@ -6,18 +6,6 @@ read_os()
     os_version=$(cat /etc/os-release | grep "^VERSION_ID\=" | cut -d'=' -f 2 | xargs)
 }
 
-function is_scheduler() {
-    jetpack config slurm.role | grep -q 'scheduler'
-}
-
-function is_login() {
-    jetpack config slurm.role | grep -q 'login'
-}
-
-function is_compute() {
-    jetpack config slurm.role | grep -q 'execute'
-}
-
 function is_arm64() {
    uname -m | grep -q 'aarch64\|arm64' 
 }

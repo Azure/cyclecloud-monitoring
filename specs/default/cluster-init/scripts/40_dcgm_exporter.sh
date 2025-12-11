@@ -41,8 +41,6 @@ function add_scraper() {
     systemctl restart prometheus
 }
 
-if is_compute ; then
-    install_dcgm_exporter
-    install_yq
-    add_scraper
-fi
+install_dcgm_exporter
+install_yq
+add_scraper
