@@ -1,7 +1,8 @@
 [Unit]
 Description=Prometheus Monitoring
 Wants=network-online.target
-After=network-online.target
+After=network-online.target mnt.mount
+Requires=mnt.mount
 
 [Service]
 ExecStart=/opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml --storage.tsdb.path=/mnt/prometheus/data
