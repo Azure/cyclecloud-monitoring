@@ -33,8 +33,8 @@ DCGM_FI_DEV_POWER_VIOLATION,       counter, Throttling duration due to power con
 DCGM_FI_DEV_THERMAL_VIOLATION,     counter, Throttling duration due to thermal constraints (in us).
 
 # Memory usage
-#DCGM_FI_DEV_FB_FREE, gauge, Framebuffer memory free (in MiB).
-#DCGM_FI_DEV_FB_USED, gauge, Framebuffer memory used (in MiB).
+DCGM_FI_DEV_FB_FREE, gauge, Framebuffer memory free (in MiB).
+DCGM_FI_DEV_FB_USED, gauge, Framebuffer memory used (in MiB).
 
 # ECC
 DCGM_FI_DEV_ECC_SBE_VOL_TOTAL, counter, Total number of single-bit volatile ECC errors.
