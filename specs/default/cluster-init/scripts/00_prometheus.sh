@@ -70,7 +70,7 @@ function install_prometheus() {
     sed -i -r "s|cluster_name|$CLUSTER_NAME|" $PROM_CONFIG
     sed -i -r "s/physical_host_name/$PHYS_HOST_NAME/" $PROM_CONFIG
 
-    # Create Prometheus data directory to avoid landing on default /data folder
+    # Create Prometheus data directory
     mkdir -pv /mnt/prometheus/data
 
     # Enable and start prometheus service
