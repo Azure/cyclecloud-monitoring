@@ -63,7 +63,7 @@ function install_dcgm_exporter() {
 
     docker run --name "$DCGM_CONTAINER_NAME" \
             -v "$SPEC_FILE_ROOT/custom_dcgm_counters.csv:/etc/dcgm-exporter/custom-counters.csv" \
-            -d --gpus all --cap-add SYS_ADMIN --restart always -p "${DCGM_PORT}:${DCGM_PORT}" \
+            -d --gpus all --cap-add SYS_ADMIN --restart always -p "${DCGM_PORT}:9400" \
             "$DCGM_IMAGE" -f /etc/dcgm-exporter/custom-counters.csv
 }
 
