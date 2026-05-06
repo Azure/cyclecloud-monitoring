@@ -1,13 +1,30 @@
 #!/bin/bash
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-RESOURCE_GROUP_NAME=$1
+
+# Parse arguments
+SLURM_FLAG=false
+RESOURCE_GROUP_NAME=""
+
+for arg in "$@"; do
+  case $arg in
+    --slurm)
+      SLURM_FLAG=true
+      shift
+      ;;
+    *)
+      RESOURCE_GROUP_NAME=$arg
+      shift
+      ;;
+  esac
+done
+
 if [ -z "$RESOURCE_GROUP_NAME" ]; then
-  echo "Usage: $0 <resource-group-name>"
+  echo "Usage: $0 <resource-group-name> [--slurm]"
   exit 1
 fi
 
 # Retrieve the location of the resource group
-LOCATION=$(az group show -n $RESOURCE_GROUP_NAME --query location -o tsv 2>/dev/null | tr -d '\n' | tr -d '\r') 
+LOCATION=$(az group show -n $RESOURCE_GROUP_NAME --query location -o tsv 2>/dev/null | tr -d '\n' | tr -d '\r')
 if [ -z "$LOCATION" ]; then
   echo "Resource group $RESOURCE_GROUP_NAME does not exist."
   echo "Please create the resource group first."
@@ -43,4 +60,9 @@ if [ -z "$GRAFANA_NAME" ]; then
   exit 1
 fi
 $THIS_DIR/add_dashboards.sh $RESOURCE_GROUP_NAME $GRAFANA_NAME
+
+if [ "$SLURM_FLAG" = true ]; then
+  echo "Adding Slurm dashboards..."
+  $THIS_DIR/add_slurm_dashboards.sh $RESOURCE_GROUP_NAME $GRAFANA_NAME
+fi
 
