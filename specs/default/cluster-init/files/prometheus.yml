@@ -4,6 +4,7 @@ global:
   external_labels:
     subscription: subscription_id
     cluster: cluster_name
+    nodearray: nodearray_name
     instance: instance_name
     physical_host: physical_host_name
 
