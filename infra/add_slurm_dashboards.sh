@@ -14,8 +14,8 @@ trap cleanup EXIT
 # Get the latest release tag of cyclecloud-slurm
 LATEST_TAG=$(curl --fail --silent --show-error https://api.github.com/repos/Azure/cyclecloud-slurm/releases/latest | jq -r '.tag_name // empty')
 if [ -z "$LATEST_TAG" ]; then
-  echo "Failed to determine latest cyclecloud-slurm release tag."
-  exit 1
+  echo "Could not determine latest cyclecloud-slurm release tag; skipping Slurm dashboards."
+  exit 0
 fi
 
 TARBALL_PATH="$TEMP_DIR/cyclecloud-slurm.tar.gz"
