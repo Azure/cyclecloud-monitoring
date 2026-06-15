@@ -6,7 +6,7 @@ This repository provides scripts and configuration files for monitoring Azure Cy
     - Prometheus Node Exporter (with Infiniband support)
     - NVidia DCGM exporter (for Nvidia GPU nodes)
 
-**cyclecloud-slurm project 4.0.3 also installs and configures the SchedMd Slurm Exporter for scheduler nodes.**
+**cyclecloud-slurm project 4.0.7+ also installs and configures the Azslurm-Exporter for scheduler nodes.**
 
 ## Build the Managed Monitoring Infrastructure
 This repository includes a utility script that constructs the Managed Monitoring Infrastructure. These commands need to be run from a machine which can create azure resources, like a local laptop or a deployment agent. Don’t run these from the CycleCloud VM or from Cloud Shell.
@@ -21,7 +21,7 @@ Deploy the Managed Monitoring Infrastructure resources
 ```bash
 git clone https://github.com/Azure/cyclecloud-monitoring.git
 cd cyclecloud-monitoring
-./infra/deploy.sh <monitoring_resource_group>
+./infra/deploy.sh <monitoring_resource_group> # Slurm users can add --slurm flag to deploy slurm related dashboards from the cyclecloud-slurm project
 ```
 
 ## Grant the Monitoring Metrics Publisher role to the User Assigned Managed Identity
@@ -83,7 +83,7 @@ You can verify that the started nodes are pushing metrics in the monitoring work
 To control the configured exporters are exposing metrics, connect to a node and execute these `curls` commands :
 - For the Node Exporter : `curl -s http://localhost:9100/metrics` - available on all nodes
 - For the DCGM Exporter : `curl -s http://localhost:9400/metrics` - only available on VM type with NVidia GPU
-- For the Slurm Exporter in cyclecloud-slurm 4.0.3 clusters: `curl -s http://localhost:9200/metrics` - only available on Slurm Scheduler VM
+- For the Azslurm-Exporter in cyclecloud-slurm 4.0.7+ clusters: `curl -s http://localhost:9101/metrics` - only available on Slurm Scheduler VM
 
 
 ## Accessing the Monitoring Dashboards
