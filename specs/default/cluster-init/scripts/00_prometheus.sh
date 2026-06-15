@@ -2,7 +2,7 @@
 set -e
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPEC_FILE_ROOT="$script_dir/../files"
-source "$SPEC_FILE_ROOT/common.sh" 
+source "$SPEC_FILE_ROOT/common.sh"
 
 PROMETHEUS_VERSION=3.3.0
 PROMETHEUS_PACKAGE=prometheus-$PROMETHEUS_VERSION.linux-amd64.tar.gz
@@ -27,6 +27,35 @@ get_cluster_name(){
     cluster_name=$(jetpack config cyclecloud.cluster.name)
 
     echo "$resource_group_name/$cluster_name"
+}
+
+# Get the nodearray this node belongs to.
+# Nodearray members carry a "CycleCloudNodeArray" tag (.../nodearrays/<name>);
+# standalone nodes (e.g. the scheduler/controller) instead carry a "Name" tag
+# with the node name. Prefer the nodearray, fall back to the node name.
+get_nodearray(){
+    local tags="" nodearray_name=""
+    tags=$(jetpack config azure.metadata.compute.tags 2>/dev/null) \
+        || echo "WARNING: failed to read instance tags from jetpack for nodearray" >&2
+
+    if [ -n "$tags" ]; then
+        # Tags are a ';'-delimited string of 'key:value' pairs. Prefer the
+        # CycleCloudNodeArray tag (take the last path segment), else the Name tag.
+        nodearray_name=$(echo "$tags" | awk -F ';' '{
+            for (i = 1; i <= NF; i++) {
+                split($i, kv, ":")
+                if (kv[1] == "CycleCloudNodeArray") { n = split(kv[2], path, "/"); array = path[n] }
+                else if (kv[1] == "Name") { name = kv[2] }
+            }
+            if (array != "") print array; else print name
+        }')
+    fi
+
+    if [ -z "$nodearray_name" ]; then
+        echo "WARNING: could not determine nodearray; using 'unknown'" >&2
+        nodearray_name=unknown
+    fi
+    echo "$nodearray_name"
 }
 
 get_physical_host_name(){
@@ -68,6 +97,7 @@ function install_prometheus() {
 
     sed -i -r "s/subscription_id/$SUBSCRIPTION_ID/" $PROM_CONFIG
     sed -i -r "s|cluster_name|$CLUSTER_NAME|" $PROM_CONFIG
+    sed -i -r "s|nodearray_name|$NODEARRAY_NAME|" $PROM_CONFIG
     sed -i -r "s/physical_host_name/$PHYS_HOST_NAME/" $PROM_CONFIG
 
     # Create Prometheus data directory
@@ -82,5 +112,6 @@ function install_prometheus() {
 # Always install prometheus
 PHYS_HOST_NAME=$(get_physical_host_name)
 CLUSTER_NAME=$(get_cluster_name)
+NODEARRAY_NAME=$(get_nodearray)
 SUBSCRIPTION_ID=$(get_subscription)
 install_prometheus
