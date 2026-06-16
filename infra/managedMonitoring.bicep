@@ -39,7 +39,7 @@ resource grafana 'Microsoft.Dashboard/grafana@2024-10-01' = {
         }
       ]
     }
-    grafanaMajorVersion: '11'
+    grafanaMajorVersion: '12'
     publicNetworkAccess: 'Enabled'
     zoneRedundancy: 'Disabled'
   }
