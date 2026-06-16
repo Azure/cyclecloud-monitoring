@@ -2,13 +2,13 @@
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Parse arguments
-SLURM_FLAG=false
+SLURM_FLAG=""
 RESOURCE_GROUP_NAME=""
 
 for arg in "$@"; do
   case $arg in
     --slurm)
-      SLURM_FLAG=true
+      SLURM_FLAG="--slurm"
       ;;
     -*)
       echo "Unknown option: $arg"
@@ -67,10 +67,5 @@ if [ -z "$GRAFANA_NAME" ]; then
   echo "Failed to retrieve Grafana name."
   exit 1
 fi
-$THIS_DIR/add_dashboards.sh $RESOURCE_GROUP_NAME $GRAFANA_NAME
-
-if [ "$SLURM_FLAG" = true ]; then
-  echo "Adding Slurm dashboards..."
-  $THIS_DIR/add_slurm_dashboards.sh $RESOURCE_GROUP_NAME $GRAFANA_NAME
-fi
+$THIS_DIR/add_dashboards.sh $RESOURCE_GROUP_NAME $GRAFANA_NAME $SLURM_FLAG
 
