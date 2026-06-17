@@ -1,15 +1,41 @@
 #!/bin/bash
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-RESOURCE_GROUP_NAME=$1
-GRAFANA_NAME=$2 
+# Parse arguments
+SLURM_FLAG=""
+RESOURCE_GROUP_NAME=""
+GRAFANA_NAME=""
+
+for arg in "$@"; do
+  case $arg in
+    --slurm)
+      SLURM_FLAG=true
+      ;;
+    -*)
+      echo "Unknown option: $arg"
+      echo "Usage: $0 <resource-group-name> <grafana-name> [--slurm]"
+      exit 1
+      ;;
+    *)
+      if [ -z "$RESOURCE_GROUP_NAME" ]; then
+        RESOURCE_GROUP_NAME=$arg
+      elif [ -z "$GRAFANA_NAME" ]; then
+        GRAFANA_NAME=$arg
+      else
+        echo "Unexpected argument: $arg"
+        echo "Usage: $0 <resource-group-name> <grafana-name> [--slurm]"
+        exit 1
+      fi
+      ;;
+  esac
+done
 
 if [ -z "$GRAFANA_NAME" ]; then
-  echo "Usage: $0 <resource-group-name> <grafana-name>"
+  echo "Usage: $0 <resource-group-name> <grafana-name> [--slurm]"
   exit 1
 fi
 if [ -z "$RESOURCE_GROUP_NAME" ]; then
-  echo "Usage: $0 <resource-group-name> <grafana-name>"
+  echo "Usage: $0 <resource-group-name> <grafana-name> [--slurm]"
   exit 1
 fi
 
@@ -38,4 +64,10 @@ az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROU
 # Cluster View dashboards
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/cluster_view_timeseries.json
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/cluster_view_with_heatmap.json
+
+# Slurm dashboards
+if [ "$SLURM_FLAG" = true ]; then
+  echo "Adding Slurm dashboards..."
+  $THIS_DIR/add_slurm_dashboards.sh $RESOURCE_GROUP_NAME $GRAFANA_NAME
+fi
 
