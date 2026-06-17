@@ -1,5 +1,6 @@
 #!/bin/bash
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$THIS_DIR/util.sh"
 
 # Parse arguments
 SLURM_FLAG=""
@@ -41,6 +42,8 @@ fi
 
 FOLDER_NAME="Azure CycleCloud"
 DASHBOARD_FOLDER=$THIS_DIR/dashboards
+LIBRARY_PANEL_FOLDER=$DASHBOARD_FOLDER/library-panels
+
 # Create Grafana dashboards folders
 az grafana folder show -n $GRAFANA_NAME -g $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" > /dev/null 2>&1
 if [ $? -ne 0 ]; then
@@ -48,10 +51,19 @@ if [ $? -ne 0 ]; then
   az grafana folder create --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --title "$FOLDER_NAME"
 fi
 
+# Library panels (must exist before importing dashboards that reference them).
+if [ -d "$LIBRARY_PANEL_FOLDER" ] && ls "$LIBRARY_PANEL_FOLDER"/*.json > /dev/null 2>&1; then
+  GRAFANA_ENDPOINT=$(az grafana show -n $GRAFANA_NAME -g $RESOURCE_GROUP_NAME --query properties.endpoint -o tsv | tr -d '\r\n')
+  for panel_file in "$LIBRARY_PANEL_FOLDER"/*.json; do
+    import_library_panel "$panel_file"
+  done
+fi
+
 
 # Single node dashboards
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/node.json
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/infiniband.json
+az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/node_level.json
 
 # Combined view dashboards
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/combined_view.json
@@ -60,10 +72,12 @@ az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROU
 # GPU dashboards
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/gpu_device.json
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/gpu_profiling.json
+az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/gpu_level.json
 
 # Cluster View dashboards
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/cluster_view_timeseries.json
 az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/cluster_view_with_heatmap.json
+az grafana dashboard import --name $GRAFANA_NAME --resource-group $RESOURCE_GROUP_NAME --folder "$FOLDER_NAME" --overwrite true --definition $DASHBOARD_FOLDER/cluster_nodearray_overview.json
 
 # Slurm dashboards
 if [ "$SLURM_FLAG" = true ]; then
