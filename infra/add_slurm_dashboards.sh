@@ -11,16 +11,14 @@ cleanup() {
 
 trap cleanup EXIT
 
-# Get the latest release tag of cyclecloud-slurm
-LATEST_TAG=$(curl --fail --silent --show-error https://api.github.com/repos/Azure/cyclecloud-slurm/releases/latest | jq -r '.tag_name // empty')
-if [ -z "$LATEST_TAG" ]; then
-  echo "Could not determine latest cyclecloud-slurm release tag; skipping Slurm dashboards."
-  exit 0
-fi
+# Branch of cyclecloud-slurm to pull dashboards from
+BRANCH="azreenzaman/dashboard-changes"
+# GitHub replaces "/" with "-" in the archive's extracted directory name
+BRANCH_DIR_NAME="${BRANCH//\//-}"
 
 TARBALL_PATH="$TEMP_DIR/cyclecloud-slurm.tar.gz"
-EXTRACTED_DIR="$TEMP_DIR/cyclecloud-slurm-${LATEST_TAG}"
-curl --fail --location --silent --show-error -o "$TARBALL_PATH" https://github.com/Azure/cyclecloud-slurm/archive/refs/tags/${LATEST_TAG}.tar.gz
+EXTRACTED_DIR="$TEMP_DIR/cyclecloud-slurm-${BRANCH_DIR_NAME}"
+curl --fail --location --silent --show-error -o "$TARBALL_PATH" https://github.com/Azure/cyclecloud-slurm/archive/refs/heads/${BRANCH}.tar.gz
 tar -xzf "$TARBALL_PATH" -C "$TEMP_DIR"
 if [ ! -d "$EXTRACTED_DIR/azure-slurm-exporter" ]; then
   echo "azure-slurm-exporter directory not found in release. Skipping."
