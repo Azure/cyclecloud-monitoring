@@ -69,6 +69,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -76,7 +79,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -96,14 +100,6 @@
       "id": 2020,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "frameIndex": 3,
         "showHeader": true,
         "sortBy": [
@@ -113,7 +109,7 @@
           }
         ]
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -122,7 +118,6 @@
           },
           "editorMode": "code",
           "expr": "dcgm_fi_dev_gpu_util{instance=~\"$instance\", cluster=\"$cluster\", gpu=\"0\"}",
-          "hide": false,
           "instant": false,
           "legendFormat": "{{instance}}",
           "range": true,
@@ -184,7 +179,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#000c5dfc"
+                "color": "#000c5dfc",
+                "value": 0
               },
               {
                 "color": "dark-blue",
@@ -235,7 +231,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -243,7 +239,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_gpu_util{instance=~\"$instance\", cluster=\"$cluster\", gpu=~\"$gpu\"}",
+          "expr": "dcgm_fi_dev_gpu_util{instance=~\"^$instance$\", cluster=\"$cluster\", gpu=~\"$gpu\"}",
           "instant": false,
           "legendFormat": "{{instance}} - GPU {{gpu}}",
           "range": true,
@@ -271,7 +267,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "yellow",
@@ -309,7 +306,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -344,7 +341,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -382,7 +380,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -425,7 +423,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46"
+                "color": "#299c46",
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -470,7 +469,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -523,6 +522,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -540,7 +540,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -577,7 +578,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -630,6 +631,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -645,7 +647,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -682,7 +685,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -690,7 +693,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_memory_temp{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_memory_temp{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -717,6 +720,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -724,7 +730,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -782,19 +789,16 @@
       "id": 2050,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
+        "enablePagination": true,
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "GPU"
+          }
+        ]
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -803,11 +807,9 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "DCGM_FI_DEV_XID_ERRORS{instance=\"$instance\",cluster=\"$cluster\"}",
+          "expr": "DCGM_FI_DEV_XID_ERRORS{instance=~\"^$instance$\",cluster=\"$cluster\"}",
           "format": "table",
-          "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
@@ -815,49 +817,76 @@
       "title": "Last GPU XID Code",
       "transformations": [
         {
-          "id": "reduce",
+          "id": "filterFieldsByName",
           "options": {
-            "includeTimeField": false,
-            "mode": "reduceFields",
-            "reducers": [
-              "lastNotNull"
-            ]
+            "include": {
+              "names": [
+                "device",
+                "gpu",
+                "hostname",
+                "Value",
+                "instance"
+              ]
+            }
           }
         },
         {
-          "id": "filterFieldsByName",
+          "id": "groupBy",
           "options": {
-            "byVariable": false,
-            "include": {
-              "names": [
-                "gpu",
-                "instance",
-                "Value"
-              ]
+            "fields": {
+              "GPU ID": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Value": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "device": {
+                "aggregations": []
+              },
+              "gpu": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "gpu_id": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "hostname": {
+                "aggregations": []
+              },
+              "instance": {
+                "aggregations": []
+              },
+              "time_stamp": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "groupby"
+              }
             }
           }
         },
         {
           "id": "organize",
           "options": {
-            "excludeByName": {
-              "Trend #A": false
-            },
+            "excludeByName": {},
             "includeByName": {},
             "indexByName": {
-              "Trend #A": 2,
+              "Value (last)": 2,
               "gpu": 1,
               "instance": 0
             },
             "renameByName": {
-              "Trend #A": "XID Code",
               "Value": "XID Code",
               "Value (last)": "XID Code",
               "gpu": "GPU",
               "gpu_id": "GPU ID",
               "hostname": "Instance",
               "instance": "Instance",
-              "instance (last)": "Instance",
               "time_stamp": "Time Stamp",
               "time_stamp (last)": "Time Stamp"
             }
@@ -896,6 +925,9 @@
               "type": "auto"
             },
             "filterable": true,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "decimals": 0,
@@ -906,7 +938,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -977,19 +1010,11 @@
       "id": 2051,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
+        "enablePagination": true,
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1104,6 +1129,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1119,7 +1145,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1156,7 +1183,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1164,7 +1191,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_gpu_temp{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_gpu_temp{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -1209,6 +1236,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1224,7 +1252,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1258,7 +1287,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1266,7 +1295,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_dbe_agg_total{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_dbe_agg_total{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -1311,6 +1340,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1326,7 +1356,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1363,7 +1394,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1371,7 +1402,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "dcgm_fi_dev_power_usage{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}",
+          "expr": "dcgm_fi_dev_power_usage{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -1416,6 +1447,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1431,7 +1463,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1465,7 +1498,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1473,7 +1506,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_sbe_agg_total{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_sbe_agg_total{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -1518,6 +1551,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1533,7 +1567,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1566,7 +1601,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1575,7 +1610,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(dcgm_fi_dev_thermal_violation{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
+          "expr": "increase(dcgm_fi_dev_thermal_violation{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -1620,6 +1655,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1635,7 +1671,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1669,7 +1706,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1677,7 +1714,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "increase(dcgm_fi_dev_ecc_dbe_vol_total{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval])",
+          "expr": "increase(dcgm_fi_dev_ecc_dbe_vol_total{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval])",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -1722,6 +1759,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1737,7 +1775,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1770,7 +1809,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1779,7 +1818,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "increase(dcgm_fi_dev_power_violation{instance=~\"$instance\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
+          "expr": "increase(dcgm_fi_dev_power_violation{instance=~\"^$instance$\", gpu=~\"$gpu\",cluster=\"$cluster\"}[$__rate_interval]) / 1e9",
           "legendFormat": "{{instance}} GPU {{gpu}}",
           "range": true,
           "refId": "A"
@@ -1791,7 +1830,7 @@
   ],
   "preload": false,
   "refresh": "5s",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -1831,6 +1870,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1854,6 +1894,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "sort": 1,
         "type": "query"
       },
@@ -1879,6 +1920,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1903,6 +1945,7 @@
         },
         "refresh": 1,
         "regex": "/^(?!dm-|loop|tmpfs)/",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1926,6 +1969,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1949,6 +1993,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1972,6 +2017,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1995,6 +2041,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -2022,6 +2069,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]

@@ -74,7 +74,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -109,7 +110,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -118,7 +119,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (nodearray)(node_time_seconds{nodearray=~\"$nodearray\", cluster=\"$cluster\"} - node_boot_time_seconds{nodearray=~\"$nodearray\", cluster=\"$cluster\"})",
+          "expr": "avg by (nodearray)(node_time_seconds{nodearray=~\"^$nodearray$\", cluster=\"$cluster\"} - node_boot_time_seconds{nodearray=~\"^$nodearray$\", cluster=\"$cluster\"})",
           "format": "table",
           "instant": true,
           "legendFormat": "{{nodearray}}",
@@ -158,7 +159,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#000c5dfc"
+                "color": "#000c5dfc",
+                "value": 0
               },
               {
                 "color": "dark-blue",
@@ -209,7 +211,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -217,7 +219,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "100 - (avg by (nodearray) (rate(node_cpu_seconds_total{nodearray=~\"$nodearray\",mode=\"idle\",cluster=\"$cluster\"}[$__rate_interval])) * 100)",
+          "expr": "100 - (avg by (nodearray) (rate(node_cpu_seconds_total{nodearray=~\"^$nodearray$\",mode=\"idle\",cluster=\"$cluster\"}[$__rate_interval])) * 100)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -260,7 +262,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -298,7 +301,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -307,7 +310,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(100 - avg by (nodearray)(node_filesystem_avail_bytes{nodearray=~\"$nodearray\",mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"} * 100) / avg by (nodearray)(node_filesystem_size_bytes{nodearray=~\"$nodearray\",mountpoint=\"/\",fstype!=\"rootfs\",cluster=\"$cluster\"}))",
+          "expr": "(100 - avg by (nodearray)(node_filesystem_avail_bytes{nodearray=~\"^$nodearray$\",mountpoint=\"/\",fstype!=\"rootfs\", cluster=\"$cluster\"} * 100) / avg by (nodearray)(node_filesystem_size_bytes{nodearray=~\"^$nodearray$\",mountpoint=\"/\",fstype!=\"rootfs\",cluster=\"$cluster\"}))",
           "format": "table",
           "instant": true,
           "legendFormat": "{{instance}}",
@@ -354,6 +357,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -371,7 +375,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -406,7 +411,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -414,7 +419,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - avg by (hostname, cpu) (rate(node_cpu_seconds_total{nodearray=~\"$nodearray\",mode='idle', instance=~\"$instance\", cpu=~\"^$cpu$\", cluster=\"$cluster\" }[$__rate_interval]))))",
+          "expr": "(100 * (1 - avg by (hostname, cpu) (rate(node_cpu_seconds_total{nodearray=~\"^$nodearray$\",mode='idle', instance=~\"$instance\", cpu=~\"^$cpu$\", cluster=\"$cluster\" }[$__rate_interval]))))",
           "hide": true,
           "legendFormat": "CPU {{cpu}}",
           "range": true,
@@ -426,7 +431,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "100 * (1 - avg by (instance,cpu) (rate(node_cpu_seconds_total{nodearray=~\"$nodearray\",mode='idle', instance=~\"$instance\", cpu=~\"^$cpu$\", cluster=\"$cluster\"}[$__rate_interval])))",
+          "expr": "100 * (1 - avg by (instance,cpu) (rate(node_cpu_seconds_total{nodearray=~\"^$nodearray$\",mode='idle', instance=~\"$instance\", cpu=~\"^$cpu$\", cluster=\"$cluster\"}[$__rate_interval])))",
           "format": "time_series",
           "hide": true,
           "instant": false,
@@ -440,7 +445,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "100 * (1 - avg by (instance, cpu) (rate(node_cpu_seconds_total{nodearray=~\"$nodearray\",mode='idle', instance=~\"$instance\", cpu=~\"^$cpu$\", cluster=\"$cluster\"}[$__rate_interval])))",
+          "expr": "100 * (1 - avg by (instance, cpu) (rate(node_cpu_seconds_total{nodearray=~\"^$nodearray$\",mode='idle', instance=~\"$instance\", cpu=~\"^$cpu$\", cluster=\"$cluster\"}[$__rate_interval])))",
           "hide": true,
           "instant": false,
           "legendFormat": "__auto",
@@ -453,7 +458,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "100 * (1 - avg by (nodearray)(rate(node_cpu_seconds_total{nodearray=~\"$nodearray\",mode='idle', cluster=\"$cluster\"}[$__rate_interval])))",
+          "expr": "100 * (1 - avg by (nodearray)(rate(node_cpu_seconds_total{nodearray=~\"^$nodearray$\",mode='idle', cluster=\"$cluster\"}[$__rate_interval])))",
           "hide": true,
           "instant": false,
           "legendFormat": "{{nodearray}}",
@@ -466,8 +471,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "100 - (avg by (nodearray) (rate(node_cpu_seconds_total{nodearray=~\"$nodearray\",mode=\"idle\",cluster=\"$cluster\"}[$__rate_interval])) * 100)",
-          "hide": false,
+          "expr": "100 - (avg by (nodearray) (rate(node_cpu_seconds_total{nodearray=~\"^$nodearray$\",mode=\"idle\",cluster=\"$cluster\"}[$__rate_interval])) * 100)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -513,6 +517,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -527,7 +532,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -562,7 +568,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -570,7 +576,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by (nodearray)(irate(node_disk_io_time_seconds_total{nodearray=~\"$nodearray\",device=~\"$diskdevices\", cluster=\"$cluster\"} [$__rate_interval]))",
+          "expr": "avg by (nodearray)(irate(node_disk_io_time_seconds_total{nodearray=~\"^$nodearray$\",device=~\"$diskdevices\", cluster=\"$cluster\"} [$__rate_interval]))",
           "legendFormat": "{{nodearray}} {{device}}",
           "range": true,
           "refId": "A"
@@ -615,6 +621,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -631,7 +638,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -667,7 +675,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -675,7 +683,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "(100 * (1 - avg by (nodearray)(node_memory_memavailable_bytes{nodearray=~\"$nodearray\", cluster=\"$cluster\"}) / avg by (nodearray)(node_memory_memtotal_bytes{nodearray=~\"$nodearray\",cluster=\"$cluster\"})))",
+          "expr": "(100 * (1 - avg by (nodearray)(node_memory_memavailable_bytes{nodearray=~\"^$nodearray$\", cluster=\"$cluster\"}) / avg by (nodearray)(node_memory_memtotal_bytes{nodearray=~\"^$nodearray$\",cluster=\"$cluster\"})))",
           "interval": "",
           "legendFormat": "{{instance}}",
           "range": true,
@@ -721,6 +729,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -735,7 +744,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -783,7 +793,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -791,7 +801,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by (nodearray)(irate(node_mountstats_nfs_total_read_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": "avg by (nodearray)(irate(node_mountstats_nfs_total_read_bytes_total{nodearray=~\"^$nodearray$\",cluster=\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "{{nodearray}} {{export}} - read",
           "range": true,
           "refId": "A"
@@ -802,7 +812,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by (nodearray)(irate(node_mountstats_nfs_total_write_bytes_total{cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": "avg by (nodearray)(irate(node_mountstats_nfs_total_write_bytes_total{nodearray=~\"^$nodearray$\",cluster=\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "{{nodearray}} {{export}} - write",
           "range": true,
           "refId": "B"
@@ -847,6 +857,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -861,7 +872,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -904,7 +916,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -912,8 +924,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by (nodearray)(irate(node_vmstat_pgmajfault{nodearray=~\"$nodearray\",cluster=\"$cluster\"}[$__rate_interval]))",
-          "hide": false,
+          "expr": "avg by (nodearray)(irate(node_vmstat_pgmajfault{nodearray=~\"^$nodearray$\",cluster=\"$cluster\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "{{instance}}",
           "range": true,
@@ -959,6 +970,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -973,7 +985,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1017,7 +1030,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1025,7 +1038,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by (nodearray)(rate(node_network_receive_bytes_total{nodearray=~\"$nodearray\",device='eth0',cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": "avg by (nodearray)(rate(node_network_receive_bytes_total{nodearray=~\"^$nodearray$\",device='eth0',cluster=\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "{{nodearray}} - receive",
           "range": true,
           "refId": "A"
@@ -1036,8 +1049,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by (nodearray)(rate(node_network_transmit_bytes_total{nodearray=~\"$nodearray\",device='eth0',cluster=\"$cluster\"}[$__rate_interval]))",
-          "hide": false,
+          "expr": "avg by (nodearray)(rate(node_network_transmit_bytes_total{nodearray=~\"^$nodearray$\",device='eth0',cluster=\"$cluster\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "{{nodearray}} - transmit",
           "range": true,
@@ -1083,6 +1095,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1097,7 +1110,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1145,7 +1159,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.9",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -1153,7 +1167,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": " avg by (nodearray,device)(irate(node_disk_read_bytes_total{nodearray=~\"$nodearray\",device=~\"$diskdevices\", cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": " avg by (nodearray,device)(irate(node_disk_read_bytes_total{nodearray=~\"^$nodearray$\",device=~\"$diskdevices\", cluster=\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "{{nodearray}} {{device}} -read",
           "range": true,
           "refId": "A"
@@ -1164,7 +1178,7 @@
             "uid": "${Datasource}"
           },
           "editorMode": "code",
-          "expr": "avg by (nodearray,device)(irate(node_disk_written_bytes_total{nodearray=~\"$nodearray\",device=~\"$diskdevices\",cluster=\"$cluster\"}[$__rate_interval]))",
+          "expr": "avg by (nodearray,device)(irate(node_disk_written_bytes_total{nodearray=~\"^$nodearray$\",device=~\"$diskdevices\",cluster=\"$cluster\"}[$__rate_interval]))",
           "legendFormat": "{{nodearray}} {{device}}  - write",
           "range": true,
           "refId": "B"
@@ -1176,7 +1190,7 @@
   ],
   "preload": false,
   "refresh": "5s",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
@@ -1216,6 +1230,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1240,6 +1255,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "sort": 1,
         "type": "query"
       },
@@ -1265,6 +1281,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1289,6 +1306,7 @@
         },
         "refresh": 1,
         "regex": "/^(?!dm-|loop|tmpfs)/",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1313,6 +1331,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1336,6 +1355,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1359,12 +1379,13 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
         "current": {
-          "text": "ams261151107013",
-          "value": "ams261151107013"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
@@ -1382,6 +1403,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       },
       {
@@ -1410,6 +1432,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
