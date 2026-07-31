@@ -15,6 +15,55 @@ PROM_CONFIG=/opt/prometheus/prometheus.yml
 if ! is_monitoring_enabled; then
     exit 0
 fi
+function run_container_exporter() {
+    # Run Node Exporter in a container
+    docker run -d --name node_exporter --restart unless-stopped \
+        -p 9100:9100 \
+        -v "/:/host:ro,rslave" \
+        --pid=host \
+        --net=host \
+        --cap-add SYS_ADMIN \
+        --cap-add SYS_PTRACE \
+        quay.io/prometheus/node-exporter:latest \
+            --path.rootfs=/host \
+            --collector.mountstats \
+            --collector.cpu.info \
+            --no-collector.arp \
+            --no-collector.bcache \
+            --no-collector.bonding \
+            --no-collector.btrfs \
+            --no-collector.conntrack \
+            --no-collector.cpufreq \
+            --no-collector.dmi \
+            --no-collector.edac \
+            --no-collector.entropy \
+            --no-collector.fibrechannel \
+            --no-collector.filefd \
+            --no-collector.hwmon \
+            --no-collector.ipvs \
+            --no-collector.mdadm \
+            --no-collector.netclass \
+            --no-collector.netstat \
+            --no-collector.nfs \
+            --no-collector.nfsd \
+            --no-collector.nvme \
+            --no-collector.os \
+            --no-collector.powersupplyclass \
+            --no-collector.pressure \
+            --no-collector.rapl \
+            --no-collector.schedstat \
+            --no-collector.selinux \
+            --no-collector.sockstat \
+            --no-collector.softnet \
+            --no-collector.tapestats \
+            --no-collector.textfile \
+            --no-collector.thermal_zone \
+            --no-collector.timex \
+            --no-collector.udp_queues \
+            --no-collector.watchdog \
+            --no-collector.xfs \
+            --no-collector.zfs
+}
 
 function install_node_exporter() {
     # If /opt/node_exporter doen't exist, download and extract node_exporter
@@ -74,6 +123,7 @@ function add_scraper() {
 
 
 # Always install node_exporter
-install_node_exporter
+#install_node_exporter
+run_container_exporter
 install_yq
 add_scraper
