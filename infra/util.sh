@@ -4,6 +4,21 @@
 # Audience used to request a token for the Azure Managed Grafana REST API
 GRAFANA_AAD_RESOURCE="ce34e7e5-485f-4d76-964f-b3d2b16d1e4f"
 
+require_option_value() {
+  if [[ "$#" -lt 2 ]]; then
+    echo "ERROR: Option '$1' requires a value" >&2
+    exit 1
+  fi
+}
+
+strip_carriage_returns() {
+  if [[ "$#" -gt 0 ]]; then
+    printf '%s' "$1" | tr -d '\r'
+  else
+    tr -d '\r'
+  fi
+}
+
 # az grafana has no library-panel command, so call the Grafana REST API directly.
 # Upsert a single Grafana library panel.
 # Usage: import_library_panel <library-panel-json>
