@@ -10,7 +10,7 @@ CYCLECLOUD_SLURM_SOURCE_ARCHIVE_SHA256="5a0261f9afa116729fe842141944c6d4a0c1a617
 CYCLECLOUD_SLURM_SOURCE_ARCHIVE_URL="https://github.com/Azure/cyclecloud-slurm/archive/refs/tags/${CYCLECLOUD_SLURM_VERSION}.tar.gz"
 
 require_option_value() {
-  if [[ "$#" -lt 2 ]]; then
+  if [[ "$#" -lt 2 || "$2" == --* ]]; then
     echo "ERROR: Option '$1' requires a value" >&2
     exit 1
   fi
