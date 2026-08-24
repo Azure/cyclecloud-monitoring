@@ -141,11 +141,18 @@ if [[ -z "$SUBSCRIPTION_ID" ]]; then
 fi
 echo "✓ Grafana workspace found"
 
+MYSQL_LOOKUP_ARGS=(
+    --resource-group "$MYSQL_RG"
+    --name "$MYSQL_SERVER"
+)
+if [[ -n "$SUBSCRIPTION_ID" ]]; then
+    MYSQL_LOOKUP_ARGS+=(--subscription "$SUBSCRIPTION_ID")
+fi
+
 # Verify MySQL server exists
 echo "[2/6] Verifying MySQL server exists..."
 if ! MYSQL_ID=$(az mysql flexible-server show \
-    --resource-group "$MYSQL_RG" \
-    --name "$MYSQL_SERVER" \
+    "${MYSQL_LOOKUP_ARGS[@]}" \
     --query id \
     -o tsv 2>/dev/null | strip_carriage_returns); then
     echo "ERROR: MySQL server '$MYSQL_SERVER' not found in resource group '$MYSQL_RG'"
@@ -157,8 +164,7 @@ echo "✓ MySQL server found: $MYSQL_ID"
 # Get MySQL region
 echo "[3/6] Getting MySQL server region..."
 MYSQL_REGION=$(az mysql flexible-server show \
-    --resource-group "$MYSQL_RG" \
-    --name "$MYSQL_SERVER" \
+    "${MYSQL_LOOKUP_ARGS[@]}" \
     --query location \
     -o tsv | strip_carriage_returns)
 echo "✓ MySQL region: $MYSQL_REGION"
