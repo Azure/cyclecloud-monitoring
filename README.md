@@ -51,6 +51,7 @@ Available MySQL flags:
 - `--mysql-database <name>`: Optional database name. Defaults to empty.
 - `--mysql-port <port>`: Optional MySQL port. Defaults to `3306`.
 - `--mysql-datasource-name <name>`: Optional Grafana datasource name. Defaults to the MySQL host.
+- `--mpe-name <name>`: Optional Managed Private Endpoint name. Must be 1-20 characters using only letters, numbers, and hyphens. When omitted, a bounded name derived from the MySQL server name is generated.
 - `--mysql-ca-cert-file <path>`: Optional CA certificate override. Without this flag, the deployment downloads the latest `azure-slurm-install-pkg-<version>.tar.gz` release asset and extracts `azure-slurm-install/AzureCA_<version>.pem`, then enables certificate validation.
 
 For example:

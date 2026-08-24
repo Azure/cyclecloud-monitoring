@@ -12,13 +12,14 @@ MYSQL_USERNAME=""
 MYSQL_PASSWORD=""
 MYSQL_DB_NAME=""
 MYSQL_DATASOURCE_NAME=""
+MPE_NAME=""
 MYSQL_PORT="3306"
 MYSQL_CA_CERT_FILE=""
 USER_OBJECT_ID=""
 
 usage() {
   echo "Usage: $0 <resource-group-name> [--user-object-id <object-id>] [--slurm] [--mysql --mysql-rg <resource-group> --mysql-server <server> --mysql-username <user>]"
-  echo "  Optional MySQL flags: --mysql-database <name> --mysql-port <port> --mysql-datasource-name <name>"
+  echo "  Optional MySQL flags: --mysql-database <name> --mysql-port <port> --mysql-datasource-name <name> --mpe-name <name>"
   echo "                       --mysql-ca-cert-file <path>"
   echo "  --user-object-id <object-id>: Optional deployment identity object ID; defaults to the signed-in user."
 }
@@ -66,6 +67,11 @@ while [ "$#" -gt 0 ]; do
     --mysql-datasource-name)
         require_option_value "$@"
       MYSQL_DATASOURCE_NAME="$2"
+      shift 2
+      ;;
+    --mpe-name)
+        require_option_value "$@"
+      MPE_NAME="$2"
       shift 2
       ;;
     --mysql-ca-cert-file)
@@ -165,12 +171,16 @@ if ! "$THIS_DIR/add_dashboards.sh" "${DASHBOARD_ARGS[@]}"; then
 fi
 
 if [ "$ENABLE_MYSQL" = true ]; then
-  bash "$THIS_DIR/add_mysql_networking.sh" \
+  NETWORKING_ARGS=(
     --grafana-rg "$RESOURCE_GROUP_NAME" \
     --grafana-name "$GRAFANA_NAME" \
     --mysql-rg "$MYSQL_RG" \
     --mysql-server "$MYSQL_SERVER"
-  if [ $? -ne 0 ]; then
+  )
+  if [ -n "$MPE_NAME" ]; then
+    NETWORKING_ARGS+=(--mpe-name "$MPE_NAME")
+  fi
+  if ! bash "$THIS_DIR/add_mysql_networking.sh" "${NETWORKING_ARGS[@]}"; then
     echo "Failed to configure MySQL private endpoint networking."
     exit 1
   fi

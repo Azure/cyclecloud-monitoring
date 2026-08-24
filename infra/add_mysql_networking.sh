@@ -89,13 +89,21 @@ if [ ${#MISSING_ARGS[@]} -gt 0 ]; then
     echo "  [--mpe-name <endpoint-name>] \\"
     echo "  [--subscription <subscription-id>]"
     echo ""
-    echo "If --mpe-name is not provided, it defaults to '<mysql-server>-mpe'"
+    echo "If --mpe-name is not provided, a bounded name is generated from '<mysql-server>'"
     exit 1
 fi
 
 # Generate default MPE name if not provided
 if [[ -z "$MPE_NAME" ]]; then
-    MPE_NAME="${MYSQL_SERVER}-mpe"
+    if ! command -v sha256sum >/dev/null 2>&1; then
+        echo "ERROR: sha256sum is required to generate a default MPE name"
+        exit 1
+    fi
+    SERVER_NAME_HASH=$(printf '%s' "$MYSQL_SERVER" | sha256sum | cut -c1-8)
+    MPE_NAME="${MYSQL_SERVER:0:11}-${SERVER_NAME_HASH}"
+elif [[ ! "$MPE_NAME" =~ ^[a-zA-Z0-9-]{1,20}$ ]]; then
+    echo "ERROR: MPE name must be 1-20 characters using only letters, numbers, and hyphens"
+    exit 1
 fi
 PRIVATE_ENDPOINT_NAME="grafana-${GRAFANA_NAME}-${MPE_NAME}"
 
