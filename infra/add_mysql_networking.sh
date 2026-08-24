@@ -97,6 +97,7 @@ fi
 if [[ -z "$MPE_NAME" ]]; then
     MPE_NAME="${MYSQL_SERVER}-mpe"
 fi
+PRIVATE_ENDPOINT_NAME="grafana-${GRAFANA_NAME}-${MPE_NAME}"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "MySQL Private Endpoint Setup"
@@ -181,18 +182,6 @@ else
     echo "✓ Managed Private Endpoint created"
 fi
 
-MPE_PRIVATE_ENDPOINT_ID=$(az grafana managed-private-endpoint show \
-    --resource-group "$GRAFANA_RG" \
-    --subscription "$SUBSCRIPTION_ID" \
-    --workspace-name "$GRAFANA_NAME" \
-    --name "$MPE_NAME" \
-    --query properties.privateEndpoint.id \
-    -o tsv 2>/dev/null | strip_carriage_returns)
-if [[ -z "$MPE_PRIVATE_ENDPOINT_ID" ]]; then
-    echo "ERROR: Could not determine the private endpoint resource ID for Managed Private Endpoint '$MPE_NAME'"
-    exit 1
-fi
-
 echo "[5/6] Waiting for pending connection request..."
 CONNECTION_NAME=""
 CONNECTION_STATUS=""
@@ -210,8 +199,8 @@ while [[ $ELAPSED -lt $TIMEOUT ]]; do
     CONNECTION_ID=""
     if [[ -n "$CONNECTIONS_JSON" ]]; then
         CONNECTION_ID=$(echo "$CONNECTIONS_JSON" | jq -r \
-            --arg private_endpoint_id "$MPE_PRIVATE_ENDPOINT_ID" \
-            '[.[] | select(.properties.privateEndpoint.id == $private_endpoint_id)] | .[0].id // empty')
+            --arg private_endpoint_name "$PRIVATE_ENDPOINT_NAME" \
+            '[.[] | select((.properties.privateEndpoint.id // "" | split("/") | .[-1]) == $private_endpoint_name)] | .[0].id // empty')
     fi
 
     if [[ -n "$CONNECTION_ID" ]]; then
@@ -234,6 +223,9 @@ while [[ $ELAPSED -lt $TIMEOUT ]]; do
     fi
 
     ELAPSED=$((ELAPSED + INTERVAL))
+    if [[ $ELAPSED -ge $TIMEOUT ]]; then
+        break
+    fi
     REMAINING=$((TIMEOUT - ELAPSED))
     echo "  Waiting... ($REMAINING seconds remaining)"
     sleep "$INTERVAL"
@@ -242,7 +234,7 @@ done
 if [[ -z "$CONNECTION_NAME" ]]; then
     echo "ERROR: No connection found for MPE '$MPE_NAME' after ${TIMEOUT}s timeout"
     echo "HINT: Check that the managed private endpoint request was created"
-    exit 1
+    exit 124
 fi
 
 if [[ "$CONNECTION_STATUS" == "Pending" ]]; then
