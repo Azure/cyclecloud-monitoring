@@ -52,7 +52,7 @@ Available MySQL flags:
 - `--mysql-port <port>`: Optional MySQL port. Defaults to `3306`.
 - `--mysql-datasource-name <name>`: Optional Grafana datasource name. Defaults to the MySQL host.
 - `--mpe-name <name>`: Optional Managed Private Endpoint name. Must be 1-20 characters using only letters, numbers, and hyphens. When omitted, a bounded name derived from the MySQL server name is generated.
-- `--mysql-ca-cert-file <path>`: Optional CA certificate override. Without this flag, the deployment downloads the latest `azure-slurm-install-pkg-<version>.tar.gz` release asset and extracts `azure-slurm-install/AzureCA_<version>.pem`, then enables certificate validation.
+- `--mysql-ca-cert-file <path>`: Optional CA certificate override. Without this flag, the deployment downloads the pinned `azure-slurm-install-pkg-4.0.9.tar.gz` asset, verifies SHA-256 `1356f9e1f4ac76e957ac4bb0a942c70df24ced0e14190e2a71d6170e221ffadb`, and extracts `azure-slurm-install/AzureCA_4.0.9.pem`.
 
 For example:
 
@@ -100,7 +100,7 @@ printf '%s\n' "$MYSQL_PASSWORD" | ./infra/add_mysql_datasource.sh \
 unset MYSQL_PASSWORD
 ```
 
-Optional datasource arguments include `--datasource-name`, `--mysql-database`, and `--mysql-port`. The datasource script resolves the MySQL hostname from the Flexible Server resource. When `--mysql-ca-cert-file` is omitted, it downloads the latest `azure-slurm-install-pkg-<version>.tar.gz` asset from `Azure/cyclecloud-slurm` and extracts the embedded `azure-slurm-install/AzureCA_<version>.pem` certificate.
+Optional datasource arguments include `--datasource-name`, `--mysql-database`, and `--mysql-port`. The datasource script resolves the MySQL hostname from the Flexible Server resource. When `--mysql-ca-cert-file` is omitted, it downloads the pinned `azure-slurm-install-pkg-4.0.9.tar.gz` asset from `Azure/cyclecloud-slurm`, verifies its SHA-256 checksum, and extracts the embedded `azure-slurm-install/AzureCA_4.0.9.pem` certificate.
 
 ## Grant the Monitoring Metrics Publisher role to the User Assigned Managed Identity
 A managed identity is required to publish metrics to the Azure Monitor Workspace for Prometheus. The `deploy.sh` script doesn't creates one and you would need to create one separately or use the one created by CycleCloud Workspace for Slurm (CCWS) if you are using it. 

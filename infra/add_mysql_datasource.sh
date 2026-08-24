@@ -162,7 +162,7 @@ fi
 DATASOURCE_NAME_URI=$(jq -nr --arg value "$DATASOURCE_NAME" '$value | @uri')
 
 # Resolve the CA certificate. An explicit file takes precedence; otherwise extract
-# AzureCA_<version>.pem from the latest cyclecloud-slurm install package.
+# AzureCA_<version>.pem from a pinned cyclecloud-slurm install package.
 MYSQL_CA_CERT=""
 if [[ -n "$MYSQL_CA_CERT_FILE" ]]; then
     if [[ ! -f "$MYSQL_CA_CERT_FILE" ]]; then
@@ -185,37 +185,13 @@ else
         echo "ERROR: tar is required to extract the default AzureCA certificate"
         exit 1
     fi
-
-    RELEASE_METADATA=$(curl --fail --silent --show-error \
-        --location https://api.github.com/repos/Azure/cyclecloud-slurm/releases/latest) || {
-        echo "ERROR: Could not retrieve the latest cyclecloud-slurm release metadata"
-        exit 1
-    }
-
-    LATEST_TAG=$(echo "$RELEASE_METADATA" | jq -r '.tag_name // empty')
-    if [[ -z "$LATEST_TAG" ]]; then
-        echo "ERROR: Latest cyclecloud-slurm release did not contain a tag name"
-        exit 1
-    fi
-
-    VERSION="${LATEST_TAG#v}"
-    EXPECTED_CERT_NAME="AzureCA_${VERSION}"
-    EXPECTED_PACKAGE_NAME="azure-slurm-install-pkg-${VERSION}.tar.gz"
-    CERT_URL=$(echo "$RELEASE_METADATA" | jq -r \
-        --arg asset_name "$EXPECTED_PACKAGE_NAME" \
-        '.assets[]? | select(.name == $asset_name) | .browser_download_url' | head -n 1)
-
-    if [[ -z "$CERT_URL" ]]; then
-        echo "ERROR: Install package '$EXPECTED_PACKAGE_NAME' was not found in cyclecloud-slurm release '$LATEST_TAG'"
-        echo "       Provide --mysql-ca-cert-file explicitly for this release."
-        exit 1
-    fi
+    EXPECTED_CERT_NAME="AzureCA_${CYCLECLOUD_SLURM_VERSION}"
+    EXPECTED_PACKAGE_NAME="azure-slurm-install-pkg-${CYCLECLOUD_SLURM_VERSION}.tar.gz"
 
     CERT_TEMP_DIR=$(mktemp -d)
     CERT_ARCHIVE="$CERT_TEMP_DIR/$EXPECTED_PACKAGE_NAME"
-    if ! curl --fail --silent --show-error --location \
-        "$CERT_URL" -o "$CERT_ARCHIVE"; then
-        echo "ERROR: Failed to download '$EXPECTED_PACKAGE_NAME' from cyclecloud-slurm release '$LATEST_TAG'"
+    if ! download_cyclecloud_slurm_install_package "$CERT_ARCHIVE"; then
+        echo "ERROR: Failed to download pinned install package '$EXPECTED_PACKAGE_NAME'"
         exit 1
     fi
 
@@ -227,7 +203,7 @@ else
         echo "ERROR: Certificate '$EXPECTED_CERT_NAME.pem' in '$EXPECTED_PACKAGE_NAME' is empty"
         exit 1
     fi
-    MYSQL_CA_CERT_SOURCE="cyclecloud-slurm $LATEST_TAG ($EXPECTED_PACKAGE_NAME: $EXPECTED_CERT_NAME.pem)"
+    MYSQL_CA_CERT_SOURCE="cyclecloud-slurm $CYCLECLOUD_SLURM_VERSION ($EXPECTED_PACKAGE_NAME: $EXPECTED_CERT_NAME.pem)"
 fi
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
