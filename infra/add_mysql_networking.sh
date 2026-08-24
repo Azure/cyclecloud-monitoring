@@ -101,8 +101,8 @@ if [[ -z "$MPE_NAME" ]]; then
     fi
     SERVER_NAME_HASH=$(printf '%s' "$MYSQL_SERVER" | sha256sum | cut -c1-8)
     MPE_NAME="${MYSQL_SERVER:0:11}-${SERVER_NAME_HASH}"
-elif [[ ! "$MPE_NAME" =~ ^[a-zA-Z0-9-]{1,20}$ ]]; then
-    echo "ERROR: MPE name must be 1-20 characters using only letters, numbers, and hyphens"
+elif [[ ! "$MPE_NAME" =~ ^[a-zA-Z][a-zA-Z0-9-]{0,18}[a-zA-Z0-9]$ ]]; then
+    echo "ERROR: MPE name must be 2-20 characters, start with a letter, end with a letter or number, and contain only letters, numbers, and hyphens"
     exit 1
 fi
 PRIVATE_ENDPOINT_NAME="grafana-${GRAFANA_NAME}-${MPE_NAME}"
