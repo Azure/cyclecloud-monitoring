@@ -51,7 +51,7 @@ Available MySQL flags:
 - `--mysql-database <name>`: Optional database name. Defaults to empty.
 - `--mysql-port <port>`: Optional MySQL port. Defaults to `3306`.
 - `--mysql-datasource-name <name>`: Optional Grafana datasource name. Defaults to the MySQL host.
-- `--mysql-ca-cert-file <path>`: Optional CA certificate override. Without this flag, the deployment resolves `AzureCA_<version>` from the latest `Azure/cyclecloud-slurm` release and enables certificate validation.
+- `--mysql-ca-cert-file <path>`: Optional CA certificate override. Without this flag, the deployment downloads the latest `azure-slurm-install-pkg-<version>.tar.gz` release asset and extracts `azure-slurm-install/AzureCA_<version>.pem`, then enables certificate validation.
 
 For example:
 
@@ -99,7 +99,7 @@ printf '%s\n' "$MYSQL_PASSWORD" | ./infra/add_mysql_datasource.sh \
 unset MYSQL_PASSWORD
 ```
 
-Optional datasource arguments include `--datasource-name`, `--mysql-database`, and `--mysql-port`. The datasource script resolves the MySQL hostname from the Flexible Server resource. When `--mysql-ca-cert-file` is omitted, it downloads the matching Azure CA certificate from the latest `Azure/cyclecloud-slurm` release.
+Optional datasource arguments include `--datasource-name`, `--mysql-database`, and `--mysql-port`. The datasource script resolves the MySQL hostname from the Flexible Server resource. When `--mysql-ca-cert-file` is omitted, it downloads the latest `azure-slurm-install-pkg-<version>.tar.gz` asset from `Azure/cyclecloud-slurm` and extracts the embedded `azure-slurm-install/AzureCA_<version>.pem` certificate.
 
 ## Grant the Monitoring Metrics Publisher role to the User Assigned Managed Identity
 A managed identity is required to publish metrics to the Azure Monitor Workspace for Prometheus. The `deploy.sh` script doesn't creates one and you would need to create one separately or use the one created by CycleCloud Workspace for Slurm (CCWS) if you are using it. 

@@ -161,8 +161,8 @@ if [[ -z "$DATASOURCE_NAME" ]]; then
 fi
 DATASOURCE_NAME_URI=$(jq -nr --arg value "$DATASOURCE_NAME" '$value | @uri')
 
-# Resolve the CA certificate. An explicit file takes precedence; otherwise use
-# the AzureCA_<version> asset from the latest cyclecloud-slurm release.
+# Resolve the CA certificate. An explicit file takes precedence; otherwise extract
+# AzureCA_<version>.pem from the latest cyclecloud-slurm install package.
 MYSQL_CA_CERT=""
 if [[ -n "$MYSQL_CA_CERT_FILE" ]]; then
     if [[ ! -f "$MYSQL_CA_CERT_FILE" ]]; then
@@ -181,6 +181,10 @@ else
         echo "ERROR: curl is required to download the default AzureCA certificate"
         exit 1
     fi
+    if ! command -v tar >/dev/null 2>&1; then
+        echo "ERROR: tar is required to extract the default AzureCA certificate"
+        exit 1
+    fi
 
     RELEASE_METADATA=$(curl --fail --silent --show-error \
         --location https://api.github.com/repos/Azure/cyclecloud-slurm/releases/latest) || {
@@ -196,30 +200,34 @@ else
 
     VERSION="${LATEST_TAG#v}"
     EXPECTED_CERT_NAME="AzureCA_${VERSION}"
+    EXPECTED_PACKAGE_NAME="azure-slurm-install-pkg-${VERSION}.tar.gz"
     CERT_URL=$(echo "$RELEASE_METADATA" | jq -r \
-        --arg asset_name "$EXPECTED_CERT_NAME" \
+        --arg asset_name "$EXPECTED_PACKAGE_NAME" \
         '.assets[]? | select(.name == $asset_name) | .browser_download_url' | head -n 1)
 
     if [[ -z "$CERT_URL" ]]; then
-        echo "ERROR: Certificate asset '$EXPECTED_CERT_NAME' was not found in cyclecloud-slurm release '$LATEST_TAG'"
-        echo "       Provide --mysql-ca-cert-file explicitly until that release asset is published."
+        echo "ERROR: Install package '$EXPECTED_PACKAGE_NAME' was not found in cyclecloud-slurm release '$LATEST_TAG'"
+        echo "       Provide --mysql-ca-cert-file explicitly for this release."
         exit 1
     fi
 
     CERT_TEMP_DIR=$(mktemp -d)
-    MYSQL_CA_CERT_FILE="$CERT_TEMP_DIR/$EXPECTED_CERT_NAME"
+    CERT_ARCHIVE="$CERT_TEMP_DIR/$EXPECTED_PACKAGE_NAME"
     if ! curl --fail --silent --show-error --location \
-        "$CERT_URL" -o "$MYSQL_CA_CERT_FILE"; then
-        echo "ERROR: Failed to download '$EXPECTED_CERT_NAME' from cyclecloud-slurm release '$LATEST_TAG'"
+        "$CERT_URL" -o "$CERT_ARCHIVE"; then
+        echo "ERROR: Failed to download '$EXPECTED_PACKAGE_NAME' from cyclecloud-slurm release '$LATEST_TAG'"
         exit 1
     fi
 
-    MYSQL_CA_CERT=$(cat "$MYSQL_CA_CERT_FILE")
-    if [[ -z "$MYSQL_CA_CERT" ]]; then
-        echo "ERROR: Downloaded CA certificate '$EXPECTED_CERT_NAME' is empty"
+    if ! MYSQL_CA_CERT=$(tar -xOf "$CERT_ARCHIVE" "azure-slurm-install/$EXPECTED_CERT_NAME.pem"); then
+        echo "ERROR: Certificate '$EXPECTED_CERT_NAME.pem' was not found in '$EXPECTED_PACKAGE_NAME'"
         exit 1
     fi
-    MYSQL_CA_CERT_SOURCE="cyclecloud-slurm $LATEST_TAG ($EXPECTED_CERT_NAME)"
+    if [[ -z "$MYSQL_CA_CERT" ]]; then
+        echo "ERROR: Certificate '$EXPECTED_CERT_NAME.pem' in '$EXPECTED_PACKAGE_NAME' is empty"
+        exit 1
+    fi
+    MYSQL_CA_CERT_SOURCE="cyclecloud-slurm $LATEST_TAG ($EXPECTED_PACKAGE_NAME: $EXPECTED_CERT_NAME.pem)"
 fi
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
