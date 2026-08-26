@@ -262,14 +262,13 @@ echo "[4/4] Creating datasource..."
 # Build secure JSON data with CA certificate validation.
 PAYLOAD_FILE=$(mktemp)
 chmod 600 "$PAYLOAD_FILE"
-jq -n \
+printf '%s' "$MYSQL_PASSWORD" | jq -Rs \
     --arg name "$DATASOURCE_NAME" \
     --arg hostport "$MYSQL_HOST:$MYSQL_PORT" \
     --arg database "$MYSQL_DATABASE" \
     --arg user "$MYSQL_USERNAME" \
-    --arg password "$MYSQL_PASSWORD" \
     --arg caCert "$MYSQL_CA_CERT" \
-    '{
+    '. as $password | {
         name: $name,
         type: "mysql",
         access: "proxy",
