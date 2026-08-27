@@ -121,7 +121,6 @@ tar -xzf "$TARBALL_PATH" -C "$TEMP_DIR"
 if [ ! -d "$EXTRACTED_DIR/azure-slurm-exporter" ]; then
   echo "azure-slurm-exporter directory not found in release. Skipping."
 else
-  GRAFANA_ENDPOINT=$(az grafana show -n "$GRAFANA_NAME" -g "$RESOURCE_GROUP_NAME" --query properties.endpoint -o tsv | tr -d '\r\n')
   cd "$EXTRACTED_DIR/azure-slurm-exporter"
   chmod +x add_dashboards.sh
   ./add_dashboards.sh $RESOURCE_GROUP_NAME $GRAFANA_NAME
