@@ -10,7 +10,11 @@ TEMP_DIR=$(mktemp -d)
 FOLDER_NAME="Azure CycleCloud"
 SLURM_BUTTONS_PANEL_REL_PATH="azure-slurm-exporter/dashboards/library-panels/azslurm-dashboard-buttons.json"
 NODE_BUTTONS_PANEL_FILE="$THIS_DIR/dashboards/library-panels/node_dashboard_buttons.json"
-NODE_BUTTONS_UID="cfo8upic84lxce"
+NODE_BUTTONS_UID=$(jq -r '.uid // empty' "$NODE_BUTTONS_PANEL_FILE")
+if [ -z "$NODE_BUTTONS_UID" ]; then
+  echo "Failed to read Node Dashboard buttons panel uid from $NODE_BUTTONS_PANEL_FILE"
+  exit 1
+fi
 TARGET_DASHBOARDS=(
   "node_level.json"
   "gpu_level.json"
