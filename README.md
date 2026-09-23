@@ -21,8 +21,86 @@ Deploy the Managed Monitoring Infrastructure resources
 ```bash
 git clone https://github.com/Azure/cyclecloud-monitoring.git
 cd cyclecloud-monitoring
-./infra/deploy.sh <monitoring_resource_group> # Slurm users can add --slurm flag to deploy slurm related dashboards from the cyclecloud-slurm project
+./infra/deploy.sh <monitoring_resource_group> [--user-object-id <object-id>]
 ```
+
+Slurm users can optionally add `--slurm` to deploy the Slurm dashboards:
+
+```bash
+./infra/deploy.sh <monitoring_resource_group> --slurm [--user-object-id <object-id>]
+```
+
+### Optional: Configure MySQL During Deployment
+
+Enable MySQL private endpoint networking and datasource configuration by adding `--mysql`, `--mysql-rg`, `--mysql-server`, and `--mysql-username` to the deployment command. The deployment creates and approves the private endpoint before configuring the datasource, and prompts securely for the MySQL password.
+
+```bash
+./infra/deploy.sh <monitoring_resource_group> \
+  --mysql \
+  --mysql-rg <mysql-resource-group> \
+  --mysql-server <mysql-server-name> \
+  --mysql-username <mysql-username>
+```
+
+Available MySQL flags:
+
+- `--mysql`: Enable MySQL datasource configuration.
+- `--mysql-rg <resource-group>`: MySQL Flexible Server resource group. Required with `--mysql`.
+- `--mysql-server <name>`: MySQL Flexible Server resource name. Required with `--mysql`.
+- `--mysql-username <user>`: MySQL username. Required with `--mysql`.
+- `--mysql-database <name>`: Optional database name. Defaults to empty.
+- `--mysql-port <port>`: Optional MySQL port. Defaults to `3306`.
+- `--mysql-datasource-name <name>`: Optional Grafana datasource name. Defaults to the MySQL host.
+- `--mpe-name <name>`: Optional Managed Private Endpoint name. Must be 2-20 characters, start with a letter, end with a letter or number, and use only letters, numbers, and hyphens. When omitted, a bounded name derived from the MySQL server name is generated.
+- `--mysql-ca-cert-file <path>`: Optional CA certificate override. Without this flag, the deployment downloads the pinned `azure-slurm-install-pkg-4.0.9.tar.gz` asset, verifies SHA-256 `1356f9e1f4ac76e957ac4bb0a942c70df24ced0e14190e2a71d6170e221ffadb`, and extracts `azure-slurm-install/AzureCA_4.0.9.pem`.
+
+For example:
+
+```bash
+./infra/deploy.sh my-monitoring-rg \
+  --mysql \
+  --mysql-rg my-mysql-rg \
+  --mysql-server my-mysql-server \
+  --mysql-username dbuser \
+  --mysql-database mydb \
+  --mysql-port 3306 \
+  --mysql-datasource-name MySQL \
+  --mysql-ca-cert-file /path/to/AzureCA_certificate
+```
+
+The optional `--slurm` flag can be combined with the MySQL options shown above to deploy the Slurm dashboards as part of the same deployment. The MySQL password is never accepted as a command-line argument; it is requested interactively at runtime.
+
+The optional `--user-object-id` argument overrides the deployment identity used by the Bicep template. When omitted, the script uses the object ID of the signed-in Azure user.
+
+### Configure MySQL for an Existing Grafana Workspace
+
+To configure MySQL for an existing Azure Managed Grafana workspace, run the networking script first. It creates the managed private endpoint and approves the corresponding MySQL private endpoint connection. The Grafana and MySQL resources can be in different resource groups.
+
+```bash
+./infra/add_mysql_networking.sh \
+  --grafana-rg <grafana-resource-group> \
+  --grafana-name <grafana-workspace-name> \
+  --mysql-rg <mysql-resource-group> \
+  --mysql-server <mysql-server-name>
+```
+
+After networking succeeds, create the datasource. The MySQL password must be provided through stdin and is not exposed as a command-line argument:
+
+```bash
+read -r -s -p "Enter MySQL password: " MYSQL_PASSWORD
+echo
+printf '%s\n' "$MYSQL_PASSWORD" | ./infra/add_mysql_datasource.sh \
+  --resource-group <grafana-resource-group> \
+  --grafana-name <grafana-workspace-name> \
+  --mysql-rg <mysql-resource-group> \
+  --mysql-server <mysql-server-name> \
+  --mysql-username <mysql-username> \
+  --mysql-password-stdin \
+  --mysql-ca-cert-file <path-to-AzureCA-certificate>
+unset MYSQL_PASSWORD
+```
+
+Optional datasource arguments include `--datasource-name`, `--mysql-database`, and `--mysql-port`. The datasource script resolves the MySQL hostname from the Flexible Server resource. When `--mysql-ca-cert-file` is omitted, it downloads the pinned `azure-slurm-install-pkg-4.0.9.tar.gz` asset from `Azure/cyclecloud-slurm`, verifies its SHA-256 checksum, and extracts the embedded `azure-slurm-install/AzureCA_4.0.9.pem` certificate.
 
 ## Grant the Monitoring Metrics Publisher role to the User Assigned Managed Identity
 A managed identity is required to publish metrics to the Azure Monitor Workspace for Prometheus. The `deploy.sh` script doesn't creates one and you would need to create one separately or use the one created by CycleCloud Workspace for Slurm (CCWS) if you are using it. 

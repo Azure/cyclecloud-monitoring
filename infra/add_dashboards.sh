@@ -53,7 +53,7 @@ fi
 
 # Library panels (must exist before importing dashboards that reference them).
 if [ -d "$LIBRARY_PANEL_FOLDER" ] && ls "$LIBRARY_PANEL_FOLDER"/*.json > /dev/null 2>&1; then
-  GRAFANA_ENDPOINT=$(az grafana show -n $GRAFANA_NAME -g $RESOURCE_GROUP_NAME --query properties.endpoint -o tsv | tr -d '\r\n')
+  GRAFANA_ENDPOINT=$(az grafana show -n $GRAFANA_NAME -g $RESOURCE_GROUP_NAME --query properties.endpoint -o tsv | strip_carriage_returns)
   for panel_file in "$LIBRARY_PANEL_FOLDER"/*.json; do
     if ! import_library_panel "$panel_file"; then
       echo "Failed to import library panel: $panel_file"

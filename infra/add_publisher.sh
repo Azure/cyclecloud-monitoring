@@ -2,6 +2,7 @@
 # Grant the role ‘Monitoring Metrics Publisher’ to a managed identity
 # for the Data Collection Rule of the Managed Monitor Workspace
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$THIS_DIR/util.sh"
 UMI_RG_NAME=$1
 UMI_NAME=$2
 
@@ -18,7 +19,7 @@ if [ -z "$UMI_RG_NAME" ]; then
     exit 1
 fi
 
-UMI_PID=$(az identity show -n $UMI_NAME -g $UMI_RG_NAME --query 'principalId' -o tsv | tr -d '\n' | tr -d '\r')
+UMI_PID=$(az identity show -n $UMI_NAME -g $UMI_RG_NAME --query 'principalId' -o tsv | strip_carriage_returns)
 if [ -z "$UMI_PID" ]; then
   echo "Failed to retrieve User Managed Identity principal ID."
   exit 1

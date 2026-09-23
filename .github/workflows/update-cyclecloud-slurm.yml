@@ -1,0 +1,66 @@
+name: Update cyclecloud-slurm
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get latest cyclecloud-slurm release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release_version=$(gh api repos/Azure/cyclecloud-slurm/releases/latest --jq .tag_name)
+          current_version=$(awk -F '"' '/^CYCLECLOUD_SLURM_VERSION=/ { print $2 }' infra/util.sh)
+
+          if [[ ! "$release_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Unexpected cyclecloud-slurm release version: $release_version" >&2
+            exit 1
+          fi
+
+          echo "version=$release_version" >> "$GITHUB_OUTPUT"
+          if [ "$release_version" = "$current_version" ]; then
+            echo "update_available=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "update_available=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update version and checksums
+        if: steps.release.outputs.update_available == 'true'
+        env:
+          RELEASE_VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          install_package_url="https://github.com/Azure/cyclecloud-slurm/releases/download/${RELEASE_VERSION}/azure-slurm-install-pkg-${RELEASE_VERSION}.tar.gz"
+          source_archive_url="https://github.com/Azure/cyclecloud-slurm/archive/refs/tags/${RELEASE_VERSION}.tar.gz"
+
+          curl --fail --location --retry 3 --output install-package.tar.gz "$install_package_url"
+          curl --fail --location --retry 3 --output source-archive.tar.gz "$source_archive_url"
+
+          install_package_sha256=$(sha256sum install-package.tar.gz | cut -d ' ' -f 1)
+          source_archive_sha256=$(sha256sum source-archive.tar.gz | cut -d ' ' -f 1)
+
+          sed -i \
+            -e "s/^CYCLECLOUD_SLURM_VERSION=.*/CYCLECLOUD_SLURM_VERSION=\"${RELEASE_VERSION}\"/" \
+            -e "s/^CYCLECLOUD_SLURM_INSTALL_PACKAGE_SHA256=.*/CYCLECLOUD_SLURM_INSTALL_PACKAGE_SHA256=\"${install_package_sha256}\"/" \
+            -e "s/^CYCLECLOUD_SLURM_SOURCE_ARCHIVE_SHA256=.*/CYCLECLOUD_SLURM_SOURCE_ARCHIVE_SHA256=\"${source_archive_sha256}\"/" \
+            infra/util.sh
+
+      - name: Create update pull request
+        if: steps.release.outputs.update_available == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/update-cyclecloud-slurm
+          delete-branch: true
+          commit-message: "Update cyclecloud-slurm to ${{ steps.release.outputs.version }}"
+          title: "Update cyclecloud-slurm to ${{ steps.release.outputs.version }}"
+          body: "Updates the pinned cyclecloud-slurm release and SHA-256 checksums."
